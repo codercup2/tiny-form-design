@@ -20,6 +20,7 @@ const Index: FC = () => {
     ) {
       const newList = [...formItems]
       const [item] = newList.splice(source.index, 1)
+      // setCurrId(item.name)
       newList.splice(destination.index, 0, item)
       setFormItems(newList)
       return
@@ -42,6 +43,7 @@ const Index: FC = () => {
         ...configs[item.type as keyof typeof configs],
       })
       setFormItems(newList)
+      // setCurrId(`field-${uuid}`)
       return
     }
   }
