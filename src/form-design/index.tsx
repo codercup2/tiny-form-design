@@ -49,7 +49,7 @@ const Index: FC = () => {
   }
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className='form-design flex gap-4 p-4 h-full'>
+      <div className='form-design flex gap-4 p-4 h-full box-border'>
         <Left items={seeds} />
         <Mid formItems={formItems} setCurrId={setCurrId} currId={currId} />
         <Right

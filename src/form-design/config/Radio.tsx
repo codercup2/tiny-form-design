@@ -1,4 +1,4 @@
-import { Button, Input, Radio, Switch } from 'antd'
+import { Button, Input, Switch } from 'antd'
 import React, { FC } from 'react'
 type Props = {
   formItems: IFormItem[]
@@ -7,7 +7,7 @@ type Props = {
 }
 const RadioConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
   const item = formItems.find((item) => item.name === currId)!
-  const { label, extra, options = [], defaultValue, required } = item
+  const { label, extra, options = [], required } = item
   const onChange = (key: keyof IFormItem, value: any) => {
     const newItems = JSON.parse(JSON.stringify(formItems)) as IFormItem[]
     const curItem = newItems.find((item) => item.name === currId)!
@@ -60,52 +60,34 @@ const RadioConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
             添加
           </Button>
         </p>
-        <Radio.Group
-          onChange={(e) => {
-            onChange('defaultValue', e.target.value)
-          }}
-          value={defaultValue}
-        >
+        <div className='flex flex-col gap-y-2'>
           {options.map((el, i) => (
-            <Radio value={el.value} key={i}>
-              <div key={i} style={{ marginBottom: '3px', display: 'inline' }}>
-                <span>标题</span>：
-                <Input
-                  size='small'
-                  style={{ width: '50px' }}
-                  value={el.label}
-                  onChange={(e) => {
-                    options[i].label = e.target.value
-                    onChange('options', options)
-                  }}
-                />
-                <span style={{ marginLeft: '15px' }}>值</span>：
-                <Input
-                  size='small'
-                  style={{ width: '50px' }}
-                  value={el.value}
-                  onChange={(e) => {
-                    options[i].value = e.target.value
-                    onChange('options', options)
-                  }}
-                />
-                <Button
-                  style={{
-                    cursor: 'pointer',
-                    color: 'red',
-                    marginLeft: '10px',
-                  }}
-                  onClick={() => {
-                    options.splice(i, 1)
-                    onChange('options', options)
-                  }}
-                >
-                  删除
-                </Button>
-              </div>
-            </Radio>
+            <div key={i} className='flex'>
+              <Input
+                size='small'
+                // className='flex-1'
+                value={el.value}
+                onChange={(e) => {
+                  options[i].value = e.target.value
+                  onChange('options', options)
+                }}
+              />
+              <Button
+                style={{
+                  cursor: 'pointer',
+                  color: 'red',
+                  marginLeft: '10px',
+                }}
+                onClick={() => {
+                  options.splice(i, 1)
+                  onChange('options', options)
+                }}
+              >
+                删除
+              </Button>
+            </div>
           ))}
-        </Radio.Group>
+        </div>
       </div>
     </React.Fragment>
   )
