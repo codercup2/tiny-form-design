@@ -1,19 +1,22 @@
 import { Input, Switch } from 'antd'
-import { FC } from 'react'
+import { Dispatch, FC } from 'react'
 
 type Props = {
   formItems: IFormItem[]
-  setFormItems: (items: IFormItem[]) => void
+  setFormItems: Dispatch<React.SetStateAction<IFormItem[]>>
   currId: string
 }
 const InputConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
   const item = formItems.find((item) => item.name === currId)!
   const { label, placeholder, extra, defaultValue, required } = item
   const onChange = (key: keyof IFormItem, value: any) => {
-    const newItems = JSON.parse(JSON.stringify(formItems)) as IFormItem[]
-    const curItem = newItems.find((item) => item.name === currId)!
-    curItem[key] = value
-    setFormItems(newItems)
+    // 使用 setState(prev=>xxx) 的方式也不行，还是会打断输入
+    setFormItems((formItems) => {
+      const newItems = JSON.parse(JSON.stringify(formItems)) as IFormItem[]
+      const curItem = newItems.find((item) => item.name === currId)!
+      curItem[key] = value
+      return newItems
+    })
   }
   return (
     <>

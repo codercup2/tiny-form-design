@@ -1,10 +1,10 @@
-import { FC } from 'react'
+import { Dispatch, FC } from 'react'
 import Config from './config'
 import { IFormItemType } from './initData'
 
 type Props = {
   formItems: IFormItem[]
-  setFormItems: (items: IFormItem[]) => void
+  setFormItems: Dispatch<React.SetStateAction<IFormItem[]>>
   currId: string
 }
 const Right: FC<Props> = ({ formItems, setFormItems, currId }) => {
