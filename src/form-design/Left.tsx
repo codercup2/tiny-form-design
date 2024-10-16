@@ -16,7 +16,11 @@ const Left: FC<{ items: ISeed[] }> = ({ items }) => {
               {...provided.droppableProps}
             >
               {items.map((item, index) => (
-                <Draggable draggableId={item.id} index={index} key={item.id}>
+                <Draggable
+                  draggableId={item.type}
+                  index={index}
+                  key={item.type}
+                >
                   {(provided, snapshot) => (
                     <div
                       className={clsx('seed', {

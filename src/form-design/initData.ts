@@ -1,12 +1,26 @@
+enum IFormItemType {
+  input = 'input',
+  textarea = 'textarea',
+}
 export const seeds: ISeed[] = [
   {
-    id: '1',
     label: '单行文本',
-    type: 'input',
+    type: IFormItemType.input,
   },
   {
-    id: '2',
     label: '多行文本',
-    type: 'textarea',
+    type: IFormItemType.textarea,
   },
 ]
+export const configs = {
+  [IFormItemType.input]: {
+    label: '单行文本',
+    type: 'input',
+    placeholder: '请输入',
+  },
+  [IFormItemType.textarea]: {
+    label: '多行文本',
+    type: 'textarea',
+    placeholder: '请输入',
+  },
+}

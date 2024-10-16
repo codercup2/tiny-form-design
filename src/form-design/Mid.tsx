@@ -14,13 +14,13 @@ const Mid: FC<Props> = ({ formItems }) => {
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = () => {}
 
   return (
-    <div className='mid'>
+    <div className='mid border-left border-right flex-1 px-4 flex flex-col'>
       <button onClick={() => setVisible(true)}>预览</button>
       <Droppable droppableId={'content'}>
         {(provided, snapshot) => {
           return (
             <div
-              className={clxs('content', {
+              className={clxs('content flex-1', {
                 'is-dragging-over': snapshot.isDraggingOver,
               })}
               ref={provided.innerRef}
@@ -33,7 +33,11 @@ const Mid: FC<Props> = ({ formItems }) => {
               >
                 {formItems.length}
                 {formItems.map((item, index) => (
-                  <Draggable draggableId={item.id} index={index} key={item.id}>
+                  <Draggable
+                    draggableId={item.name}
+                    index={index}
+                    key={item.name}
+                  >
                     {(provided, snapshot) => (
                       <div
                         className={clsx('seed', {
@@ -43,7 +47,11 @@ const Mid: FC<Props> = ({ formItems }) => {
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                       >
-                        <ProFormText name='A' label='AA' disabled></ProFormText>
+                        <ProFormText
+                          name={item.name}
+                          label={item.label}
+                          disabled
+                        ></ProFormText>
                       </div>
                     )}
                   </Draggable>

@@ -6,7 +6,7 @@ import Mid from './Mid'
 const Index: FC = () => {
   const [formItems, setFormItems] = useState<IFormItem[]>([])
   const onDragEnd = (result: DropResult) => {
-    const { source, destination, ...rest } = result
+    const { source, destination, draggableId, ...rest } = result
     console.log('source: ', source)
     console.log('destination: ', destination)
     console.log('rest: ', rest)
@@ -26,12 +26,22 @@ const Index: FC = () => {
       source.droppableId === 'left' &&
       destination?.droppableId === 'content'
     ) {
+      const uuid = String(Date.now())
+      const item = seeds.find((item) => item.type === draggableId)
+      if (!item) {
+        console.error('数据匹配不上，不可能出现')
+        return
+      }
       setFormItems((list) => [
         ...list,
         {
-          id: String(Math.random()),
-          type: 'input',
-          label: '单行文本',
+          id: uuid,
+          name: 'field-' + uuid,
+          type: item.type,
+          label: item.label,
+          placeholder: '',
+          extra: '',
+          required: false,
         },
       ])
       return
