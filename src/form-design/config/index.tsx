@@ -1,4 +1,5 @@
-import InputConfig from './Input'
+import Input from './Input'
+import Radio from './Radio'
 
-const Config = { InputConfig }
+const Config = { Input, Radio }
 export default Config

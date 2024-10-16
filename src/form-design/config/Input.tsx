@@ -1,5 +1,4 @@
 import { Input, Switch } from 'antd'
-
 import { FC } from 'react'
 
 type Props = {
@@ -54,7 +53,6 @@ const InputConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
           onChange={(e) => onChange('defaultValue', e.target.value)}
         />
       </div>
-
       <div style={{ marginBottom: '15px' }}>
         <div style={{ marginBottom: '5px' }}>是否必填：</div>
         <Switch

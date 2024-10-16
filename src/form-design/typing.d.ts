@@ -1,6 +1,6 @@
 type ISeed = {
   label: string
-  type: string
+  type: IFormItemType
 }
 type IFormItem = ISeed & {
   name: string
@@ -9,4 +9,5 @@ type IFormItem = ISeed & {
   required?: boolean
   defaultValue?: any
   value?: any
+  options?: Array<{ label: string; value: string }>
 }

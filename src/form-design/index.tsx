@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
-import { seeds } from './initData'
+import { configs, seeds } from './initData'
 import Left from './Left'
 import Mid from './Mid'
 import Right from './Right'
@@ -24,6 +24,7 @@ const Index: FC = () => {
       setFormItems(newList)
       return
     }
+    // 做左边拖到中间区域，新增的表单项
     if (
       source.droppableId === 'left' &&
       destination?.droppableId === 'content'
@@ -39,11 +40,7 @@ const Index: FC = () => {
         {
           id: uuid,
           name: `field-${uuid}`,
-          type: item.type,
-          label: item.label,
-          placeholder: '',
-          extra: '',
-          required: false,
+          ...configs[item.type as keyof typeof configs],
         },
       ])
       return
