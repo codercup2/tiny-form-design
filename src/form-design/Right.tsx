@@ -10,7 +10,7 @@ type Props = {
 const configs: Record<IFormItemType, FC<any>> = {
   [IFormItemType.input]: Config.Input,
   [IFormItemType.radio]: Config.Radio,
-  [IFormItemType.textarea]: Config.Radio,
+  [IFormItemType.textarea]: Config.Textarea,
 }
 const Right: FC<Props> = ({ formItems, setFormItems, currId }) => {
   const item = formItems.find((item) => item.name === currId)
