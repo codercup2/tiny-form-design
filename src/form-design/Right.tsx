@@ -6,14 +6,8 @@ type Props = {
   formItems: IFormItem[]
   setFormItems: Dispatch<React.SetStateAction<IFormItem[]>>
   currId: string
-  formItemsRef: React.MutableRefObject<IFormItem[]>
 }
-const Right: FC<Props> = ({
-  formItems,
-  setFormItems,
-  currId,
-  formItemsRef,
-}) => {
+const Right: FC<Props> = ({ formItems, setFormItems, currId }) => {
   const RenderConfig = () => {
     const item = formItems.find((item) => item.name === currId)
     if (!item) {
@@ -30,7 +24,6 @@ const Right: FC<Props> = ({
             formItems={formItems}
             setFormItems={setFormItems}
             currId={currId}
-            formItemsRef={formItemsRef}
           />
         )
       case IFormItemType.radio:
