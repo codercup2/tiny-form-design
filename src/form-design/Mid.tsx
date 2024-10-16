@@ -1,12 +1,17 @@
+import { ProForm, ProFormText } from '@ant-design/pro-components'
+import { Modal } from 'antd'
+import clxs from 'clsx'
 import { FC, useState } from 'react'
-import { Modal,Form,FormItem } from 'antd'
 import { Droppable } from 'react-beautiful-dnd'
 
 const Mid: FC = () => {
   /** 表单内容 */
-  const [content, setContent] = useState([])
+  const [content, setContent] = useState<any[]>([1])
+  const [form, setForm] = useState<any[]>([])
   /** 预览弹窗的显示状态 */
   const [visible, setVisible] = useState(false)
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = () => {}
   const PreviewBtn = () => {
     if (!content || !content.length) {
       return null
@@ -14,34 +19,26 @@ const Mid: FC = () => {
     return <button onClick={() => setVisible(true)}>预览</button>
   }
   return (
-    <div>
+    <div className='mid'>
       <PreviewBtn />
       <Droppable droppableId={'content'}>
         {(provided, snapshot) => {
           return (
             <div
-              className={clxs('content', { 'is-dragging-over': snapshot.isDraggingOver })}
+              className={clxs('content', {
+                'is-dragging-over': snapshot.isDraggingOver,
+              })}
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              <Form
+              <ProForm
                 style={{ backgroundColor: '#FFF' }}
-                layout={config.layout}
-                labelAlign={config.labelAlign}
-                onSubmit={this.handleSubmit}
+                onSubmitCapture={handleSubmit}
               >
-                {content.map((el, i) => (
-                  <FormItem
-                    key={el.id}
-                    data={el}
-                    index={i}
-                    form={this.props.form}
-                    layout={config.layout}
-                    labelAlign={config.labelAlign}
-                    size={config.size}
-                  />
+                {content.map((item, i) => (
+                  <ProFormText name='A' label='AA' key={i}></ProFormText>
                 ))}
-              </Form>
+              </ProForm>
               {provided.placeholder}
             </div>
           )
@@ -49,7 +46,7 @@ const Mid: FC = () => {
       </Droppable>
       <Modal
         title='表单预览'
-        visible={visible}
+        open={visible}
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
         destroyOnClose

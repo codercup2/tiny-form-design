@@ -5,7 +5,7 @@ import Seed from './Seed'
 
 const Left: FC<{ items: ISeed[] }> = ({ items }) => {
   return (
-    <div className='left'>
+    <div className='left flex-basis-100px'>
       <Droppable droppableId={'only-one-droppable'}>
         {(provided, snapshot) => {
           return (
