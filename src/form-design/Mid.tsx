@@ -1,13 +1,24 @@
-import { ProForm, ProFormText } from '@ant-design/pro-components'
+import {
+  ProForm,
+  ProFormRadio,
+  ProFormText,
+  ProFormTextArea,
+} from '@ant-design/pro-components'
 import { Modal } from 'antd'
 import clxs, { clsx } from 'clsx'
 import { FC, useState } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { IFormItemType } from './initData'
 
 type Props = {
   formItems: IFormItem[]
   currId: string
   setCurrId: (id: string) => void
+}
+const configs = {
+  [IFormItemType.input]: ProFormText,
+  [IFormItemType.textarea]: ProFormTextArea,
+  [IFormItemType.radio]: ProFormRadio,
 }
 const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
   /** 表单内容 */
@@ -34,37 +45,40 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
                 onSubmitCapture={handleSubmit}
                 submitter={false}
               >
-                {formItems.map((item, index) => (
-                  <Draggable
-                    // 这里name是表单的name，是唯一的，`field-${Date.now()}` 的形式
-                    draggableId={item.name}
-                    index={index}
-                    key={item.name}
-                  >
-                    {(provided, snapshot) => (
-                      <div
-                        className={clsx('border-dashed border-base p-2', {
-                          'bg-green-100': snapshot.isDragging,
-                          'border-left-highlight': item.name === currId,
-                        })}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        ref={provided.innerRef}
-                        onClick={() => setCurrId(item.name)}
-                      >
-                        <ProFormText
-                          name={item.name}
-                          label={item.label}
-                          key={index}
-                          required={item.required}
-                          placeholder={item.placeholder}
-                          extra={item.extra}
-                          disabled
-                        ></ProFormText>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
+                {formItems.map((item, index) => {
+                  const RenderFormItemType = configs[item.type as IFormItemType]
+                  return (
+                    <Draggable
+                      // 这里name是表单的name，是唯一的，`field-${Date.now()}` 的形式
+                      draggableId={item.name}
+                      index={index}
+                      key={item.name}
+                    >
+                      {(provided, snapshot) => (
+                        <div
+                          className={clsx('border-dashed border-base p-2', {
+                            'bg-green-100': snapshot.isDragging,
+                            'border-left-highlight': item.name === currId,
+                          })}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                          onClick={() => setCurrId(item.name)}
+                        >
+                          <RenderFormItemType
+                            name={item.name}
+                            label={item.label}
+                            key={index}
+                            required={item.required}
+                            placeholder={item.placeholder}
+                            extra={item.extra}
+                            disabled
+                          ></RenderFormItemType>
+                        </div>
+                      )}
+                    </Draggable>
+                  )
+                })}
               </ProForm>
               {provided.placeholder}
             </div>
@@ -84,16 +98,19 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
           onSubmitCapture={handleSubmit}
           submitter={false}
         >
-          {formItems.map((item, index) => (
-            <ProFormText
-              name={item.name}
-              label={item.label}
-              key={index}
-              required={item.required}
-              placeholder={item.placeholder}
-              extra={item.extra}
-            ></ProFormText>
-          ))}
+          {formItems.map((item, index) => {
+            const RenderFormItemType = configs[item.type as IFormItemType]
+            return (
+              <RenderFormItemType
+                name={item.name}
+                label={item.label}
+                key={index}
+                required={item.required}
+                placeholder={item.placeholder}
+                extra={item.extra}
+              ></RenderFormItemType>
+            )
+          })}
         </ProForm>
       </Modal>
     </div>
