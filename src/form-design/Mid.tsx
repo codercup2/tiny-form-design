@@ -89,16 +89,15 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
       </Droppable>
       <Modal
         title='表单预览'
+        width={800}
         open={visible}
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
         destroyOnClose
-        okText='模拟提交'
       >
         <ProForm
           style={{ backgroundColor: '#FFF' }}
           onSubmitCapture={handleSubmit}
-          submitter={false}
         >
           {formItems.map((item, index) => {
             const RenderFormItemType = configs[item.type as IFormItemType]
