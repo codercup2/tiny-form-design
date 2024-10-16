@@ -28,6 +28,7 @@ const Mid: FC<Props> = ({ formItems }) => {
             >
               <ProForm
                 style={{ backgroundColor: '#FFF' }}
+                className='flex flex-col gap-4'
                 onSubmitCapture={handleSubmit}
                 submitter={false}
               >
@@ -39,8 +40,8 @@ const Mid: FC<Props> = ({ formItems }) => {
                   >
                     {(provided, snapshot) => (
                       <div
-                        className={clsx('seed', {
-                          'seed-dragging': snapshot.isDragging,
+                        className={clsx('border-dashed border-base p-2', {
+                          'bg-green-100': snapshot.isDragging,
                         })}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
@@ -49,7 +50,10 @@ const Mid: FC<Props> = ({ formItems }) => {
                         <ProFormText
                           name={item.name}
                           label={item.label}
-                          disabled
+                          key={index}
+                          required={item.required}
+                          placeholder={item.placeholder}
+                          extra={item.extra}
                         ></ProFormText>
                       </div>
                     )}
@@ -78,8 +82,10 @@ const Mid: FC<Props> = ({ formItems }) => {
             <ProFormText
               name={item.name}
               label={item.label}
-              disabled
               key={index}
+              required={item.required}
+              placeholder={item.placeholder}
+              extra={item.extra}
             ></ProFormText>
           ))}
         </ProForm>
