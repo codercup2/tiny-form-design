@@ -24,27 +24,49 @@ export const configs = {
   [IFormItemType.input]: {
     ...getBaseConfigByType(IFormItemType.input),
     placeholder: '请输入',
+    rules: [
+      {
+        required: true,
+        message: '请输入',
+      },
+    ],
+    fieldProps: {},
   },
   [IFormItemType.textarea]: {
     ...getBaseConfigByType(IFormItemType.textarea),
-    placeholder: '请输入',
+    placeholder: 'Please input',
+    rules: [
+      {
+        required: true,
+        message: 'Please input',
+      },
+    ],
+    fieldProps: {},
   },
   [IFormItemType.radio]: {
     ...getBaseConfigByType(IFormItemType.radio),
     placeholder: '请输入',
-    options: [
+    rules: [
       {
-        label: 'option1',
-        value: 'option1',
-      },
-      {
-        label: 'option2',
-        value: 'option2',
-      },
-      {
-        label: 'option3',
-        value: 'option3',
+        required: true,
+        message: 'Please select',
       },
     ],
+    fieldProps: {
+      options: [
+        {
+          label: 'option1',
+          value: 'option1',
+        },
+        {
+          label: 'option2',
+          value: 'option2',
+        },
+        {
+          label: 'option3',
+          value: 'option3',
+        },
+      ],
+    },
   },
 }

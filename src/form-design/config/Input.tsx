@@ -8,7 +8,7 @@ type Props = {
 }
 const InputConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
   const item = formItems.find((item) => item.name === currId)!
-  const { label, placeholder, extra, defaultValue, required } = item
+  const { label, placeholder, extra, required } = item
   const onChange = (key: keyof IFormItem, value: any) => {
     const newItems = JSON.parse(JSON.stringify(formItems)) as IFormItem[]
     const curItem = newItems.find((item) => item.name === currId)!
@@ -42,15 +42,6 @@ const InputConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
           size='small'
           value={extra}
           onChange={(e) => onChange('extra', e.target.value)}
-        />
-      </div>
-      <div style={{ marginBottom: '15px' }}>
-        <div style={{ marginBottom: '5px' }}>默认值：</div>
-        <Input
-          placeholder='请输入'
-          size='small'
-          value={defaultValue}
-          onChange={(e) => onChange('defaultValue', e.target.value)}
         />
       </div>
       <div style={{ marginBottom: '15px' }}>

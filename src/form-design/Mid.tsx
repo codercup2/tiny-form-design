@@ -18,7 +18,7 @@ type Props = {
 const configs = {
   [IFormItemType.input]: ProFormText,
   [IFormItemType.textarea]: ProFormTextArea,
-  [IFormItemType.radio]: ProFormRadio,
+  [IFormItemType.radio]: ProFormRadio.Group,
 }
 const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
   /** 表单内容 */
@@ -66,12 +66,14 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
                           onClick={() => setCurrId(item.name)}
                         >
                           <RenderFormItemType
+                            key={index}
                             name={item.name}
                             label={item.label}
-                            key={index}
                             required={item.required}
                             placeholder={item.placeholder}
                             extra={item.extra}
+                            rules={item.rules}
+                            fieldProps={item.fieldProps}
                             disabled
                           ></RenderFormItemType>
                         </div>
@@ -102,12 +104,14 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
             const RenderFormItemType = configs[item.type as IFormItemType]
             return (
               <RenderFormItemType
+                key={index}
                 name={item.name}
                 label={item.label}
-                key={index}
                 required={item.required}
                 placeholder={item.placeholder}
                 extra={item.extra}
+                rules={item.rules}
+                fieldProps={item.fieldProps}
               ></RenderFormItemType>
             )
           })}

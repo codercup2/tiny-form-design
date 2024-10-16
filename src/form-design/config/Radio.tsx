@@ -1,17 +1,28 @@
-import { Button, Input, Switch } from 'antd'
+import { Button, Input, message, Switch } from 'antd'
 import React, { FC } from 'react'
 type Props = {
   formItems: IFormItem[]
   setFormItems: (items: IFormItem[]) => void
   currId: string
 }
+function deepClone<T>(obj: T) {
+  return JSON.parse(JSON.stringify(obj))
+}
+
 const RadioConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
   const item = formItems.find((item) => item.name === currId)!
-  const { label, extra, options = [], required } = item
-  const onChange = (key: keyof IFormItem, value: any) => {
+  const { label, extra, fieldProps, required } = item
+  const { options = [] } = fieldProps
+  const onChange = (key: keyof IFormItem | 'options', value: any) => {
     const newItems = JSON.parse(JSON.stringify(formItems)) as IFormItem[]
     const curItem = newItems.find((item) => item.name === currId)!
-    curItem[key] = value
+    if (key === 'options') {
+      curItem.fieldProps.options = value
+      console.log(curItem)
+      console.log(newItems)
+    } else {
+      curItem[key] = value
+    }
     setFormItems(newItems)
   }
   return (
@@ -50,12 +61,18 @@ const RadioConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
             title='添加'
             style={{ cursor: 'pointer' }}
             onClick={() => {
-              console.warn('options', options)
-              options.push({
-                label: `option${options.length + 1}`,
-                value: `option${options.length + 1}`,
+              const _Options = deepClone(options)
+              let count = _Options.length + 1
+              let name = `option${count}`
+              while (_Options.some((el: any) => el.value === name)) {
+                count += 1
+                name = `option${count}`
+              }
+              _Options.push({
+                label: name,
+                value: name,
               })
-              onChange('options', options)
+              onChange('options', _Options)
             }}
           >
             添加
@@ -69,7 +86,9 @@ const RadioConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
                 allowClear
                 value={el.value}
                 onChange={(e) => {
-                  options[i].value = e.target.value
+                  const name = e.target.value.trim()
+                  options[i].label = name
+                  options[i].value = name
                   onChange('options', options)
                 }}
               />
@@ -81,8 +100,13 @@ const RadioConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
                   marginLeft: '10px',
                 }}
                 onClick={() => {
-                  options.splice(i, 1)
-                  onChange('options', options)
+                  if (options.length === 1) {
+                    message.warning('至少需要一个选项')
+                    return
+                  }
+                  const _Options = deepClone(options)
+                  _Options.splice(i, 1)
+                  onChange('options', _Options)
                 }}
               >
                 删除
