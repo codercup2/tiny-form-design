@@ -46,6 +46,7 @@ const RadioConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
         <p style={{ marginBottom: '5px' }}>
           选项：
           <Button
+            size='small'
             title='添加'
             style={{ cursor: 'pointer' }}
             onClick={() => {
@@ -65,7 +66,7 @@ const RadioConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
             <div key={i} className='flex'>
               <Input
                 size='small'
-                // className='flex-1'
+                allowClear
                 value={el.value}
                 onChange={(e) => {
                   options[i].value = e.target.value
@@ -73,6 +74,7 @@ const RadioConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
                 }}
               />
               <Button
+                size='small'
                 style={{
                   cursor: 'pointer',
                   color: 'red',
