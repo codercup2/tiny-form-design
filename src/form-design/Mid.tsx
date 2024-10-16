@@ -1,26 +1,21 @@
 import { ProForm, ProFormText } from '@ant-design/pro-components'
 import { Modal } from 'antd'
-import clxs from 'clsx'
+import clxs, { clsx } from 'clsx'
 import { FC, useState } from 'react'
-import { Droppable } from 'react-beautiful-dnd'
+import { Draggable, Droppable } from 'react-beautiful-dnd'
 
-const Mid: FC = () => {
+type Props = {
+  formItems: IFormItem[]
+}
+const Mid: FC<Props> = ({ formItems }) => {
   /** 表单内容 */
-  const [content, setContent] = useState<any[]>([1])
-  const [form, setForm] = useState<any[]>([])
   /** 预览弹窗的显示状态 */
   const [visible, setVisible] = useState(false)
-
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = () => {}
-  const PreviewBtn = () => {
-    if (!content || !content.length) {
-      return null
-    }
-    return <button onClick={() => setVisible(true)}>预览</button>
-  }
+
   return (
     <div className='mid'>
-      <PreviewBtn />
+      <button onClick={() => setVisible(true)}>预览</button>
       <Droppable droppableId={'content'}>
         {(provided, snapshot) => {
           return (
@@ -34,9 +29,24 @@ const Mid: FC = () => {
               <ProForm
                 style={{ backgroundColor: '#FFF' }}
                 onSubmitCapture={handleSubmit}
+                submitter={false}
               >
-                {content.map((item, i) => (
-                  <ProFormText name='A' label='AA' key={i}></ProFormText>
+                {formItems.length}
+                {formItems.map((item, index) => (
+                  <Draggable draggableId={item.id} index={index} key={item.id}>
+                    {(provided, snapshot) => (
+                      <div
+                        className={clsx('seed', {
+                          'seed-dragging': snapshot.isDragging,
+                        })}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                      >
+                        <ProFormText name='A' label='AA' disabled></ProFormText>
+                      </div>
+                    )}
+                  </Draggable>
                 ))}
               </ProForm>
               {provided.placeholder}

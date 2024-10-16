@@ -12,7 +12,7 @@ const Seed: FC<Props<ISeed>> = (props) => {
     <Draggable draggableId={data.id} index={index}>
       {(provided, snapshot) => (
         <div
-          className={clsx({
+          className={clsx('seed', {
             'seed-dragging': snapshot.isDragging,
           })}
           {...provided.draggableProps}
