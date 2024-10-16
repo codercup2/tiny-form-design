@@ -59,6 +59,7 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
                           required={item.required}
                           placeholder={item.placeholder}
                           extra={item.extra}
+                          disabled
                         ></ProFormText>
                       </div>
                     )}
