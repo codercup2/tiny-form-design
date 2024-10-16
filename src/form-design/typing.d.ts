@@ -4,8 +4,9 @@ type ISeed = {
 }
 type IFormItem = ISeed & {
   name: string
-  extra?: string
   placeholder?: string
+  extra?: string
+  defaultValue?: unknown
   required?: boolean
   value?: unknown
 }

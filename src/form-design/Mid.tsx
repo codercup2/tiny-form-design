@@ -6,8 +6,10 @@ import { Draggable, Droppable } from 'react-beautiful-dnd'
 
 type Props = {
   formItems: IFormItem[]
+  currId: string
+  setCurrId: (id: string) => void
 }
-const Mid: FC<Props> = ({ formItems }) => {
+const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
   /** 表单内容 */
   /** 预览弹窗的显示状态 */
   const [visible, setVisible] = useState(false)
@@ -34,6 +36,7 @@ const Mid: FC<Props> = ({ formItems }) => {
               >
                 {formItems.map((item, index) => (
                   <Draggable
+                    // 这里name是表单的name，是唯一的，`field-${Date.now()}` 的形式
                     draggableId={item.name}
                     index={index}
                     key={item.name}
@@ -42,10 +45,12 @@ const Mid: FC<Props> = ({ formItems }) => {
                       <div
                         className={clsx('border-dashed border-base p-2', {
                           'bg-green-100': snapshot.isDragging,
+                          'border-left-highlight': item.name === currId,
                         })}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
+                        onClick={() => setCurrId(item.name)}
                       >
                         <ProFormText
                           name={item.name}

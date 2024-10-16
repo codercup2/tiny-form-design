@@ -5,6 +5,7 @@ import Left from './Left'
 import Mid from './Mid'
 const Index: FC = () => {
   const [formItems, setFormItems] = useState<IFormItem[]>([])
+  const [currId, setCurrId] = useState<string>('')
   const onDragEnd = (result: DropResult) => {
     const { source, destination, draggableId, ...rest } = result
     console.log('source: ', source)
@@ -36,7 +37,7 @@ const Index: FC = () => {
         ...list,
         {
           id: uuid,
-          name: 'field-' + uuid,
+          name: `field-${uuid}`,
           type: item.type,
           label: item.label,
           placeholder: '',
@@ -51,8 +52,8 @@ const Index: FC = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <div className='form-design flex gap-4 p-4 h-full'>
         <Left items={seeds} />
-        <Mid formItems={formItems} />
-        {/* <Right formItems={formItems} /> */}
+        <Mid formItems={formItems} setCurrId={setCurrId} currId={currId} />
+        {/* <Right formItems={formItems} currId={currId} /> */}
       </div>
     </DragDropContext>
   )
