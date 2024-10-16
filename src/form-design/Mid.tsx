@@ -31,7 +31,6 @@ const Mid: FC<Props> = ({ formItems }) => {
                 onSubmitCapture={handleSubmit}
                 submitter={false}
               >
-                {formItems.length}
                 {formItems.map((item, index) => (
                   <Draggable
                     draggableId={item.name}
@@ -70,7 +69,20 @@ const Mid: FC<Props> = ({ formItems }) => {
         destroyOnClose
         okText='模拟提交'
       >
-        preview content
+        <ProForm
+          style={{ backgroundColor: '#FFF' }}
+          onSubmitCapture={handleSubmit}
+          submitter={false}
+        >
+          {formItems.map((item, index) => (
+            <ProFormText
+              name={item.name}
+              label={item.label}
+              disabled
+              key={index}
+            ></ProFormText>
+          ))}
+        </ProForm>
       </Modal>
     </div>
   )
