@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { configs, seeds } from './initData'
 import Left from './Left'
@@ -6,6 +6,7 @@ import Mid from './Mid'
 import Right from './Right'
 const Index: FC = () => {
   const [formItems, setFormItems] = useState<IFormItem[]>([])
+  const formItemsRef = useRef(formItems)
   const [currId, setCurrId] = useState<string>('')
   const onDragEnd = (result: DropResult) => {
     const { source, destination, draggableId, ...rest } = result
@@ -56,6 +57,7 @@ const Index: FC = () => {
           formItems={formItems}
           setFormItems={setFormItems}
           currId={currId}
+          formItemsRef={formItemsRef}
         />
       </div>
     </DragDropContext>
