@@ -29,20 +29,19 @@ const Index: FC = () => {
       source.droppableId === 'left' &&
       destination?.droppableId === 'content'
     ) {
-      const uuid = String(Date.now())
       const item = seeds.find((item) => item.type === draggableId)
       if (!item) {
         console.error('数据匹配不上，不可能出现')
         return
       }
-      setFormItems((list) => [
-        ...list,
-        {
-          id: uuid,
-          name: `field-${uuid}`,
-          ...configs[item.type as keyof typeof configs],
-        },
-      ])
+      const uuid = String(Date.now())
+      const newList = [...formItems]
+      newList.splice(destination.index, 0, {
+        // id: uuid,
+        name: `field-${uuid}`,
+        ...configs[item.type as keyof typeof configs],
+      })
+      setFormItems(newList)
       return
     }
   }
