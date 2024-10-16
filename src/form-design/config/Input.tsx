@@ -1,53 +1,66 @@
 import { Input, Switch } from 'antd'
 
 import { FC } from 'react'
-const InputConfig: FC<{ config: IFormItem }> = ({ config }) => {
-  const { label, placeholder, extra, defaultValue, required } = config
+
+type Props = {
+  formItems: IFormItem[]
+  setFormItems: (items: IFormItem[]) => void
+  currId: string
+}
+const InputConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
+  const item = formItems.find((item) => item.name === currId)!
+  const { label, placeholder, extra, defaultValue, required } = item
+  const onChange = (key: keyof IFormItem, value: any) => {
+    const newItems = JSON.parse(JSON.stringify(formItems)) as IFormItem[]
+    const curItem = newItems.find((item) => item.name === currId)!
+    curItem[key] = value
+    setFormItems(newItems)
+  }
   return (
     <>
       <div style={{ marginBottom: '15px' }}>
-        <p style={{ marginBottom: '5px' }}>标题：</p>
+        <div style={{ marginBottom: '5px' }}>标题：</div>
         <Input
           placeholder='请输入'
           size='small'
           value={label}
-          onChange={(e) => this.props.callback('label', e.target.value)}
+          onChange={(e) => onChange('label', e.target.value)}
         />
       </div>
       <div style={{ marginBottom: '15px' }}>
-        <p style={{ marginBottom: '5px' }}>占位内容：</p>
+        <div style={{ marginBottom: '5px' }}>占位内容：</div>
         <Input
           placeholder='请输入'
           size='small'
           value={placeholder}
-          onChange={(e) => this.props.callback('placeholder', e.target.value)}
+          onChange={(e) => onChange('placeholder', e.target.value)}
         />
       </div>
       <div style={{ marginBottom: '15px' }}>
-        <p style={{ marginBottom: '5px' }}>额外描述：</p>
+        <div style={{ marginBottom: '5px' }}>额外描述：</div>
         <Input
           placeholder='请输入'
           size='small'
           value={extra}
-          onChange={(e) => this.props.callback('placeholder', e.target.value)}
+          onChange={(e) => onChange('extra', e.target.value)}
         />
       </div>
       <div style={{ marginBottom: '15px' }}>
-        <p style={{ marginBottom: '5px' }}>默认值：</p>
+        <div style={{ marginBottom: '5px' }}>默认值：</div>
         <Input
           placeholder='请输入'
           size='small'
           value={defaultValue}
-          onChange={(e) => this.props.callback('defaultValue', e.target.value)}
+          onChange={(e) => onChange('defaultValue', e.target.value)}
         />
       </div>
 
       <div style={{ marginBottom: '15px' }}>
-        <p style={{ marginBottom: '5px' }}>是否必填：</p>
+        <div style={{ marginBottom: '5px' }}>是否必填：</div>
         <Switch
           size='small'
           checked={required}
-          onChange={(checked) => this.props.callback('required', checked)}
+          onChange={(checked) => onChange('required', checked)}
         />
       </div>
     </>

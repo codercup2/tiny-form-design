@@ -3,6 +3,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { seeds } from './initData'
 import Left from './Left'
 import Mid from './Mid'
+import Right from './Right'
 const Index: FC = () => {
   const [formItems, setFormItems] = useState<IFormItem[]>([])
   const [currId, setCurrId] = useState<string>('')
@@ -53,7 +54,11 @@ const Index: FC = () => {
       <div className='form-design flex gap-4 p-4 h-full'>
         <Left items={seeds} />
         <Mid formItems={formItems} setCurrId={setCurrId} currId={currId} />
-        {/* <Right formItems={formItems} currId={currId} /> */}
+        <Right
+          formItems={formItems}
+          setFormItems={setFormItems}
+          currId={currId}
+        />
       </div>
     </DragDropContext>
   )

@@ -6,7 +6,7 @@ type IFormItem = ISeed & {
   name: string
   placeholder?: string
   extra?: string
-  defaultValue?: unknown
   required?: boolean
-  value?: unknown
+  defaultValue?: any
+  value?: any
 }

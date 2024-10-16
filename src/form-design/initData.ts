@@ -1,4 +1,4 @@
-enum IFormItemType {
+export enum IFormItemType {
   input = 'input',
   textarea = 'textarea',
 }
