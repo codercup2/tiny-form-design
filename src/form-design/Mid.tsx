@@ -28,7 +28,15 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
 
   return (
     <div className='mid border-left border-right flex-1 px-4 flex flex-col'>
-      <button onClick={() => setVisible(true)}>预览</button>
+      <div className='text-center relative'>
+        <h3>表单内容</h3>
+        <button
+          onClick={() => setVisible(true)}
+          className='absolute top-2 right-2'
+        >
+          预览
+        </button>
+      </div>
       <Droppable droppableId={'content'}>
         {(provided, snapshot) => {
           return (

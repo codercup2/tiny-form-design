@@ -5,11 +5,12 @@ import { Draggable, Droppable } from 'react-beautiful-dnd'
 const Left: FC<{ items: ISeed[] }> = ({ items }) => {
   return (
     <div className='left flex-basis-100px'>
+      <h3>组件库</h3>
       <Droppable droppableId={'left'}>
         {(provided, snapshot) => {
           return (
             <div
-              className={clsx({
+              className={clsx('flex flex-col gap-4', {
                 'left-isDraggingOver': snapshot.isDraggingOver,
               })}
               ref={provided.innerRef}
@@ -23,14 +24,16 @@ const Left: FC<{ items: ISeed[] }> = ({ items }) => {
                 >
                   {(provided, snapshot) => (
                     <div
-                      className={clsx('seed', {
+                      className={clsx('', {
                         'seed-dragging': snapshot.isDragging,
                       })}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
                     >
-                      <div className='seed'>{item.label}</div>
+                      <div className='seed border-base border-rounded text-center leading-loose'>
+                        {item.label}
+                      </div>
                     </div>
                   )}
                 </Draggable>
