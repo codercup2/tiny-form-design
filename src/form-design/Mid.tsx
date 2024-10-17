@@ -7,12 +7,13 @@ import {
 } from '@ant-design/pro-components'
 import { Modal } from 'antd'
 import clxs, { clsx } from 'clsx'
-import { FC, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { IFormItemType } from './initData'
 
 type Props = {
   formItems: IFormItem[]
+  setFormItems: Dispatch<SetStateAction<IFormItem[]>>
   currId: string
   setCurrId: (id: string) => void
 }
@@ -22,12 +23,16 @@ const configs = {
   [IFormItemType.radio]: ProFormRadio.Group,
   [IFormItemType.upload]: ProFormUploadDragger,
 }
-const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
+const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
   /** 表单内容 */
   /** 预览弹窗的显示状态 */
   const [visible, setVisible] = useState(false)
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = () => {}
-
+  const deleteItem = (index: number) => {
+    const newList = JSON.parse(JSON.stringify(formItems))
+    newList.splice(index, 1)
+    setFormItems(newList)
+  }
   return (
     <div className='mid border-left border-right flex-1 px-4 flex flex-col'>
       <div className='text-center relative'>
@@ -66,10 +71,13 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
                     >
                       {(provided, snapshot) => (
                         <div
-                          className={clsx('border-dashed border-base p-2', {
-                            'bg-green-100': snapshot.isDragging,
-                            'border-left-highlight': item.name === currId,
-                          })}
+                          className={clsx(
+                            'border-dashed border-base p-2 relative',
+                            {
+                              'bg-green-100': snapshot.isDragging,
+                              'border-left-highlight': item.name === currId,
+                            }
+                          )}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
@@ -81,6 +89,15 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
                             {...item}
                             disabled
                           ></RenderFormItemType>
+                          {/* 右上角的关闭按钮，不需要二次确认 */}
+                          <div
+                            onClick={() => {
+                              deleteItem(index)
+                            }}
+                            className='cursor-pointer absolute top-2 right-2 w-5 h-5 flex items-center justify-center border-rounded border-base border-dashed hover:border-solid'
+                          >
+                            X
+                          </div>
                         </div>
                       )}
                     </Draggable>
