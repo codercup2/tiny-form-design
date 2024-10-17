@@ -65,15 +65,10 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
                           ref={provided.innerRef}
                           onClick={() => setCurrId(item.name)}
                         >
+                          {/* 数据结构设计的时候就是参照ProForm来的，所以直接喂给它就行 */}
                           <RenderFormItemType
                             key={index}
-                            name={item.name}
-                            label={item.label}
-                            required={item.required}
-                            placeholder={item.placeholder}
-                            extra={item.extra}
-                            rules={item.rules}
-                            fieldProps={item.fieldProps}
+                            {...item}
                             disabled
                           ></RenderFormItemType>
                         </div>
@@ -102,16 +97,8 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
           {formItems.map((item, index) => {
             const RenderFormItemType = configs[item.type as IFormItemType]
             return (
-              <RenderFormItemType
-                key={index}
-                name={item.name}
-                label={item.label}
-                required={item.required}
-                placeholder={item.placeholder}
-                extra={item.extra}
-                rules={item.rules}
-                fieldProps={item.fieldProps}
-              ></RenderFormItemType>
+              // 数据结构设计的时候就是参照ProForm来的，所以直接喂给它就行
+              <RenderFormItemType key={index} {...item}></RenderFormItemType>
             )
           })}
         </ProForm>
