@@ -2,6 +2,7 @@ export enum IFormItemType {
   input = 'input',
   textarea = 'textarea',
   radio = 'radio',
+  upload = 'upload',
 }
 export const seeds: ISeed[] = [
   {
@@ -16,42 +17,44 @@ export const seeds: ISeed[] = [
     label: '单选框',
     type: IFormItemType.radio,
   },
+  {
+    label: '文件上传',
+    type: IFormItemType.upload,
+  },
 ]
 const getBaseConfigByType = (type: IFormItemType): ISeed =>
   seeds.find((item) => item.type === type)!
 
+const requiredAndRules = (defaultValue: boolean) => {
+  return {
+    // required 和 rules[0].required 需要同步更改 （在config里面）
+    required: defaultValue,
+    rules: [
+      {
+        required: defaultValue,
+        message: 'Please input',
+      },
+    ],
+  }
+}
+
 export const configs = {
   [IFormItemType.input]: {
     ...getBaseConfigByType(IFormItemType.input),
-    placeholder: '请输入',
-    rules: [
-      {
-        required: true,
-        message: '请输入',
-      },
-    ],
+    ...requiredAndRules(false),
+    placeholder: '',
     fieldProps: {},
   },
   [IFormItemType.textarea]: {
     ...getBaseConfigByType(IFormItemType.textarea),
-    placeholder: 'Please input',
-    rules: [
-      {
-        required: true,
-        message: 'Please input',
-      },
-    ],
+    ...requiredAndRules(false),
+    placeholder: '',
     fieldProps: {},
   },
   [IFormItemType.radio]: {
     ...getBaseConfigByType(IFormItemType.radio),
-    placeholder: '请输入',
-    rules: [
-      {
-        required: true,
-        message: 'Please select',
-      },
-    ],
+    ...requiredAndRules(false),
+    placeholder: 'Please select',
     fieldProps: {
       options: [
         {
@@ -68,5 +71,14 @@ export const configs = {
         },
       ],
     },
+  },
+  [IFormItemType.upload]: {
+    ...getBaseConfigByType(IFormItemType.upload),
+    ...requiredAndRules(false),
+    fieldProps: {
+      multiple: true,
+      listType: 'picture-card',
+    },
+    action: '/api/upload',
   },
 }

@@ -3,6 +3,7 @@ import {
   ProFormRadio,
   ProFormText,
   ProFormTextArea,
+  ProFormUploadDragger,
 } from '@ant-design/pro-components'
 import { Modal } from 'antd'
 import clxs, { clsx } from 'clsx'
@@ -19,6 +20,7 @@ const configs = {
   [IFormItemType.input]: ProFormText,
   [IFormItemType.textarea]: ProFormTextArea,
   [IFormItemType.radio]: ProFormRadio.Group,
+  [IFormItemType.upload]: ProFormUploadDragger,
 }
 const Mid: FC<Props> = ({ formItems, setCurrId, currId }) => {
   /** 表单内容 */

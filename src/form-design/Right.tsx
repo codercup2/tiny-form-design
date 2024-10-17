@@ -11,6 +11,7 @@ const configs: Record<IFormItemType, FC<any>> = {
   [IFormItemType.input]: Config.Input,
   [IFormItemType.radio]: Config.Radio,
   [IFormItemType.textarea]: Config.Textarea,
+  [IFormItemType.upload]: Config.Upload,
 }
 const Right: FC<Props> = ({ formItems, setFormItems, currId }) => {
   const item = formItems.find((item) => item.name === currId)

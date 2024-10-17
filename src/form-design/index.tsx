@@ -9,6 +9,7 @@ const Index: FC = () => {
   const [currId, setCurrId] = useState<string>('')
   const onDragEnd = (result: DropResult) => {
     const { source, destination, draggableId, ...rest } = result
+    console.log('draggableId: ', draggableId)
     console.log('source: ', source)
     console.log('destination: ', destination)
     console.log('rest: ', rest)
@@ -41,7 +42,7 @@ const Index: FC = () => {
         // id: uuid,
         name: `field-${uuid}`,
         ...configs[item.type as keyof typeof configs],
-      })
+      } as any)
       setFormItems(newList)
       setCurrId(`field-${uuid}`)
       return
