@@ -16,7 +16,10 @@ const RadioConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
   const onChange = (key: keyof IFormItem | 'options', value: any) => {
     const newItems = JSON.parse(JSON.stringify(formItems)) as IFormItem[]
     const curItem = newItems.find((item) => item.name === currId)!
-    if (key === 'options') {
+    if (key === 'required') {
+      curItem.required = value
+      curItem.rules[0].required = value
+    } else if (key === 'options') {
       curItem.fieldProps.options = value
       console.log(curItem)
       console.log(newItems)

@@ -8,7 +8,7 @@ type IFormItem = ISeed & {
   extra?: string
   required?: boolean
   value?: any
-  rules?: Array<{ required?: boolean; message?: string }>
+  rules: Array<{ required?: boolean; message?: string }>
   fieldProps: {
     options?: Array<{ label: string; value: string }>
   }

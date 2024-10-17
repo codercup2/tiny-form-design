@@ -12,7 +12,12 @@ const InputConfig: FC<Props> = ({ formItems, setFormItems, currId }) => {
   const onChange = (key: keyof IFormItem, value: any) => {
     const newItems = JSON.parse(JSON.stringify(formItems)) as IFormItem[]
     const curItem = newItems.find((item) => item.name === currId)!
-    curItem[key] = value
+    if (key === 'required') {
+      curItem.required = value
+      curItem.rules[0].required = value
+    } else {
+      curItem[key] = value
+    }
     setFormItems(newItems)
   }
   return (
