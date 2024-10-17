@@ -23,18 +23,26 @@ const Left: FC<{ items: ISeed[] }> = ({ items }) => {
                   key={item.type}
                 >
                   {(provided, snapshot) => (
-                    <div
-                      className={clsx('', {
-                        'seed-dragging': snapshot.isDragging,
-                      })}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      ref={provided.innerRef}
-                    >
-                      <div className='seed border-base border-rounded text-center leading-loose'>
-                        {item.label}
+                    <>
+                      <div
+                        className={clsx('', {
+                          '!translate-x-0 !translate-y-0': !snapshot.isDragging,
+                        })}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                      >
+                        <div className='seed border-base border-rounded text-center leading-loose'>
+                          {item.label}
+                        </div>
                       </div>
-                    </div>
+                      {/* 通过clone一个元素来解决拖拽时，物料元素不见了的问题 */}
+                      {snapshot.isDragging && (
+                        <div className='seed border-base border-rounded text-center leading-loose'>
+                          {item.label}
+                        </div>
+                      )}
+                    </>
                   )}
                 </Draggable>
               ))}
