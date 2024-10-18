@@ -6,20 +6,76 @@ export enum IFormItemType {
 }
 export const seeds: ISeed[] = [
   {
-    label: '单行文本',
-    type: IFormItemType.input,
+    id: '1',
+    category: '头图类',
+    max: 10,
+    current: 0,
+    list: [
+      {
+        id: '1-1',
+        name: '头图样式1',
+        max: 10,
+        current: 0,
+        preview:
+          'https://img.alicdn.com/imgextra/i2/O1CN01KZYVXe1E5Y8q8JJ0l_!!6000000001498-2-tps-600-600.png',
+      },
+    ],
   },
   {
-    label: '多行文本',
-    type: IFormItemType.textarea,
+    id: '2',
+    category: '文本类',
+    max: 10,
+    current: 0,
+    list: [
+      {
+        id: '2-1',
+        name: '一排一',
+        max: 10,
+        current: 0,
+        preview:
+          'https://img.alicdn.com/imgextra/i2/O1CN01KZYVXe1E5Y8q8JJ0l_!!6000000001498-2-tps-600-600.png',
+      },
+      {
+        id: '2-2',
+        name: '一排二',
+        max: 10,
+        current: 0,
+        preview:
+          'https://img.alicdn.com/imgextra/i2/O1CN01KZYVXe1E5Y8q8JJ0l_!!6000000001498-2-tps-600-600.png',
+      },
+    ],
   },
   {
-    label: '单选框',
-    type: IFormItemType.radio,
+    id: '3',
+    category: '图文类',
+    max: 5,
+    current: 0,
+    list: [
+      {
+        id: '3-1',
+        name: '单图',
+        max: 10,
+        current: 0,
+        preview:
+          'https://img.alicdn.com/imgextra/i2/O1CN01KZYVXe1E5Y8q8JJ0l_!!6000000001498-2-tps-600-600.png',
+      },
+    ],
   },
   {
-    label: '文件上传',
-    type: IFormItemType.upload,
+    id: '4',
+    category: '任务发奖组件',
+    max: 1,
+    current: 0,
+    list: [
+      {
+        id: '4-1',
+        name: '任务&直发',
+        max: 1,
+        current: 0,
+        preview:
+          'https://img.alicdn.com/imgextra/i2/O1CN01KZYVXe1E5Y8q8JJ0l_!!6000000001498-2-tps-600-600.png',
+      },
+    ],
   },
 ]
 const getBaseConfigByType = (type: IFormItemType): ISeed =>
