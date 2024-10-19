@@ -18,6 +18,13 @@ export const seeds: ISeed[] = [
         current: 0,
         preview: 'https://via.placeholder.com/400x200.png/3c9cff/fff',
       },
+      {
+        id: '1-2',
+        name: '头图样式2',
+        max: 10,
+        current: 0,
+        preview: 'https://via.placeholder.com/400x200.png/3c9cff/fff',
+      },
     ],
   },
   {
