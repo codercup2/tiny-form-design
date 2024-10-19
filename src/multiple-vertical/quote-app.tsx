@@ -26,6 +26,7 @@ const QuoteApp: React.FC<Props> = ({ initial }) => {
   })
 
   const onDragEnd = (result: DropResult) => {
+    console.log(result)
     if (!result.destination) {
       return
     }

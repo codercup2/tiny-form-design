@@ -138,6 +138,7 @@ const QuoteList: React.FC<Props> = (props) => {
           style={style}
           {...dropProvided.droppableProps}
         >
+          Droppable
           {internalScroll ? (
             <div
               className='overflow-x-hidden overflow-y-auto max-h-[250px]'

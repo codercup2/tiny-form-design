@@ -65,6 +65,7 @@ const QuoteItem: React.FC<Props> = (props) => {
       data-testid={quote.id}
       data-index={index}
     >
+      Draggable
       {isClone && (
         <div className='bg-gray-100 absolute bottom-4 border-2 border-gray-200 rounded-full box-border text-xs w-10 h-10 flex items-center justify-center transform rotate-40 right--13 top--13'>
           Clone
