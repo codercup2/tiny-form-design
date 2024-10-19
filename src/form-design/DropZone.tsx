@@ -26,14 +26,15 @@ const DropZone: FC<Props<any>> = ({
       {(provided, snapshot) => {
         return (
           <div
-            className={clsx('content flex-1 h-20', {
-              'bg-green-100': snapshot.isDraggingOver,
+            className={clsx('content flex-1 bg-red-100', {
+              'bg-red': snapshot.isDraggingOver,
+              'h-20': data.length === 0,
             })}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
             <div>
-              {JSON.stringify(data)}
+              {JSON.stringify(snapshot)}
               {data.map((item, index) => {
                 return (
                   <Draggable

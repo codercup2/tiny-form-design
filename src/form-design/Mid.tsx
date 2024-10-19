@@ -33,7 +33,8 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
               {...provided.droppableProps}
             >
               <div>
-                {JSON.stringify(formItems)}
+                {/* {JSON.stringify(formItems)} */}
+                {JSON.stringify(snapshot)}
                 {formItems.map((item, index) => {
                   return (
                     <Draggable
