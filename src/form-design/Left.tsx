@@ -4,7 +4,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd'
 
 const Left: FC<{ items: ISeed[] }> = ({ items }) => {
   return (
-    <div className='left flex-basis-200px'>
+    <div className='left flex-basis-200px flex-shrink-0'>
       <h3>页面组件</h3>
       <Droppable droppableId={'left'}>
         {(provided, snapshot) => {
