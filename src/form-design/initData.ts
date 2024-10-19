@@ -97,7 +97,7 @@ export const handledSeeds = ((seeds: ISeed[]): ISeed[] => {
 console.log(handledSeeds)
 
 /** 从 seeds 里面获取所有的Item */
-export const allItems: ICategoryItem[] = seeds.reduce<ICategoryItem[]>(
+export const allItems: ICategoryItem[] = handledSeeds.reduce<ICategoryItem[]>(
   (acc, cur) => {
     return acc.concat(cur.list)
   },
