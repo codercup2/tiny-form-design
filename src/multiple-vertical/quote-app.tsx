@@ -15,11 +15,10 @@ interface Props {
 const Root =
   'bg-[#B200] box-border p-[16px] min-h-screen flex justify-center items-start'
 const Column = 'm-0 p-[16px]'
-const HorizontalScrollContainer =
-  'flex justify-start items-start bg-[rgba(0,0,0,0.1)] p-[16px] max-w-[400px] overflow-auto'
-const VerticalScrollContainer =
-  'flex flex-col justify-start items-start bg-[rgba(0,0,0,0.1)] p-[16px] max-h-[800px] overflow-auto'
-const PushDown = 'h-[200px]'
+// const HorizontalScrollContainer =
+//   'flex justify-start items-start bg-[rgba(0,0,0,0.1)] p-[16px] max-w-[400px] overflow-auto'
+// const VerticalScrollContainer =
+//   'flex flex-col justify-start items-start bg-[rgba(0,0,0,0.1)] p-[16px] max-h-[800px] overflow-auto'
 
 const QuoteApp: React.FC<Props> = ({ initial }) => {
   const [quoteMap, setQuoteMap] = useState<ReorderQuoteMapResult>({
@@ -73,7 +72,6 @@ const QuoteApp: React.FC<Props> = ({ initial }) => {
           </div>
         </div> */}
         <div className={Column}>
-          <div className={PushDown} />
           <QuoteList
             title='delta'
             listId='delta'
