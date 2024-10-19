@@ -90,6 +90,7 @@ const InnerList: React.FC<InnerListProps> = ({
 }
 
 const QuoteList: React.FC<Props> = (props) => {
+  console.log(props)
   const {
     ignoreContainerClipping,
     internalScroll,
