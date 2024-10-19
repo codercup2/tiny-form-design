@@ -6,20 +6,20 @@ const Left: FC<{ items: ISeed[] }> = ({ items }) => {
   return (
     <div className='left flex-basis-200px'>
       <h3>页面组件</h3>
-      {items.map((item) => (
-        <div key={item.category}>
-          <h4>{item.category}</h4>
-          {item.list.map((item, index) => (
-            <Droppable droppableId={'left'} key={index}>
-              {(provided, snapshot) => {
-                return (
-                  <div
-                    className={clsx('flex flex-col gap-4', {
-                      'left-isDraggingOver': snapshot.isDraggingOver,
-                    })}
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
+      <Droppable droppableId={'left'}>
+        {(provided, snapshot) => {
+          return (
+            <div
+              className={clsx('flex flex-col gap-4 ', {
+                'left-isDraggingOver': snapshot.isDraggingOver,
+              })}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {items.map((item) => (
+                <div key={item.category}>
+                  <h4>{item.category}</h4>
+                  {item.list.map((item, index) => (
                     <Draggable
                       index={index}
                       draggableId={item.id}
@@ -49,14 +49,14 @@ const Left: FC<{ items: ISeed[] }> = ({ items }) => {
                         </>
                       )}
                     </Draggable>
-                    {provided.placeholder}
-                  </div>
-                )
-              }}
-            </Droppable>
-          ))}
-        </div>
-      ))}
+                  ))}
+                </div>
+              ))}
+              {provided.placeholder}
+            </div>
+          )
+        }}
+      </Droppable>
     </div>
   )
 }
