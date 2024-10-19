@@ -78,6 +78,13 @@ export const seeds: ISeed[] = [
     ],
   },
 ]
+/** 从 seeds 里面获取所有的Item */
+export const allItems: ICategoryItem[] = seeds.reduce<ICategoryItem[]>(
+  (acc, cur) => {
+    return acc.concat(cur.list)
+  },
+  []
+)
 const getBaseConfigByType = (type: IFormItemType): ISeed =>
   seeds.find((item) => item.type === type)!
 
