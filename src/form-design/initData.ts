@@ -4,6 +4,7 @@ export enum IFormItemType {
   radio = 'radio',
   upload = 'upload',
 }
+
 export const seeds: ISeed[] = [
   {
     id: '1',
@@ -80,6 +81,21 @@ export const seeds: ISeed[] = [
     ],
   },
 ]
+
+// 处理gragdableId的连续性
+let idCount = 100
+/** 已经处理后的seed数据 */
+export const handledSeeds = ((seeds: ISeed[]): ISeed[] => {
+  return seeds.map((seed) => ({
+    ...seed,
+    list: seed.list.map((item) => ({
+      ...item,
+      id: `G${idCount++}`,
+    })),
+  }))
+})(seeds)
+console.log(handledSeeds)
+
 /** 从 seeds 里面获取所有的Item */
 export const allItems: ICategoryItem[] = seeds.reduce<ICategoryItem[]>(
   (acc, cur) => {
