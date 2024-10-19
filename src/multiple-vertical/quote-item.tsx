@@ -74,7 +74,7 @@ const QuoteItem: React.FC<Props> = (props) => {
         <div className='relative'>
           <span className='absolute top-0 left-0 text-2xl'>&ldquo;</span>
           <span className='absolute bottom-0 right-0 text-2xl'>&rdquo;</span>
-          {quote.content}
+          {quote.id} - {quote.content}
         </div>
         <div className={`flex mt-${grid} items-center`}>
           <small className='flex-grow-1 flex-shrink-1 text-right text-ellipsis font-normal'>
