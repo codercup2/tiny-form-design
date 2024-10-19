@@ -4,6 +4,9 @@ type ICategoryItem = {
   max: number
   current: number
   preview: string
+  slot?: {
+    default: any[]
+  }
 }
 type ISeed = {
   id: string

@@ -26,6 +26,16 @@ export const seeds: ISeed[] = [
         current: 0,
         preview: 'https://via.placeholder.com/400x200.png/3c9cff/fff',
       },
+      {
+        id: 'A-2',
+        name: '有一个slot',
+        max: 10,
+        current: 0,
+        preview: 'https://via.placeholder.com/400x200.png/3c9cff/fff',
+        slot: {
+          default: [],
+        },
+      },
     ],
   },
   {

@@ -1,6 +1,7 @@
-import clxs, { clsx } from 'clsx'
+import clsx from 'clsx'
 import { Dispatch, FC, SetStateAction } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
+import DropZone from './DropZone'
 
 type Props = {
   formItems: IItem[]
@@ -25,7 +26,7 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
         {(provided, snapshot) => {
           return (
             <div
-              className={clxs('content flex-1', {
+              className={clsx('content flex-1', {
                 'bg-green-100': snapshot.isDraggingOver,
               })}
               ref={provided.innerRef}
@@ -56,6 +57,19 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
                           onClick={() => setCurrId(item.id)}
                         >
                           {item.id} - {item.name}
+                          <div>有slot吗？{item.slot ? 'Y' : 'N'}</div>
+                          {!!item.slot && (
+                            <div className='flex'>
+                              <DropZone
+                                id={item.id}
+                                setCurrId={setCurrId}
+                                data={item.slot.default}
+                                setData={(data) => {
+                                  console.log(data)
+                                }}
+                              />
+                            </div>
+                          )}
                           {/* 右上角的关闭按钮，不需要二次确认 */}
                           <div
                             onClick={() => {
@@ -80,37 +94,3 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
   )
 }
 export default Mid
-{
-  /* <Droppable droppableId={'content'}>
-                  {(provided, snapshot) => {
-                    return (
-                      <div
-                        className={clxs('content flex-1', {
-                          'is-dragging-over': snapshot.isDraggingOver,
-                        })}
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                      >
-                        <div></div>
-                        {provided.placeholder}
-                      </div>
-                    )
-                  }}
-                </Droppable>
-                <Droppable droppableId={'content'}>
-                  {(provided, snapshot) => {
-                    return (
-                      <div
-                        className={clxs('content flex-1', {
-                          'is-dragging-over': snapshot.isDraggingOver,
-                        })}
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                      >
-                        <div></div>
-                        {provided.placeholder}
-                      </div>
-                    )
-                  }}
-                </Droppable> */
-}
