@@ -47,7 +47,7 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
                           className={clsx(
                             'border-dashed border-base p-2 relative',
                             {
-                              'bg-green-100': snapshot.isDragging,
+                              'bg-green-500': snapshot.isDragging,
                               'border-left-highlight': item.name === currId,
                             }
                           )}
