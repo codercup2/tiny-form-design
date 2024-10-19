@@ -54,7 +54,7 @@ export const quotes: Quote[] = [
 ]
 // So we do not have any clashes with our hardcoded ones
 let idCount: number = quotes.length + 1
-export const getQuotes = (count: number): Quote[] =>
+export const getQuotesBak = (count: number): Quote[] =>
   Array.from({ length: count }, (v, k) => k).map(() => {
     const random: Quote = quotes[Math.floor(Math.random() * quotes.length)]
 
@@ -65,3 +65,15 @@ export const getQuotes = (count: number): Quote[] =>
 
     return custom
   })
+export const getQuotes = (count: number | string): Quote[] => {
+  console.log(count)
+  if (typeof count === 'string') {
+    return quotes.map((item) => {
+      return {
+        ...item,
+        id: `${count}-${item.id}`,
+      }
+    })
+  }
+  return quotes
+}
