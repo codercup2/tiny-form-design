@@ -41,11 +41,11 @@ const Left: FC<{ items: ISeed[] }> = ({ items }) => {
                             </div>
                           </div>
                           {/* 通过clone一个元素来解决拖拽时，物料元素不见了的问题 */}
-                          {snapshot.isDragging && (
+                          {/* {snapshot.isDragging && (
                             <div className='seed border-base border-rounded text-center leading-loose'>
                               {item.name}
                             </div>
-                          )}
+                          )} */}
                         </>
                       )}
                     </Draggable>

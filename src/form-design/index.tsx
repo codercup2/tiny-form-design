@@ -23,7 +23,7 @@ const Index: FC = () => {
     ) {
       const newList = [...formItems]
       const [item] = newList.splice(source.index, 1)
-      setCurrId(item.uuid)
+      setCurrId(item.id)
       newList.splice(destination.index, 0, item)
       setFormItems(newList)
       return
@@ -39,13 +39,14 @@ const Index: FC = () => {
         return
       }
       const uuid = String(Date.now())
+      const newId = `${draggableId}_${uuid}`
       const newList = [...formItems]
       newList.splice(destination.index, 0, {
         ...item,
-        uuid: uuid,
+        id: newId,
       } as any)
       setFormItems(newList)
-      setCurrId(uuid)
+      setCurrId(newId)
       return
     }
   }

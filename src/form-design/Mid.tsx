@@ -36,10 +36,10 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
                 {formItems.map((item, index) => {
                   return (
                     <Draggable
-                      // 这里name是表单的name，是唯一的，`field-${Date.now()}` 的形式
+                      // 这里 id是唯一的，`原本的Id_${Date.now()}` 的形式
                       draggableId={item.id}
                       index={index}
-                      key={item.name}
+                      key={item.id}
                     >
                       {(provided, snapshot) => (
                         <div
@@ -53,7 +53,7 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
-                          onClick={() => setCurrId(item.uuid)}
+                          onClick={() => setCurrId(item.id)}
                         >
                           {item.name}
                           {/* 右上角的关闭按钮，不需要二次确认 */}
