@@ -37,7 +37,7 @@ const Left: FC<{ items: ISeed[] }> = ({ items }) => {
                             ref={provided.innerRef}
                           >
                             <div className='seed border-base border-rounded text-center leading-loose'>
-                              {item.name}
+                              {item.id} - {item.name}
                             </div>
                           </div>
                           {/* 通过clone一个元素来解决拖拽时，物料元素不见了的问题 */}

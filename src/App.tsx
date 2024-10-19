@@ -1,5 +1,5 @@
 import './App.css'
-import FormDesign from './multiple-vertical'
+import FormDesign from './form-design'
 function App() {
   return <FormDesign />
 }
