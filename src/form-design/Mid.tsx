@@ -55,7 +55,7 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
                           ref={provided.innerRef}
                           onClick={() => setCurrId(item.id)}
                         >
-                          {item.name}
+                          {item.id} - {item.name}
                           {/* 右上角的关闭按钮，不需要二次确认 */}
                           <div
                             onClick={() => {
