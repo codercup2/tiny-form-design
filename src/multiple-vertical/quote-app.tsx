@@ -46,7 +46,7 @@ const QuoteApp: React.FC<Props> = ({ initial }) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={Root}>
-        <div className={HorizontalScrollContainer}>
+        {/* <div className={HorizontalScrollContainer}>
           <div className={Column}>
             <QuoteList
               title='alpha'
@@ -71,7 +71,7 @@ const QuoteApp: React.FC<Props> = ({ initial }) => {
               quotes={quoteMap.quoteMap.gamma}
             />
           </div>
-        </div>
+        </div> */}
         <div className={Column}>
           <div className={PushDown} />
           <QuoteList
@@ -88,7 +88,7 @@ const QuoteApp: React.FC<Props> = ({ initial }) => {
             quotes={quoteMap.quoteMap.epsilon}
           />
         </div>
-        <div className={VerticalScrollContainer}>
+        {/* <div className={VerticalScrollContainer}>
           <div className={Column}>
             <QuoteList
               title='zeta'
@@ -130,7 +130,7 @@ const QuoteApp: React.FC<Props> = ({ initial }) => {
             internalScroll
             quotes={quoteMap.quoteMap.kappa}
           />
-        </div>
+        </div> */}
       </div>
     </DragDropContext>
   )
