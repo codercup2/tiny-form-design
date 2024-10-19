@@ -22,7 +22,7 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
       <div className='text-center relative'>
         <h3>表单内容</h3>
       </div>
-      <Droppable droppableId={'content'}>
+      <Droppable droppableId={'content'} isCombineEnabled>
         {(provided, snapshot) => {
           return (
             <div
