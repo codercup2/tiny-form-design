@@ -7,20 +7,20 @@ export enum IFormItemType {
 
 export const seeds: ISeed[] = [
   {
-    id: '1',
+    id: 'a1',
     category: '头图类',
     max: 10,
     current: 0,
     list: [
       {
-        id: '1-1',
+        id: 'A-1',
         name: '头图样式1',
         max: 10,
         current: 0,
         preview: 'https://via.placeholder.com/400x200.png/3c9cff/fff',
       },
       {
-        id: '1-2',
+        id: 'A-2',
         name: '头图样式2',
         max: 10,
         current: 0,
@@ -29,20 +29,20 @@ export const seeds: ISeed[] = [
     ],
   },
   {
-    id: '2',
+    id: 'b2',
     category: '文本类',
     max: 10,
     current: 0,
     list: [
       {
-        id: '2-1',
+        id: 'B-1',
         name: '一排一',
         max: 10,
         current: 0,
         preview: 'https://via.placeholder.com/400x200.png/3c9cff/fff',
       },
       {
-        id: '2-2',
+        id: 'B-2',
         name: '一排二',
         max: 10,
         current: 0,
@@ -51,13 +51,13 @@ export const seeds: ISeed[] = [
     ],
   },
   {
-    id: '3',
+    id: 'c3',
     category: '图文类',
     max: 5,
     current: 0,
     list: [
       {
-        id: '3-1',
+        id: 'C-1',
         name: '单图',
         max: 10,
         current: 0,
@@ -66,14 +66,28 @@ export const seeds: ISeed[] = [
     ],
   },
   {
-    id: '4',
+    id: 'd4',
     category: '任务发奖组件',
     max: 1,
     current: 0,
     list: [
       {
-        id: '4-1',
-        name: '任务&直发',
+        id: 'D-1',
+        name: '任务&直发1',
+        max: 1,
+        current: 0,
+        preview: 'https://via.placeholder.com/400x200.png/3c9cff/fff',
+      },
+      {
+        id: 'D-2',
+        name: '任务&直发2',
+        max: 1,
+        current: 0,
+        preview: 'https://via.placeholder.com/400x200.png/3c9cff/fff',
+      },
+      {
+        id: 'D-3',
+        name: '任务&直发3',
         max: 1,
         current: 0,
         preview: 'https://via.placeholder.com/400x200.png/3c9cff/fff',
