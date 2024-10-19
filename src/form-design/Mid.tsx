@@ -26,7 +26,7 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
           return (
             <div
               className={clxs('content flex-1', {
-                'is-dragging-over': snapshot.isDraggingOver,
+                'bg-green-100': snapshot.isDraggingOver,
               })}
               ref={provided.innerRef}
               {...provided.droppableProps}
