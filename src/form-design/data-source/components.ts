@@ -1,8 +1,7 @@
 /**
  * 组件描述 demo
  */
-import type { IComponentMeta } from '../src'
-
+import type { IComponentMeta } from '../typing/index'
 //  meta.json
 // 页面布局组件
 export const pageLayout: IComponentMeta = {
@@ -22,7 +21,7 @@ export const pageLayout: IComponentMeta = {
       disallow: ['@kc/mk/carousel'],
       // 最多只能有一个组件
       max: 1,
-    }
+    },
   ],
   // title 和 description 为页面根节点组件的属性, 但被隐藏
   //  配置项描述中则不会有其配置描述
@@ -33,13 +32,13 @@ export const pageLayout: IComponentMeta = {
       title: '是否隐藏页脚',
       description: '开启后, 隐藏页脚',
       // 必填
-      required: true
+      required: true,
     },
   ],
   // 默认配置
   defaults: {
-    hideFooter: false
-  }
+    hideFooter: false,
+  },
 }
 
 // 单图组件
@@ -55,7 +54,7 @@ export const singleImage: IComponentMeta = {
       component: 'image',
       title: '图片地址',
       description: '图片宽高比为 16:9',
-      required: true
+      required: true,
     },
     {
       name: 'href',
@@ -63,7 +62,7 @@ export const singleImage: IComponentMeta = {
       component: 'link',
       title: '跳转链接',
       description: '点击图片跳转链接',
-      required: true
+      required: true,
     },
     {
       name: 'size',
@@ -71,12 +70,12 @@ export const singleImage: IComponentMeta = {
       title: '图片尺寸',
       description: '图片尺寸xxx',
       options: ['small', 'medium', 'large'],
-      required: false
-    }
+      required: false,
+    },
   ],
   defaults: {
     size: 'medium',
-  }
+  },
 }
 
 // 轮播图组件
@@ -121,19 +120,19 @@ export const carousel: IComponentMeta = {
               type: 'string',
               component: 'image',
               title: '图片地址',
-              required: true
+              required: true,
             },
             {
               name: 'href',
               type: 'string',
               component: 'link',
               title: '跳转链接',
-              required: true
-            }
-          ]
-        }
-      ]
-    }
+              required: true,
+            },
+          ],
+        },
+      ],
+    },
   ],
   // 默认配置
   defaults: {
@@ -146,10 +145,10 @@ export const carousel: IComponentMeta = {
       title: '垂直轮播',
       description: '垂直轮播描述',
       defaults: {
-        direction: 'vertical'
-      }
-    }
-  ]
+        direction: 'vertical',
+      },
+    },
+  ],
 }
 
 export const marketTask: IComponentMeta = {
@@ -165,8 +164,8 @@ export const marketTask: IComponentMeta = {
       _bind: true,
       // key 为组件属性名 , value 为业务场 context 中提供值的 keyPath
       taskStartAt: 'state.taskStartAt',
-      taskStatus: 'state.taskStatus'
-    }
+      taskStatus: 'state.taskStatus',
+    },
   },
   configurations: [
     {
@@ -179,7 +178,7 @@ export const marketTask: IComponentMeta = {
       // 参数分组
       group: '活动任务配置',
       max: 20,
-      required: true
+      required: true,
     },
     {
       name: 'description',
@@ -192,8 +191,8 @@ export const marketTask: IComponentMeta = {
       required: true,
       // 额外配置, 用于设置文本行数
       extra: {
-        lines: 5
-      }
+        lines: 5,
+      },
     },
     {
       name: 'taskCode',
@@ -203,7 +202,7 @@ export const marketTask: IComponentMeta = {
       // 自定义控件, 该控件有副作用, 需要更新业务场景属性
       description: '业务场景属性 需要使用的  taskCode',
       component: 'market-task-code',
-      required: true
+      required: true,
     },
     {
       name: 'taskItems',
@@ -222,11 +221,11 @@ export const marketTask: IComponentMeta = {
               name: 'title',
               type: 'string',
               title: '标题',
-              required: true
+              required: true,
             },
             // 更多属性不赘述
-          ]
-        }
+          ],
+        },
       ],
     },
     {
@@ -236,8 +235,8 @@ export const marketTask: IComponentMeta = {
       description: '奖池配置, 因与前端无关, 此处为配置的副作用',
       group: '奖品直发配置',
       component: 'market-task-pools',
-      required: true
-    }
+      required: true,
+    },
   ],
 }
 
@@ -256,7 +255,7 @@ export const marketHero: IComponentMeta = {
       title: '标题',
       description: '头图标题',
       max: 20,
-      required: true
+      required: true,
     },
     {
       name: 'description',
@@ -268,10 +267,10 @@ export const marketHero: IComponentMeta = {
       description: '头图描述',
       required: true,
       extra: {
-        lines: 8
-      }
-    }
-  ]
+        lines: 8,
+      },
+    },
+  ],
 }
 
 // 主题
@@ -288,12 +287,12 @@ export const xmasTheme: IComponentMeta = {
       options: ['left', 'right', 'top', 'bottom'],
       title: '圣诞老人位置',
       description: '主题背景色',
-      required: true
+      required: true,
     },
   ],
   defaults: {
-    santaPosition: 'right'
-  }
+    santaPosition: 'right',
+  },
 }
 
 // 业务场景组件
@@ -308,7 +307,7 @@ export const normalMarket: IComponentMeta = {
       type: 'string',
       title: '任务代码',
       description: '业务场景属性 需要使用的  taskCode',
-      required: true
-    }
-  ]
+      required: true,
+    },
+  ],
 }

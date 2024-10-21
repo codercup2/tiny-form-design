@@ -1,7 +1,7 @@
 /**
  * 组件索引列表 demo
  */
-import type { IComponentList } from '../src'
+import type { IComponentList } from '../typing/index'
 
 // 组件列表, 全量所有会被渲染的组件
 // 这几类组件不在组件列表中呈现: page-layout(页面布局), busi-scene(业务场景), theme(主题)
@@ -20,7 +20,7 @@ export const components: IComponentList = [
         allow: ['#hero', '@kc/mk/single-image', '@kc/mk/carousel'],
         // 最多只能有一个组件
         max: 1,
-      }
+      },
     ],
   },
   {
@@ -54,5 +54,5 @@ export const components: IComponentList = [
     title: '市场场景',
     description: '市场场景描述',
     category: 'busi-scene',
-  }
+  },
 ]

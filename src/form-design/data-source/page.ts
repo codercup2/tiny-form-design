@@ -1,4 +1,4 @@
-import type { IPage } from '../src'
+import type { IPage } from '../typing/index'
 // page.json
 // 页面 schema 示例
 export const someMarketPage: IPage = {
@@ -11,7 +11,7 @@ export const someMarketPage: IPage = {
     scene: '@kc/mk/scene-market',
     // 业务场景属性需要的业务属性配置
     sceneProps: {
-      taskCode: 'xxxx'
+      taskCode: 'xxxx',
     },
     // 页面主题
     theme: '@kc/mk/theme-xmas',
@@ -19,7 +19,7 @@ export const someMarketPage: IPage = {
     slots: ['hero', 'children'],
     // 页面组件自身属性配置
     props: {
-      // hero-2 
+      // hero-2
       title$: 'hero-2.title',
       description$$: 'hero-2.description',
       // 是否隐藏页脚, 仅作demo示例
@@ -51,7 +51,7 @@ export const someMarketPage: IPage = {
             src: 'https://xxx.com/xxx2.png',
             href: 'https://xxx2.com',
           },
-        ]
+        ],
       },
     },
     {
@@ -68,13 +68,13 @@ export const someMarketPage: IPage = {
           {
             title: 'xxxx',
             description: 'xxxx',
-            icon: 'https://xxx.com'
-          }
+            icon: 'https://xxx.com',
+          },
         ],
         // 奖池配置, 因与前端无关, 此处为配置的副作用
         taskPools: true,
-      }
-    }
+      },
+    },
   ],
   zones: {
     // 页面根节点下的头图插槽内容
@@ -86,7 +86,7 @@ export const someMarketPage: IPage = {
           title$: 'hero-2.title',
           description$html: 'hero-2.description',
         },
-      }
+      },
     ],
   },
   locales: {
