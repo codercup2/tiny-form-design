@@ -2,7 +2,8 @@ import clsx from 'clsx'
 import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 
-const Left: FC<{ items: ISeed[] }> = ({ items }) => {
+/** 两层结构的左侧物料区 */
+const TwoLevel: FC<{ items: ISeed[] }> = ({ items }) => {
   return (
     <div className='left flex-basis-200px flex-shrink-0'>
       <h3>页面组件</h3>
@@ -61,4 +62,4 @@ const Left: FC<{ items: ISeed[] }> = ({ items }) => {
     </div>
   )
 }
-export default Left
+export default TwoLevel

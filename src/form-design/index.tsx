@@ -1,8 +1,8 @@
 import { FC, useState } from 'react'
 import { Combine, DragDropContext, DropResult } from 'react-beautiful-dnd'
+import Left from './components/Left/TwoLevel'
+import Mid from './components/Mid'
 import { allItems, handledSeeds } from './initData'
-import Left from './Left'
-import Mid from './Mid'
 import { deepClone } from './utils'
 
 const Index: FC = () => {
