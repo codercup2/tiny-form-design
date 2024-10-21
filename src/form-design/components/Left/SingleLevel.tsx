@@ -33,13 +33,13 @@ const SingleLevel: FC<{ items: IComponentItemWithConsequenceId[] }> = ({
                         ref={provided.innerRef}
                       >
                         <div className='seed border-base border-rounded text-center leading-loose'>
-                          {item.id} {item.name}
+                          {item.id} {item.name} {item.title}
                         </div>
                       </div>
                       {/* 通过clone一个元素来解决拖拽时，物料元素不见了的问题 */}
                       {snapshot.isDragging && (
                         <div className='seed border-base border-rounded text-center leading-loose'>
-                          {item.name}
+                          {item.name} {item.title}
                         </div>
                       )}
                     </>

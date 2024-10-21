@@ -1,11 +1,12 @@
 import clsx from 'clsx'
 import { Dispatch, FC, SetStateAction } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { IComponentItemWithConsequenceId } from '../../typing/component-meta'
 import DropZone from './DropZone'
 
 type Props = {
-  formItems: IItem[]
-  setFormItems: Dispatch<SetStateAction<IItem[]>>
+  formItems: IComponentItemWithConsequenceId[]
+  setFormItems: Dispatch<SetStateAction<IComponentItemWithConsequenceId[]>>
   currId: string
   setCurrId: (id: string) => void
 }
@@ -57,14 +58,14 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
                           ref={provided.innerRef}
                           onClick={() => setCurrId(item.id)}
                         >
-                          {item.id} - {item.name}
-                          <div>有slot吗？{item.slot ? 'Y' : 'N'}</div>
-                          {!!item.slot && (
+                          {item.id} - {item.name} - {item.title}
+                          <div>有slot吗？{item.slots ? 'Y' : 'N'}</div>
+                          {!!item.slots && (
                             <div className='flex'>
                               <DropZone
                                 id={item.id}
                                 setCurrId={setCurrId}
-                                data={item.slot.default}
+                                data={item.slots.children}
                                 setData={(data) => {
                                   console.log(data)
                                 }}

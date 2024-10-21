@@ -13,7 +13,7 @@ const DropZone: FC<Props<any>> = ({
   children,
   id,
   setCurrId,
-  data,
+  data = [],
   setData,
 }) => {
   const deleteItem = (index: number) => {
@@ -58,7 +58,7 @@ const DropZone: FC<Props<any>> = ({
                         onClick={() => setCurrId(item.id)}
                       >
                         {children}
-                        {item.id} - {item.name}
+                        {item.id} - {item.name} - {item.title}
                         {/* 右上角的关闭按钮，不需要二次确认 */}
                         <div
                           onClick={() => {

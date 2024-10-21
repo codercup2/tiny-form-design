@@ -3,11 +3,13 @@ import { Combine, DragDropContext, DropResult } from 'react-beautiful-dnd'
 import Left from './components/Left/SingleLevel'
 import Mid from './components/Mid'
 import { handledComponents } from './data-source/component-list'
-import { allItems } from './initData'
+import { IComponentItemWithConsequenceId } from './typing/component-meta'
 import { deepClone } from './utils'
 
 const Index: FC = () => {
-  const [formItems, setFormItems] = useState<IItem[]>([])
+  const [formItems, setFormItems] = useState<IComponentItemWithConsequenceId[]>(
+    []
+  )
   const [currId, setCurrId] = useState<string>('')
   const onDragEnd = (result: DropResult) => {
     console.log('result: ', result)
@@ -32,7 +34,7 @@ const Index: FC = () => {
         return
       }
       console.log(target)
-      const item = allItems.find((item) => item.id === draggableId)
+      const item = handledComponents.find((item) => item.id === draggableId)
       if (!item) {
         console.error('数据匹配不上，不可能出现')
         return
@@ -41,8 +43,20 @@ const Index: FC = () => {
       const uuid = String(Date.now())
       const newId = `${draggableId}_${uuid}`
       newItem.id = newId
-      target!.slot!.default.push(newItem)
-      setFormItems(newList)
+      if (target.slots && Array.isArray(target.slots) && target.slots.length) {
+        // slots里面有 children + 其他
+        const children = target.slots.find((o) => o === 'children')
+        if (!children) {
+          return
+        }
+        // TODO check 后面的逻辑怎么处理：children + 其他slot
+        // 这里先直接放进去
+        if (!target.slots.children) {
+          target.slots.children = []
+        }
+        target.slots.children.push(newItem)
+        setFormItems(newList)
+      }
       return
     }
     // 同列内部拖动 且是 中间区域内部拖动
@@ -62,7 +76,8 @@ const Index: FC = () => {
       source.droppableId === 'left' &&
       destination?.droppableId === 'content'
     ) {
-      const item = allItems.find((item) => item.id === draggableId)
+      const item = handledComponents.find((item) => item.id === draggableId)
+      console.log('new Item:', item)
       if (!item) {
         console.error('数据匹配不上，不可能出现')
         return
