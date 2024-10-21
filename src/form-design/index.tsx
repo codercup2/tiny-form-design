@@ -1,8 +1,9 @@
 import { FC, useState } from 'react'
 import { Combine, DragDropContext, DropResult } from 'react-beautiful-dnd'
-import Left from './components/Left/TwoLevel'
+import Left from './components/Left/SingleLevel'
 import Mid from './components/Mid'
-import { allItems, handledSeeds } from './initData'
+import { handledComponents } from './data-source/component-list'
+import { allItems } from './initData'
 import { deepClone } from './utils'
 
 const Index: FC = () => {
@@ -81,7 +82,7 @@ const Index: FC = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className='form-design flex gap-4 p-4 h-full box-border'>
-        <Left items={handledSeeds} />
+        <Left items={handledComponents} />
         <Mid
           formItems={formItems}
           setFormItems={setFormItems}

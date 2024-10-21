@@ -1,11 +1,14 @@
 /**
  * 组件索引列表 demo
  */
-import type { IComponentList } from '../typing/index'
+import type {
+  IComponentItem,
+  IComponentItemWithConsequenceId,
+} from '../typing/index'
 
 // 组件列表, 全量所有会被渲染的组件
 // 这几类组件不在组件列表中呈现: page-layout(页面布局), busi-scene(业务场景), theme(主题)
-export const components: IComponentList = [
+export const components: IComponentItem[] = [
   {
     name: '@kc/mk/market-page',
     title: '活动页默认布局',
@@ -56,3 +59,16 @@ export const components: IComponentList = [
     category: 'busi-scene',
   },
 ]
+
+// 处理gragdableId的连续性
+let idCount = 100
+/** 已经处理后的seed数据 */
+export const handledComponents = ((
+  list: IComponentItem[]
+): IComponentItemWithConsequenceId[] => {
+  return list.map((item) => ({
+    ...item,
+    id: `G${idCount++}`,
+  }))
+})(components)
+console.log(handledComponents)

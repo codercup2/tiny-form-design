@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { IComponentItemWithConsequenceId } from '../../typing/component-meta'
 import SingleLevel from './SingleLevel'
 import TwoLevel from './TwoLevel'
 
@@ -9,7 +10,7 @@ const isICategoryItemArray = (items: any[]): items is ICategoryItem[] => {
 const isISeedArray = (items: any[]): items is ISeed[] => {
   return items.length > 0 && 'list' in items[0]
 }
-const Left: FC<{ items: ISeed[] | ICategoryItem[] }> = ({ items }) => {
+const Left: FC<{ items: IComponentItemWithConsequenceId[] }> = ({ items }) => {
   if (isICategoryItemArray(items)) {
     return <SingleLevel items={items} />
   } else if (isISeedArray(items)) {

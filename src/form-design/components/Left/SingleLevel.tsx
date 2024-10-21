@@ -1,13 +1,15 @@
 import clsx from 'clsx'
 import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { IComponentItemWithConsequenceId } from '../../typing/component-meta'
 
 /** 单层结构的左侧物料区 */
-const SingleLevel: FC<{ items: ICategoryItem[] }> = ({ items }) => {
+const SingleLevel: FC<{ items: IComponentItemWithConsequenceId[] }> = ({
+  items,
+}) => {
   return (
     <div className='left flex-basis-200px flex-shrink-0'>
       <h3>页面组件</h3>
-      <div className=''>{JSON.stringify(items)}</div>
       <Droppable droppableId={'left'}>
         {(provided, snapshot) => {
           return (
