@@ -60,6 +60,11 @@ const Mid: FC<Props> = ({ formItems, setCurrId, currId, setFormItems }) => {
                         >
                           {item.id} - {item.name} - {item.title}
                           <div>有slot吗？{item.slots ? 'Y' : 'N'}</div>
+                          {/* <PageLayout
+                            hideFooter={false}
+                            hero={<DropZone compoent={xxx}  />}
+                            children={<DropZone xxx />}
+                          /> */}
                           {!!item.slots && (
                             <div className='flex'>
                               <DropZone
