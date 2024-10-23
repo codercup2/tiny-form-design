@@ -9,8 +9,8 @@ const SingleLevel: FC<{ items: IComponentItemWithConsequenceId[] }> = ({
 }) => {
   return (
     <div className='left flex-basis-200px flex-shrink-0'>
-      <h3>页面组件</h3>
-      <Droppable droppableId={'left'}>
+      <h3>页面组件Single</h3>
+      <Droppable droppableId={'left'} isDropDisabled={true}>
         {(provided, snapshot) => {
           return (
             <div

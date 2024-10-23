@@ -8,7 +8,7 @@ const TwoLevel: FC<{ items: ISeed[] }> = ({ items }) => {
     <div className='left flex-basis-200px flex-shrink-0'>
       <h3>页面组件</h3>
       <div className=''>{JSON.stringify(items)}</div>
-      <Droppable droppableId={'left'}>
+      <Droppable droppableId={'left'} isDropDisabled={true}>
         {(provided, snapshot) => {
           return (
             <div
