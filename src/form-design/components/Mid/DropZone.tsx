@@ -34,7 +34,9 @@ const DropZone: FC<Props<any>> = ({
             {...provided.droppableProps}
           >
             <div>
-              {JSON.stringify(snapshot)}
+              <div className='break-all'>
+                Droppable snapshot:{JSON.stringify(snapshot)}
+              </div>
               {data.map((item, index) => {
                 return (
                   <Draggable
@@ -57,6 +59,9 @@ const DropZone: FC<Props<any>> = ({
                         ref={provided.innerRef}
                         onClick={() => setCurrId(item.id)}
                       >
+                        <div className='break-all'>
+                          Draggable snapshot:{JSON.stringify(snapshot)}
+                        </div>
                         {children}
                         {item.id} - {item.name} - {item.title}
                         {/* 右上角的关闭按钮，不需要二次确认 */}
