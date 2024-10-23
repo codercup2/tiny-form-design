@@ -1,5 +1,10 @@
 import { FC, useState } from 'react'
-import { Combine, DragDropContext, DropResult } from 'react-beautiful-dnd'
+import {
+  Combine,
+  DragDropContext,
+  DragUpdate,
+  DropResult,
+} from 'react-beautiful-dnd'
 import Left from './components/Left/SingleLevel'
 import Mid from './components/Mid'
 import { handledComponents } from './data-source/component-list'
@@ -11,13 +16,23 @@ const Index: FC = () => {
     []
   )
   const [currId, setCurrId] = useState<string>('')
+
+  const onDragUpdate = (result: DragUpdate) => {
+    console.log('onDragUpdate result: ', result)
+    // const { source, destination, draggableId, ...rest } = result
+    // console.log('onDragUpdate draggableId: ', draggableId)
+    // console.log('onDragUpdate source: ', source)
+    // console.log('onDragUpdate destination: ', destination)
+    // console.log('onDragUpdate rest: ', rest)
+    // console.log('\n ')
+  }
   const onDragEnd = (result: DropResult) => {
-    console.log('result: ', result)
+    console.log('onDragEnd result: ', result)
     const { source, destination, draggableId, ...rest } = result
-    console.log('draggableId: ', draggableId)
-    console.log('source: ', source)
-    console.log('destination: ', destination)
-    console.log('rest: ', rest)
+    console.log('onDragEnd draggableId: ', draggableId)
+    console.log('onDragEnd source: ', source)
+    console.log('onDragEnd destination: ', destination)
+    console.log('onDragEnd rest: ', rest)
     console.log('\n ')
 
     // 组合的是的处理
@@ -33,7 +48,7 @@ const Index: FC = () => {
       if (!target) {
         return
       }
-      console.log(target)
+      console.log('onDragEnd target: ', target)
       const item = handledComponents.find((item) => item.id === draggableId)
       if (!item) {
         console.error('数据匹配不上，不可能出现')
@@ -77,7 +92,7 @@ const Index: FC = () => {
       destination?.droppableId === 'content'
     ) {
       const item = handledComponents.find((item) => item.id === draggableId)
-      console.log('new Item:', item)
+      console.log('onDragEnd new Item:', item)
       if (!item) {
         console.error('数据匹配不上，不可能出现')
         return
@@ -95,7 +110,7 @@ const Index: FC = () => {
     }
   }
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <div className='form-design flex gap-4 p-4 h-full box-border'>
         <Left items={handledComponents} />
         <Mid
