@@ -1,0 +1,22 @@
+{
+  "name": "@kc/lego-mk-ui/PlHeroTop",
+  "title": "默认页面布局组件",
+  "category": "page-layout",
+  "configurations": [],
+  "slots": [
+    {
+      "name": "hero",
+      "title": "头图插槽",
+      "max": 1,
+      "allow": [
+        "#hero"
+      ]
+    },
+    {
+      "name": "children",
+      "disallow": [
+        "#hero"
+      ]
+    }
+  ]
+}

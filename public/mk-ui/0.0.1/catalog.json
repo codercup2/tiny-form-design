@@ -1,0 +1,48 @@
+{
+  "name": "@kc/lego-mk-ui",
+  "version": "0.0.1",
+  "format": "system",
+  "entry": "index.system.js",
+  "style": "style.css",
+  "categories": [
+    {
+      "name": "hero",
+      "title": "头图组件"
+    },
+    {
+      "name": "image-text",
+      "title": "头图组件"
+    },
+    {
+      "name": "lottery-task",
+      "title": "发奖任务"
+    },
+    {
+      "name": "page-layout",
+      "title": "页面布局"
+    }
+  ],
+  "components": [
+    {
+      "name": "@kc/lego-mk-ui/HeroV1",
+      "title": "HeroV1 component",
+      "category": "hero",
+      "meta": "components/hero-v1/meta.json",
+      "thumbnail": "components/hero-v1/descriptive-res/thumbnails/index.png"
+    },
+    {
+      "name": "@kc/lego-mk-ui/CalendarV1",
+      "title": "CalendarV1 component",
+      "category": "image-text",
+      "meta": "components/calendar-v1/meta.json",
+      "thumbnail": "components/calendar-v1/descriptive-res/thumbnails/index.png"
+    },
+    {
+      "name": "@kc/lego-mk-ui/PlHeroTop",
+      "title": "默认页面布局组件",
+      "category": "page-layout",
+      "meta": "components/pl-hero-top/meta.json",
+      "thumbnail": "components/pl-hero-top/descriptive-res/thumbnails/index.png"
+    }
+  ]
+}

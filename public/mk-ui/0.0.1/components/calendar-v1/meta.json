@@ -1,0 +1,27 @@
+{
+  "name": "@kc/lego-mk-ui/CalendarV1",
+  "title": "CalendarV1 component",
+  "category": "image-text",
+  "configurations": [
+    {
+      "required": true,
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "required": true,
+      "name": "subtitle",
+      "type": "string"
+    },
+    {
+      "required": true,
+      "name": "title",
+      "type": "string"
+    },
+    {
+      "required": true,
+      "name": "content",
+      "type": "string"
+    }
+  ]
+}
