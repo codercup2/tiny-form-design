@@ -18,7 +18,7 @@ const DropZone: FC<Props> = ({ id, state, setState, slotName }) => {
         return (
           <div
             className={clsx('content flex-1 bg-red-100', {
-              'bg-red': snapshot.isDraggingOver,
+              '!bg-red': snapshot.isDraggingOver,
               'h-20': comps.length === 0,
             })}
             ref={provided.innerRef}
