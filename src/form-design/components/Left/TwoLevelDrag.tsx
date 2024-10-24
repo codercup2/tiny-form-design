@@ -1,12 +1,16 @@
 import clsx from 'clsx'
 import { Draggable } from 'react-beautiful-dnd'
 import { IComponentItemWithConsequenceId } from '../../data-source/helper'
+import { PREFIX } from '../../data-source/init'
 
 /** 方便CloneItem时一起使用 */
 const RenderItem = ({ item }: { item: IComponentItemWithConsequenceId }) => {
+  const { id, name, title, thumbnail } = item
+
   return (
     <div className='seed border-base border-rounded text-center leading-loose'>
-      {item.id} {item.name} {item.title}
+      <img src={PREFIX + thumbnail} alt='Thumbnail' width={'100%'} />
+      {id} {name} {title}
     </div>
   )
 }

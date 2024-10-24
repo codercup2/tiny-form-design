@@ -16,6 +16,9 @@ System.set('app:react', { ...React, __useDefault: true })
 System.set('app:react-dom', { ...ReactDom, __useDefault: true })
 System.set('app:react-runtime', { ...ReactRuntime, __useDefault: true })
 
+// 加载组件库
+export const VERSION = '0.0.1'
+export const PREFIX = `/mk-ui/${VERSION}/`
 export const getInfo = async (filePath: string) => {
   try {
     const info = await System.import(`/mk-ui/${VERSION}/${filePath}`)
@@ -36,7 +39,7 @@ const getMeta = async () => {
   }
 }
 
-const fetchThumbnail = async (url: string) => {
+export const fetchThumbnail = async (url: string) => {
   try {
     const response = await fetch(url)
     if (!response.ok) {
@@ -53,11 +56,12 @@ const fetchThumbnail = async (url: string) => {
 
 const fetchComponentData = async (component: any) => {
   const meta = await getInfo(component.meta)
-  const thumbnail = await fetchThumbnail(component.thumbnail)
+  // fetchThumbnail还是先不处理好，等到左侧列表需要展示的时候再来获取
+  // const thumbnail = await fetchThumbnail(component.thumbnail)
   return {
     ...component,
     meta: meta.default,
-    thumbnail,
+    // thumbnail,
   }
 }
 
@@ -113,8 +117,6 @@ export function parseComponentName(libName: string, componentName: string) {
   }
 }
 
-// 加载组件库
-export const VERSION = '0.0.1'
 export const importComponent = async (id: string) => {
   try {
     const lib = await System.import(`/mk-ui/${VERSION}/index.system.js`)
