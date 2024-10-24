@@ -19,9 +19,10 @@ const DropZone: FC<Props> = ({ id, state, setState, slotName }) => {
       {(provided, snapshot) => {
         return (
           <div
-            className={clsx('content flex-1 bg-red-100', {
+            className={clsx('content flex-1 bg-green-100', {
               '!bg-red': snapshot.isDraggingOver,
               'h-40': comps.length === 0,
+              // 这里需要判断拖拽的元素是否允许拖入到此区域，根据allow or disallow
             })}
             ref={provided.innerRef}
             {...provided.droppableProps}

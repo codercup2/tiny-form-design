@@ -12,8 +12,8 @@ export function getPageLayoutMeta() {
     root: {
       id: rootId,
       // type: '@kc/mk/market-page',
-      // type: '@kc/lego-mk-ui/PlHeroTop',
-      type: '@kc/lego-mk-ui/HeroV1', // 一样报错
+      type: '@kc/lego-mk-ui/PlHeroTop',
+      // type: '@kc/lego-mk-ui/HeroV1', // 一样报错
       // 页面使用的业务场景, 对应组件类型为 busi-scene 的组件名
       scene: '@kc/mk/scene-market',
     },
@@ -22,7 +22,10 @@ export function getPageLayoutMeta() {
   }
   // 处理props
   state.root.props = pageLayout.defaults
-
+  // 通过 @kc/lego-mk-ui/PlHeroTop 拿到其他元信息
+  // 已经在 allComps 里面有，直接查找就行
+  // const allComps = getAllComponents() // TODO 异步数据获取
+  // const item = allComps.find((item) => item.name === '@kc/lego-mk-ui/PlHeroTop')
   if (typeof pageLayout.slots === 'undefined') {
     state.root.slots = []
   } else if (typeof pageLayout.slots === 'boolean') {
