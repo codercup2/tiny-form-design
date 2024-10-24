@@ -54,6 +54,14 @@ export interface INode {
    */
   id: string
   /**
+   * 缩略图路径
+   */
+  thumbnail?: string
+  /**
+   * 组件中文名
+   */
+  title?: string
+  /**
    * 组件名, Page, Carousel, List, LotteryBox, ...
    * - @kc/ui/button
    */

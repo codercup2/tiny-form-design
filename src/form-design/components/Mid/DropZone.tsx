@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { Dispatch, FC, SetStateAction } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { PREFIX } from '../../data-source/init'
 import { IPage } from '../../typing/app-schema'
 
 type Props = {
@@ -20,7 +21,7 @@ const DropZone: FC<Props> = ({ id, state, setState, slotName }) => {
           <div
             className={clsx('content flex-1 bg-red-100', {
               '!bg-red': snapshot.isDraggingOver,
-              'h-20': comps.length === 0,
+              'h-40': comps.length === 0,
             })}
             ref={provided.innerRef}
             {...provided.droppableProps}
@@ -30,6 +31,7 @@ const DropZone: FC<Props> = ({ id, state, setState, slotName }) => {
                 Droppable snapshot:{JSON.stringify(snapshot)}
               </div>
               {comps.map((item, index) => {
+                console.log(console.log(item))
                 return (
                   <Draggable
                     // 这里 id是唯一的，`原本的Id_${Date.now()}` 的形式
@@ -50,9 +52,11 @@ const DropZone: FC<Props> = ({ id, state, setState, slotName }) => {
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                       >
-                        <div className='break-all'>
-                          Draggable snapshot:{JSON.stringify(item)}
-                        </div>
+                        <img
+                          src={PREFIX + item.thumbnail}
+                          alt='Thumbnail'
+                          width={'100%'}
+                        />
                         {item.id} - {item.title}
                       </div>
                     )}
