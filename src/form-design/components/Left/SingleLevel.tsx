@@ -20,16 +20,16 @@ const SingleLevel: FC<{ items: IComponentItemWithConsequenceId[] }> = ({
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              <div className='break-all'>
+              {/* <div className='break-all'>
                 Droppable snapshot:{JSON.stringify(snapshot)}
-              </div>
+              </div> */}
               {items.map((item, index) => (
                 <Draggable index={index} draggableId={item.id} key={item.id}>
                   {(provided, snapshot) => (
                     <>
-                      <div className='break-all'>
+                      {/* <div className='break-all'>
                         Draggable snapshot:{JSON.stringify(snapshot)}
-                      </div>
+                      </div> */}
                       <div
                         className={clsx('', {
                           '!translate-x-0 !translate-y-0': !snapshot.isDragging,
