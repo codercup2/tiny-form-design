@@ -24,6 +24,7 @@ export type IComponentItem = {
 
 export type IComponentItemWithConsequenceId = IComponentItem & {
   id: string
+  sort: number
 }
 
 // 处理gragdableId的连续性
@@ -40,9 +41,11 @@ export const handleComponentsSingleLevel = async (): Promise<
     components: IComponentItem[]
     categories: ICategoryItem[]
   }
+  const sort = idCount++
   return components.map((item: IComponentItem) => ({
     ...item,
-    id: `G${idCount++}`,
+    id: `G${sort}`,
+    sort,
   }))
 }
 
@@ -70,9 +73,11 @@ export const handleComponents = async (): Promise<ICategoryComponentItem[]> => {
     if (!groupedComponents[categoryName]) {
       groupedComponents[categoryName] = []
     }
+    const sort = idCount++
     groupedComponents[categoryName].push({
       ...component,
-      id: `G${idCount++}`,
+      id: `G${sort}`,
+      sort,
     })
   })
 

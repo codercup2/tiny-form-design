@@ -1,19 +1,8 @@
 import clsx from 'clsx'
 import { FC } from 'react'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
-import {
-  ICategoryComponentItem,
-  IComponentItemWithConsequenceId,
-} from '../../data-source/helper'
-
-/** 方便CloneItem时一起使用 */
-const RenderItem = ({ item }: { item: IComponentItemWithConsequenceId }) => {
-  return (
-    <div className='seed border-base border-rounded text-center leading-loose'>
-      {item.id} {item.name} {item.title}
-    </div>
-  )
-}
+import { Droppable } from 'react-beautiful-dnd'
+import { ICategoryComponentItem } from '../../data-source/helper'
+import TwoLevelDrag from './TwoLevelDrag'
 
 /** 两层结构的左侧物料区 */
 const TwoLevel: FC<{ items: ICategoryComponentItem[] }> = ({ items }) => {
@@ -34,31 +23,7 @@ const TwoLevel: FC<{ items: ICategoryComponentItem[] }> = ({ items }) => {
               {items.map((item) => (
                 <div key={item.name}>
                   <h4>{item.title}</h4>
-                  {item.list.map((item, index) => (
-                    <Draggable
-                      index={index}
-                      draggableId={item.id}
-                      key={item.id}
-                    >
-                      {(provided, snapshot) => (
-                        <>
-                          <div
-                            className={clsx('', {
-                              '!translate-x-0 !translate-y-0':
-                                !snapshot.isDragging,
-                            })}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            ref={provided.innerRef}
-                          >
-                            <RenderItem item={item} />
-                          </div>
-                          {/* 通过clone一个元素来解决拖拽时，物料元素不见了的问题 */}
-                          {snapshot.isDragging && <RenderItem item={item} />}
-                        </>
-                      )}
-                    </Draggable>
-                  ))}
+                  <TwoLevelDrag list={item.list} />
                 </div>
               ))}
               {provided.placeholder}
