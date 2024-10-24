@@ -50,9 +50,9 @@ const DropZone: FC<Props> = ({ id, state, setState, slotName }) => {
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                       >
-                        {/* <div className='break-all'>
-                          Draggable snapshot:{JSON.stringify(snapshot)}
-                        </div> */}
+                        <div className='break-all'>
+                          Draggable snapshot:{JSON.stringify(item)}
+                        </div>
                         {item.id} - {item.title}
                       </div>
                     )}

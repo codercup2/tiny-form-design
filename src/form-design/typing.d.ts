@@ -19,3 +19,5 @@ type ISeed = {
 type IItem = {
   uuid: string
 } & ICategoryItem
+
+declare const System: any

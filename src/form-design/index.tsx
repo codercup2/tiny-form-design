@@ -8,6 +8,7 @@ import {
 import Left from './components/Left/SingleLevel'
 import Mid from './components/Mid'
 import { handledComponents } from './data-source/component-list'
+import './init'
 import { IPage } from './typing/app-schema'
 import { deepClone, getPageLayoutMeta } from './utils'
 

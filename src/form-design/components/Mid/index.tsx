@@ -11,6 +11,9 @@ type Props = {
 /** 表单内容 */
 const Mid: FC<Props> = ({ state, setState }) => {
   const rootId = state.root.id
+  const Comp =
+    state.root.type === '@kc/mk/market-page' ? PageLayout : PageLayout // 默认为页面布局
+  const { slots } = state.root.slots
   return (
     <div className='mid border-left border-right flex-1 px-4 flex flex-col'>
       <div className='text-center relative'>
