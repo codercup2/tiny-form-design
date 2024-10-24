@@ -12,7 +12,8 @@ export function getPageLayoutMeta() {
     root: {
       id: rootId,
       // type: '@kc/mk/market-page',
-      type: '@kc/lego-mk-ui/PlHeroTop',
+      // type: '@kc/lego-mk-ui/PlHeroTop',
+      type: '@kc/lego-mk-ui/HeroV1', // 一样报错
       // 页面使用的业务场景, 对应组件类型为 busi-scene 的组件名
       scene: '@kc/mk/scene-market',
     },

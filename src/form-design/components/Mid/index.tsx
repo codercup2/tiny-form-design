@@ -18,38 +18,34 @@ const Mid: FC<Props> = ({ state, setState }) => {
   useEffect(() => {
     importComponent(state.root.type).then((FC) => {
       console.log(FC)
-      setComp(FC)
+      // setComp(FC)
     })
   }, [state.root.type])
 
-  if (!Comp) {
-    return null
-  }
-
-  return (
-    <div className='mid border-left border-right flex-1 px-4 flex flex-col'>
-      <div className='text-center relative'>
-        <h3>Payout</h3>
-      </div>
-
-      <PageLayout
-        hero={
+  const RenderComp = () => {
+    if (!Comp) {
+      return (
+        <PageLayout
+          hero={
+            <DropZone
+              id={rootId}
+              state={state}
+              setState={setState}
+              slotName='hero'
+            />
+          }
+          hideFooter={state.root.props?.hideFooter}
+        >
           <DropZone
             id={rootId}
             state={state}
             setState={setState}
-            slotName='hero'
+            slotName='children'
           />
-        }
-        hideFooter={state.root.props?.hideFooter}
-      >
-        <DropZone
-          id={rootId}
-          state={state}
-          setState={setState}
-          slotName='children'
-        />
-      </PageLayout>
+        </PageLayout>
+      )
+    }
+    return (
       <Comp
         title='XXX'
         destination='YYY'
@@ -70,6 +66,16 @@ const Mid: FC<Props> = ({ state, setState }) => {
           slotName='children'
         />
       </Comp>
+    )
+  }
+
+  return (
+    <div className='mid border-left border-right flex-1 px-4 flex flex-col'>
+      <div className='text-center relative'>
+        <h3>Payout</h3>
+      </div>
+
+      <RenderComp />
     </div>
   )
 }
