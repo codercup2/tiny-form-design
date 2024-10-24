@@ -94,18 +94,13 @@ export const getMetaInfo = async (): Promise<{
 
 const COMPONENT_REG = /([^.]+)(?:\.([^~]+))(?:~(.+))?$/
 
-export function parseComponentName(libName: string, componentName: string) {
-  const prefix = libName + '/'
-  if (!componentName.startsWith(prefix)) {
-    throw new Error(
-      `Invalid component name: ${componentName} does not start with ${prefix}`
-    )
-  }
-  const nonPrefixed = componentName.replace(prefix, '')
-  const match = COMPONENT_REG.exec(nonPrefixed)
+export function parseComponentName(componentName: string) {
+  const [compName] = componentName.split('/').reverse()
+  const match = COMPONENT_REG.exec(compName)
+  console.log('parseComponentName:', compName, match)
   if (!match) {
     return {
-      name: nonPrefixed,
+      name: compName,
       associated: '',
       variant: '',
     }
@@ -117,11 +112,14 @@ export function parseComponentName(libName: string, componentName: string) {
   }
 }
 
-export const importComponent = async (id: string) => {
+export const importComponent = async (componentName: string) => {
   try {
     const lib = await System.import(`/mk-ui/${VERSION}/index.system.js`)
-    console.log(lib)
+    console.log('lib', lib)
+    const { name, associated, variant } = parseComponentName(componentName)
+    console.log('name', name)
+    return lib[name]
   } catch (error) {
-    console.error(`Failed to import component ${id}:`, error)
+    console.error(`Failed to import component ${componentName}:`, error)
   }
 }

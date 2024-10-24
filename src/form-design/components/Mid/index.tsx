@@ -1,4 +1,5 @@
-import { Dispatch, FC, SetStateAction } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
+import { importComponent } from '../../data-source/init'
 import { IPage } from '../../typing/app-schema'
 import DropZone from './DropZone'
 import PageLayout from './PageLayout'
@@ -8,12 +9,20 @@ type Props = {
   setState: Dispatch<SetStateAction<IPage>>
 }
 
-/** 表单内容 */
+/** 中间内容 */
 const Mid: FC<Props> = ({ state, setState }) => {
   const rootId = state.root.id
-  const Comp =
-    state.root.type === '@kc/mk/market-page' ? PageLayout : PageLayout // 默认为页面布局
-  const { slots } = state.root.slots
+  const [Comp, setComp] = useState(null)
+
+  // const { slots } = state.root.slots
+  useEffect(() => {
+    importComponent(state.root.type).then(setComp)
+  }, [state.root.type])
+
+  if (!Comp) {
+    return null
+  }
+
   return (
     <div className='mid border-left border-right flex-1 px-4 flex flex-col'>
       <div className='text-center relative'>
@@ -21,6 +30,8 @@ const Mid: FC<Props> = ({ state, setState }) => {
       </div>
 
       <PageLayout
+        title='XXX'
+        destination='YYY'
         hero={
           <DropZone
             id={rootId}

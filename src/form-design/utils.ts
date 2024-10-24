@@ -11,7 +11,8 @@ export function getPageLayoutMeta() {
   const state: IPage = {
     root: {
       id: rootId,
-      type: '@kc/mk/market-page',
+      // type: '@kc/mk/market-page',
+      type: '@kc/lego-mk-ui/PlHeroTop',
       // 页面使用的业务场景, 对应组件类型为 busi-scene 的组件名
       scene: '@kc/mk/scene-market',
     },

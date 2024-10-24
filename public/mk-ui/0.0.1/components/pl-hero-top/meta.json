@@ -8,15 +8,11 @@
       "name": "hero",
       "title": "头图插槽",
       "max": 1,
-      "allow": [
-        "#hero"
-      ]
+      "allow": ["#hero"]
     },
     {
       "name": "children",
-      "disallow": [
-        "#hero"
-      ]
+      "disallow": ["#hero"]
     }
   ]
 }
