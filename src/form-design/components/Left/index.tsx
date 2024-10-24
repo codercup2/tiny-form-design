@@ -20,10 +20,10 @@ const Left: FC<{
   console.log('left items:', items)
 
   if (isSingleLevel(items as IComponentItemWithConsequenceId[])) {
-    console.log('isSingleLevel')
+    // console.log('isSingleLevel')
     return <SingleLevel items={items as IComponentItemWithConsequenceId[]} />
   } else if (isMultipleLevel(items as ICategoryComponentItem[])) {
-    console.log('isMultipleLevel')
+    // console.log('isMultipleLevel')
     return <TwoLevel items={items as ICategoryComponentItem[]} />
   } else {
     // 处理未知类型的情况

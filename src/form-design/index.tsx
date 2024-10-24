@@ -11,21 +11,34 @@ import {
   getAllComponents,
   handleComponents,
   ICategoryComponentItem,
+  IComponentItemWithConsequenceId,
 } from './data-source/helper'
 import './data-source/init'
+import { handleInitState, initState } from './data-source/page'
 import { IPage } from './typing/app-schema'
-import { deepClone, getPageLayoutMeta } from './utils'
+import { deepClone } from './utils'
 
 const Index: FC = () => {
+  const [leftComps, setLeftComps] = useState<ICategoryComponentItem[]>([])
+  const [flatComps, setFlatComps] = useState<IComponentItemWithConsequenceId[]>(
+    []
+  )
+  useEffect(() => {
+    handleComponents().then((comps) => {
+      console.log('leftComps', comps)
+      setLeftComps(comps)
+      const flatComps = getAllComponents(comps)
+      console.log('flatComps', flatComps)
+      setFlatComps(flatComps)
+      const state = handleInitState(flatComps)
+      setState(state)
+    })
+  }, [])
   // 所有的数据都在这里
-  const [state, setState] = useState<IPage>(getPageLayoutMeta())
+  const [state, setState] = useState<IPage>(initState)
   useEffect(() => {
     console.log('state changed:', state)
   }, [state])
-  const [components, setComponents] = useState<ICategoryComponentItem[]>([])
-  useEffect(() => {
-    handleComponents().then(setComponents)
-  }, [])
 
   const onDragUpdate = (result: DragUpdate) => {
     // console.log('onDragUpdate result: ', result)
@@ -52,8 +65,7 @@ const Index: FC = () => {
       destination?.droppableId !== 'left'
     ) {
       console.log('1、左边拖到中间区域，新增组件')
-      const allComponents = getAllComponents(components)
-      const item = allComponents.find((item) => item.id === draggableId)
+      const item = flatComps.find((item) => item.id === draggableId)
       if (!item) {
         console.error('数据匹配不上，不可能出现')
         return
@@ -117,7 +129,7 @@ const Index: FC = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <div className='form-design flex gap-4 p-4 h-full box-border'>
-        <Left items={components} />
+        <Left items={leftComps} />
         <Mid state={state} setState={setState} />
         {/* <Right
           formItems={formItems}

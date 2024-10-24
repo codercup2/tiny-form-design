@@ -23,7 +23,7 @@ const Mid: FC<Props> = ({ state, setState }) => {
   // const { slots } = state.root.slots
   useEffect(() => {
     importComponent(state.root.type).then((FC) => {
-      console.log(FC)
+      // console.log(FC)
       setComp(() => FC)
     })
   }, [state.root.type])

@@ -10,7 +10,11 @@ const RenderItem = ({ item }: { item: IComponentItemWithConsequenceId }) => {
   return (
     <div className='seed border-rounded text-center leading-loose'>
       <img src={PREFIX + thumbnail} alt='Thumbnail' width={'100%'} />
-      {/* {id} {name} {title} */}
+      <div>
+        <div>id:{id}</div>
+        <div>name:{name}</div>
+        <div>title:{title}</div>
+      </div>
     </div>
   )
 }
