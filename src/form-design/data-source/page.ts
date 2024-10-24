@@ -26,57 +26,58 @@ export const someMarketPage: IPage = {
       hideFooter: false,
     },
   },
-  // 页面根节点下的直接成员,即 children 插槽下的组件
-  content: [
-    {
-      id: 'content-1',
-      type: '@kc/mk/single-image',
-      props: {
-        src: 'https://xxx.com/xxx.png',
-        href: 'https://xxxxx.com',
-        size: 'large',
-      },
-    },
-    {
-      id: 'content-2',
-      type: '@kc/mk/carousel',
-      props: {
-        autoplay: true,
-        images: [
-          {
-            src: 'https://xxx.com/xxx1.png',
-            href: 'https://xxx1.com',
-          },
-          {
-            src: 'https://xxx.com/xxx2.png',
-            href: 'https://xxx2.com',
-          },
-        ],
-      },
-    },
-    {
-      id: 'market-task-1',
-      // 任务发奖组件
-      type: '@kc/mk/market-task',
-      props: {
-        title: 'market-task-1.title_',
-        description$html: 'market-task-1.description',
-        // 业务场景属性 需要使用的  taskCode
-        taskCode: '_t(xxxx)',
-        // 任务列表, 仅前端UI相关配置, 奖池配置等直接保存至后端
-        taskItems: [
-          {
-            title: 'xxxx',
-            description: 'xxxx',
-            icon: 'https://xxx.com',
-          },
-        ],
-        // 奖池配置, 因与前端无关, 此处为配置的副作用
-        taskPools: true,
-      },
-    },
-  ],
+
   zones: {
+    // 页面根节点下的直接成员,即 children 插槽下的组件
+    'root-1:children': [
+      {
+        id: 'content-1',
+        type: '@kc/mk/single-image',
+        props: {
+          src: 'https://xxx.com/xxx.png',
+          href: 'https://xxxxx.com',
+          size: 'large',
+        },
+      },
+      {
+        id: 'content-2',
+        type: '@kc/mk/carousel',
+        props: {
+          autoplay: true,
+          images: [
+            {
+              src: 'https://xxx.com/xxx1.png',
+              href: 'https://xxx1.com',
+            },
+            {
+              src: 'https://xxx.com/xxx2.png',
+              href: 'https://xxx2.com',
+            },
+          ],
+        },
+      },
+      {
+        id: 'market-task-1',
+        // 任务发奖组件
+        type: '@kc/mk/market-task',
+        props: {
+          title: 'market-task-1.title_',
+          description$html: 'market-task-1.description',
+          // 业务场景属性 需要使用的  taskCode
+          taskCode: '_t(xxxx)',
+          // 任务列表, 仅前端UI相关配置, 奖池配置等直接保存至后端
+          taskItems: [
+            {
+              title: 'xxxx',
+              description: 'xxxx',
+              icon: 'https://xxx.com',
+            },
+          ],
+          // 奖池配置, 因与前端无关, 此处为配置的副作用
+          taskPools: true,
+        },
+      },
+    ],
     // 页面根节点下的头图插槽内容
     'root-1:hero': [
       {

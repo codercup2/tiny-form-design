@@ -24,6 +24,7 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       '@typescript-eslint/no-explicit-any': 'off',
+      'eslint-plugin-react/no-children-prop': 'off',
     },
   }
 )

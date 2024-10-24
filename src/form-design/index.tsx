@@ -8,13 +8,12 @@ import {
 import Left from './components/Left/SingleLevel'
 import Mid from './components/Mid'
 import { handledComponents } from './data-source/component-list'
-import { IComponentItemWithConsequenceId } from './typing/component-meta'
-import { deepClone } from './utils'
+import { IPage } from './typing/app-schema'
+import { deepClone, getPageLayoutMeta } from './utils'
 
 const Index: FC = () => {
-  const [formItems, setFormItems] = useState<IComponentItemWithConsequenceId[]>(
-    []
-  )
+  // 所有的数据都在这里
+  const [state, setState] = useState<IPage>(getPageLayoutMeta())
   const [currId, setCurrId] = useState<string>('')
 
   const onDragUpdate = (result: DragUpdate) => {
@@ -113,12 +112,7 @@ const Index: FC = () => {
     <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <div className='form-design flex gap-4 p-4 h-full box-border'>
         <Left items={handledComponents} />
-        <Mid
-          formItems={formItems}
-          setFormItems={setFormItems}
-          setCurrId={setCurrId}
-          currId={currId}
-        />
+        <Mid state={state} setState={setState} />
         {/* <Right
           formItems={formItems}
           setFormItems={setFormItems}
