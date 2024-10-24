@@ -5,11 +5,12 @@ import {
   DragUpdate,
   DropResult,
 } from 'react-beautiful-dnd'
-import Left from './components/Left/SingleLevel'
+import Left from './components/Left'
 import Mid from './components/Mid'
 import {
+  getAllComponents,
   handleComponents,
-  IComponentItemWithConsequenceId,
+  ICategoryComponentItem,
 } from './data-source/helper'
 import './data-source/init'
 import { IPage } from './typing/app-schema'
@@ -21,9 +22,7 @@ const Index: FC = () => {
   useEffect(() => {
     console.log('state changed:', state)
   }, [state])
-  const [components, setComponents] = useState<
-    IComponentItemWithConsequenceId[]
-  >([])
+  const [components, setComponents] = useState<ICategoryComponentItem[]>([])
   useEffect(() => {
     handleComponents().then(setComponents)
   }, [])
@@ -53,7 +52,8 @@ const Index: FC = () => {
       destination?.droppableId !== 'left'
     ) {
       console.log('1、左边拖到中间区域，新增组件')
-      const item = components.find((item) => item.id === draggableId)
+      const allComponents = getAllComponents(components)
+      const item = allComponents.find((item) => item.id === draggableId)
       if (!item) {
         console.error('数据匹配不上，不可能出现')
         return

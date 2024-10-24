@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as ReactDom from 'react-dom'
 import * as ReactRuntime from 'react/jsx-runtime'
 import 'systemjs' // # 若已在项目中引入 systemjs, 则无需再次引入
+import { ICategoryItem, IComponentItem } from './helper'
 
 // 手动声明 react, react/jsx-runtime 和 react-dom 并注册到 System 中
 System.addImportMap({
@@ -61,7 +62,10 @@ const fetchComponentData = async (component: any) => {
 }
 
 /** 基础信息，主要是左侧栏目需要用到的数据 */
-export const getMetaInfo = async () => {
+export const getMetaInfo = async (): Promise<{
+  categories: ICategoryItem[]
+  components: IComponentItem[]
+} | null> => {
   try {
     const info = await getMeta()
     if (!info) return null

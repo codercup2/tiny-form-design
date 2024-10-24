@@ -90,3 +90,10 @@ export const handleComponents = async (): Promise<ICategoryComponentItem[]> => {
 
   return result
 }
+
+/**
+ * 通过上面的 handleComponents 函数，得到左侧组件列表，相当于是平铺的所有组件，在组件拖进去的时候获取组件用
+ */
+export const getAllComponents = (list: ICategoryComponentItem[]) => {
+  return list.flatMap((item) => item.list)
+}
