@@ -60,7 +60,8 @@ const fetchComponentData = async (component: any) => {
   // const thumbnail = await fetchThumbnail(component.thumbnail)
   return {
     ...component,
-    meta: meta.default,
+    // meta: meta.default,
+    ...meta.default,
     // thumbnail,
   }
 }
