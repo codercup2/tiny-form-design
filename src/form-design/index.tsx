@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
   Combine,
   DragDropContext,
@@ -14,6 +14,9 @@ import { deepClone, getPageLayoutMeta } from './utils'
 const Index: FC = () => {
   // 所有的数据都在这里
   const [state, setState] = useState<IPage>(getPageLayoutMeta())
+  useEffect(() => {
+    console.log('state changed:', state)
+  }, [state])
 
   const onDragUpdate = (result: DragUpdate) => {
     // console.log('onDragUpdate result: ', result)
