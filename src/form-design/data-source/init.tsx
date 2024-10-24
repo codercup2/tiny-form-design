@@ -66,7 +66,7 @@ export const getMetaInfo = async () => {
     const info = await getMeta()
     if (!info) return null
     const _info = info.default || info
-    console.log('_info', _info)
+    // console.log('_info', _info)
     const { components, ...rest } = JSON.parse(JSON.stringify(_info))
 
     const _components = await Promise.all(components.map(fetchComponentData))

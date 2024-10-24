@@ -1,7 +1,16 @@
 import clsx from 'clsx'
 import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
-import { IComponentItemWithConsequenceId } from '../../typing/component-meta'
+import { IComponentItemWithConsequenceId } from '../../data-source/helper'
+
+/** 方便CloneItem时一起使用 */
+const RenderItem = ({ item }: { item: IComponentItemWithConsequenceId }) => {
+  return (
+    <div className='seed border-base border-rounded text-center leading-loose'>
+      {item.id} {item.name} {item.title}
+    </div>
+  )
+}
 
 /** 单层结构的左侧物料区 */
 const SingleLevel: FC<{ items: IComponentItemWithConsequenceId[] }> = ({
@@ -38,16 +47,10 @@ const SingleLevel: FC<{ items: IComponentItemWithConsequenceId[] }> = ({
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                       >
-                        <div className='seed border-base border-rounded text-center leading-loose'>
-                          {item.id} {item.name} {item.title}
-                        </div>
+                        <RenderItem item={item} />
                       </div>
                       {/* 通过clone一个元素来解决拖拽时，物料元素不见了的问题 */}
-                      {snapshot.isDragging && (
-                        <div className='seed border-base border-rounded text-center leading-loose'>
-                          {item.name} {item.title}
-                        </div>
-                      )}
+                      {snapshot.isDragging && <RenderItem item={item} />}
                     </>
                   )}
                 </Draggable>
