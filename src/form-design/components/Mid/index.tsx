@@ -16,7 +16,10 @@ const Mid: FC<Props> = ({ state, setState }) => {
 
   // const { slots } = state.root.slots
   useEffect(() => {
-    importComponent(state.root.type).then(setComp)
+    importComponent(state.root.type).then((FC) => {
+      console.log(FC)
+      setComp(FC)
+    })
   }, [state.root.type])
 
   if (!Comp) {
@@ -30,6 +33,24 @@ const Mid: FC<Props> = ({ state, setState }) => {
       </div>
 
       <PageLayout
+        hero={
+          <DropZone
+            id={rootId}
+            state={state}
+            setState={setState}
+            slotName='hero'
+          />
+        }
+        hideFooter={state.root.props?.hideFooter}
+      >
+        <DropZone
+          id={rootId}
+          state={state}
+          setState={setState}
+          slotName='children'
+        />
+      </PageLayout>
+      <Comp
         title='XXX'
         destination='YYY'
         hero={
@@ -48,7 +69,7 @@ const Mid: FC<Props> = ({ state, setState }) => {
           setState={setState}
           slotName='children'
         />
-      </PageLayout>
+      </Comp>
     </div>
   )
 }
