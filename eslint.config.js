@@ -25,6 +25,7 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-explicit-any': 'off',
       'eslint-plugin-react/no-children-prop': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   }
 )

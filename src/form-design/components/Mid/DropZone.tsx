@@ -11,9 +11,10 @@ type Props = {
 }
 const DropZone: FC<Props> = ({ id, state, setState, slotName }) => {
   const { zones } = state
-  const comps = zones[`${id}:${slotName}`]
+  const dropzoneId = `${id}:${slotName}`
+  const comps = zones[dropzoneId]
   return (
-    <Droppable droppableId={id + slotName}>
+    <Droppable droppableId={dropzoneId}>
       {(provided, snapshot) => {
         return (
           <div
