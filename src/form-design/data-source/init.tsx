@@ -16,6 +16,13 @@ System.set('app:react', { ...React, __useDefault: true })
 System.set('app:react-dom', { ...ReactDom, __useDefault: true })
 System.set('app:react-runtime', { ...ReactRuntime, __useDefault: true })
 
+export const metaInfo = {
+  baseMate: {} as any,
+}
+export const loadLibs = async () => {
+  await getBaseMate()
+}
+
 // 加载组件库
 export const VERSION = '0.0.1'
 export const PREFIX = `/mk-ui/${VERSION}/`
@@ -29,28 +36,12 @@ export const getInfo = async (filePath: string) => {
   }
 }
 
-const getMeta = async () => {
+const getBaseMate = async () => {
   try {
     const info = await System.import(`/mk-ui/catalog.json`)
-    return info
+    metaInfo.baseMate = info.default || info
   } catch (error) {
     console.error('Failed to load catalog.json:', error)
-    return null
-  }
-}
-
-export const fetchThumbnail = async (url: string) => {
-  try {
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch thumbnail: ${url}`)
-    }
-    const blob = await response.blob()
-    const thumbnailUrl = URL.createObjectURL(blob)
-    return thumbnailUrl
-  } catch (error) {
-    console.error(`Failed to fetch thumbnail: ${url}`, error)
-    return null
   }
 }
 
@@ -72,21 +63,17 @@ export const getMetaInfo = async (): Promise<{
   components: IComponentItem[]
 } | null> => {
   try {
-    const info = await getMeta()
-    if (!info) return null
-    const _info = info.default || info
-    // console.log('_info', _info)
-    const { components, ...rest } = JSON.parse(JSON.stringify(_info))
+    const { components, ...rest } = metaInfo.baseMate
 
     const _components = await Promise.all(components.map(fetchComponentData))
 
-    const metaInfo = {
+    const info = {
       ...rest,
       components: _components,
     }
 
-    console.log('metaInfo', metaInfo)
-    return metaInfo
+    console.log('info', info)
+    return info
   } catch (error) {
     console.error('Failed to fetch catalog data:', error)
     return null
@@ -123,8 +110,4 @@ export const importComponent = async (componentName: string) => {
   } catch (error) {
     console.error(`Failed to import component ${componentName}:`, error)
   }
-}
-
-export const loadLibs = async () => {
-  const info = await System.import(`/mk-ui/catalog.json`)
 }
