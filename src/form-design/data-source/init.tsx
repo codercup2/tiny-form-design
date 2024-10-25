@@ -124,3 +124,7 @@ export const importComponent = async (componentName: string) => {
     console.error(`Failed to import component ${componentName}:`, error)
   }
 }
+
+export const loadLibs = async () => {
+  const info = await System.import(`/mk-ui/catalog.json`)
+}
