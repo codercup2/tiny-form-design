@@ -22,7 +22,7 @@ type Props = {
   slotName: string
 }
 
-const DropZone: FC<Props> = ({ pZone, id, state, setState, slotName }) => {
+const DropZone: FC<Props> = ({ id, state, setState, slotName }) => {
   const { zones } = state
   const dropzoneId = `${id}:${slotName}`
   const comps = zones[dropzoneId] || []
@@ -35,8 +35,7 @@ const DropZone: FC<Props> = ({ pZone, id, state, setState, slotName }) => {
             return 'bg-green-200'
           }
           const checkAllow = handleCheckAllow(
-            pZone,
-            slotName,
+            `${id}:${slotName}`,
             snapshot.draggingOverWith as DraggableId,
             state
           )
