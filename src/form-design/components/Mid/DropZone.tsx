@@ -11,18 +11,22 @@ import { PREFIX } from '../../data-source/init'
 import { IPage } from '../../typing/app-schema'
 
 type Props = {
-  // 所在的父级的Zone名称（比如 'root-1:children'）这样方便定位到具体的Zone
-  // 如果pZone为'',则表示是根节点,在root里面查找slots信息
-  // 否则去zones里面查找slots信息
-  // 查找slots信息是为了确定该区域是否可以放某个类型的组件（allow+disallow)
-  pZone: string
   id: string
   state: IPage
   setState: Dispatch<SetStateAction<IPage>>
   slotName: string
+  allow?: string[]
+  disallow?: string[]
 }
 
-const DropZone: FC<Props> = ({ id, state, setState, slotName }) => {
+const DropZone: FC<Props> = ({
+  id,
+  state,
+  setState,
+  slotName,
+  allow,
+  disallow,
+}) => {
   const { zones } = state
   const dropzoneId = `${id}:${slotName}`
   const comps = zones[dropzoneId] || []

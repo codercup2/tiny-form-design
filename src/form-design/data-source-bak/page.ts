@@ -85,7 +85,7 @@ export const someMarketPage: IPage = {
         type: '@kc/lego-mk/market-hero',
         props: {
           title$: 'hero-2.title',
-          description$html: 'hero-2.description',
+          description$$: 'hero-2.description',
         },
       },
     ],

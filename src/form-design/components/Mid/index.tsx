@@ -6,7 +6,6 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { flatComps } from '../../data-source/helper'
 import { importComponent } from '../../data-source/init'
 import { IPage } from '../../typing/app-schema'
 import DropZone from './DropZone'
@@ -18,17 +17,30 @@ type Props = {
 
 /** 中间内容 */
 const Mid: FC<Props> = ({ state, setState }) => {
-  const rootId = state.root.id
+  const { slots = [], configurations = [], id: rootId } = state.root
   const [Comp, setComp] = useState<ComponentType<any> | null>(null)
-  const compMeta = flatComps.find((item) => item.id === rootId)
-  console.log('compMeta', compMeta)
 
-  const props = {
+  const props: any = {
+    // TODO check 是否需要增加这2个
     title: '根节点 title',
     description: '根节点 description',
-    configuration: compMeta?.configurations,
   }
-  compMeta?.slots?.forEach((slot) => {
+  // configurations 配置项的东西展示出来
+  configurations.forEach((conf) => {
+    const name = conf.name
+    // 要先判断 $$, 再判断 $,顺序不能反
+    // $$ 或 $ 的要去 locales 里面查找，其他的直接看 props 的值
+    if (name.endsWith('$$')) {
+      const realName = name.slice(0, -2)
+      props[realName] = state.locales[`${rootId}:${name}`]
+    } else if (name.endsWith('$')) {
+      const realName = name.slice(0, -1)
+      props[realName] = state.locales[`${rootId}:${name}`]
+    } else {
+      props[conf.name] = conf.value
+    }
+  })
+  slots.forEach((slot) => {
     if (typeof slot === 'string') {
       props[slot] = (
         <DropZone
