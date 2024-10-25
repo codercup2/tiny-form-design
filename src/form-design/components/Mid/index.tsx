@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { flatComps } from '../../data-source/helper'
 import { importComponent } from '../../data-source/init'
 import { IPage } from '../../typing/app-schema'
 import DropZone from './DropZone'
@@ -19,11 +20,39 @@ type Props = {
 const Mid: FC<Props> = ({ state, setState }) => {
   const rootId = state.root.id
   const [Comp, setComp] = useState<ComponentType<any> | null>(null)
+  const compMeta = flatComps.find((item) => item.id === rootId)
+  console.log('compMeta', compMeta)
 
-  // const { slots } = state.root.slots
+  const props = {
+    title: '根节点 title',
+    description: '根节点 description',
+    configuration: compMeta?.configurations,
+  }
+  compMeta?.slots?.forEach((slot) => {
+    if (typeof slot === 'string') {
+      props[slot] = (
+        <DropZone
+          state={state}
+          setState={setState}
+          id={rootId}
+          slotName={slot}
+        />
+      )
+    }
+
+    props[slot.name] = (
+      <DropZone
+        state={state}
+        setState={setState}
+        id={rootId}
+        slotName={slot.name}
+        allow={slot.allow}
+        disallow={slot.disallow}
+      />
+    )
+  })
   useEffect(() => {
     importComponent(state.root.type).then((FC) => {
-      // console.log(FC)
       setComp(() => FC)
     })
   }, [state.root.type])
@@ -33,30 +62,7 @@ const Mid: FC<Props> = ({ state, setState }) => {
       return <div>默认的</div>
     }
     // TODO: 通过配置文件得到组件的props, 生成组件
-    return (
-      <Comp
-        title='XXX'
-        destination='YYY'
-        hero={
-          <DropZone
-            pZone=''
-            id={rootId}
-            state={state}
-            setState={setState}
-            slotName='hero'
-          />
-        }
-        hideFooter={state.root.props?.hideFooter}
-      >
-        <DropZone
-          pZone=''
-          id={rootId}
-          state={state}
-          setState={setState}
-          slotName='children'
-        />
-      </Comp>
-    )
+    return <Comp {...props} />
   }
 
   return (

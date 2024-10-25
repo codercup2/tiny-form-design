@@ -105,7 +105,7 @@ export const getAllComponents = (list: ICategoryComponentItem[]) => {
   return list.flatMap((item) => item.list)
 }
 
-const flatComps = [
+export const flatComps = [
   {
     name: '@kc/lego-mk-ui/HeroV1',
     title: 'HeroV1 component',

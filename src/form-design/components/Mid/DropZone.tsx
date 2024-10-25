@@ -35,7 +35,7 @@ const DropZone: FC<Props> = ({ id, state, setState, slotName }) => {
             return 'bg-green-200'
           }
           const checkAllow = handleCheckAllow(
-            `${id}:${slotName}`,
+            dropzoneId,
             snapshot.draggingOverWith as DraggableId,
             state
           )
