@@ -80,7 +80,6 @@ export interface INode {
    * * value: 属性值
    */
   props?: Record<string, any>
-  configurations: any[]
 }
 
 /**

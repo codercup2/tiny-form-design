@@ -1,5 +1,6 @@
 import { deepClone } from '../utils'
 import { IComponentItemWithConsequenceId } from './helper'
+import { ISlot } from './typing'
 
 // 目前只有 '@kc/mk/market-page' 这种 pageLayout 组件
 // export const defaultPageLayoutType = '@kc/mk/market-page'
@@ -17,9 +18,10 @@ export const initState = {
       taskCode: '',
     },
     slots: [],
+    props: {},
   },
-  zones: {},
-  locales: {},
+  zones: {} as Record<string, any>,
+  locales: {} as Record<string, string>,
 }
 /**
  * 对初始数据，查询出更多的信息，填充到 state 中
@@ -54,7 +56,7 @@ export function handleInitState(flatComps: IComponentItemWithConsequenceId[]) {
     state.root.slots = rootComp.slots
   }
   // 处理zones
-  ;(state.root.slots as string[]).forEach((slot) => {
+  ;(state.root.slots as ISlot[]).forEach((slot) => {
     const rootId = state.root.id // 经过上面的处理，这里已经不是最开始的
     if (typeof slot === 'string') {
       state.zones[`${rootId}:${slot}`] = []
