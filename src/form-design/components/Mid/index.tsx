@@ -32,12 +32,14 @@ const Mid: FC<Props> = ({ state, setState }) => {
     if (!Comp) {
       return <div>默认的</div>
     }
+    // TODO: 通过配置文件得到组件的props, 生成组件
     return (
       <Comp
         title='XXX'
         destination='YYY'
         hero={
           <DropZone
+            pZone=''
             id={rootId}
             state={state}
             setState={setState}
@@ -47,6 +49,7 @@ const Mid: FC<Props> = ({ state, setState }) => {
         hideFooter={state.root.props?.hideFooter}
       >
         <DropZone
+          pZone=''
           id={rootId}
           state={state}
           setState={setState}
