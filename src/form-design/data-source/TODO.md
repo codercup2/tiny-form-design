@@ -1,5 +1,7 @@
 # TODO
 
+- 首先对组件进行同步处理，先拿到放到内存中。这样后续的组件处理就不需要重复异步请求了。
+
 - flatComps 优化：
   - 原来的 flatComps 改为名 flatLeftComps；新增 flatMidComps；也可以再加一个 flatComps 包括 flatLeftComps + flatMidComps。
   - 左边移动组件到中间，使用 flatLeftComps 查找；中间 DropZone 之间和 DropZone 内部移动，使用 flatMidComps 查找。（也可以直接使用 flatComps 查找）
