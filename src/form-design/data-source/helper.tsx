@@ -209,11 +209,11 @@ export const handleCheckAllow = (
   // 先从root找，有没有这样的id
   const isRoot = state.root.id === id
   let slots = []
+  const comps = state.zones[idWithSlotName]
   if (isRoot) {
     slots = state.root.slots
   } else {
     // comps为二级DropZone里面的元素数据
-    const comps = state.zones[idWithSlotName]
     const comp = comps.find((item: any) => item.id === id)
     console.log(comp)
   }
@@ -249,7 +249,14 @@ export const handleCheckAllow = (
     // 组件名字对得上就可以
     return item === dragCompInfo.name
   }
-
+  if (typeof slotInfo.max === 'number') {
+    // 如果已经有max限制，并且超过这个限制，那就不能再拖进去了
+    if (comps.length >= slotInfo.max) {
+      console.error('max limit exceeded')
+      return false
+    }
+    // 否则继续往下走
+  }
   if (slotInfo.allow) {
     return slotInfo.allow.some(judge)
   }
