@@ -1,4 +1,6 @@
+import { DraggableId } from 'react-beautiful-dnd'
 import { getMetaInfo } from './init'
+import { ISlot, ISlotMore } from './typing'
 
 export type ICategoryItem = {
   name: string
@@ -101,4 +103,151 @@ export const handleComponents = async (): Promise<ICategoryComponentItem[]> => {
  */
 export const getAllComponents = (list: ICategoryComponentItem[]) => {
   return list.flatMap((item) => item.list)
+}
+
+const flatComps = [
+  {
+    name: '@kc/lego-mk-ui/HeroV1',
+    title: 'HeroV1 component',
+    category: 'hero',
+    meta: 'components/hero-v1/meta.json',
+    thumbnail: 'components/hero-v1/descriptive-res/thumbnails/index.png',
+    configurations: [
+      {
+        required: true,
+        name: 'title',
+        type: 'string',
+      },
+      {
+        required: true,
+        name: 'description',
+        type: 'string',
+      },
+      {
+        required: true,
+        name: 'image',
+        type: 'string',
+      },
+      {
+        required: true,
+        name: 'activeButton',
+        type: 'string',
+      },
+      {
+        required: true,
+        name: 'shareButton',
+        type: 'string',
+      },
+    ],
+    id: 'G100',
+    sort: 100,
+  },
+  {
+    name: '@kc/lego-mk-ui/CalendarV1',
+    title: 'CalendarV1 component',
+    category: 'image-text',
+    meta: 'components/calendar-v1/meta.json',
+    thumbnail: 'components/calendar-v1/descriptive-res/thumbnails/index.png',
+    configurations: [
+      {
+        required: true,
+        name: 'name',
+        type: 'string',
+      },
+      {
+        required: true,
+        name: 'subtitle',
+        type: 'string',
+      },
+      {
+        required: true,
+        name: 'title',
+        type: 'string',
+      },
+      {
+        required: true,
+        name: 'content',
+        type: 'string',
+      },
+    ],
+    id: 'G101',
+    sort: 101,
+  },
+  {
+    name: '@kc/lego-mk-ui/PlHeroTop',
+    title: '默认页面布局组件',
+    category: 'page-layout',
+    meta: 'components/pl-hero-top/meta.json',
+    thumbnail: 'components/pl-hero-top/descriptive-res/thumbnails/index.png',
+    configurations: [],
+    slots: [
+      {
+        name: 'hero',
+        title: '头图插槽',
+        max: 1,
+        allow: ['#hero'],
+      },
+      {
+        name: 'children',
+        disallow: ['#hero'],
+      },
+    ],
+    id: 'G102',
+    sort: 102,
+  },
+]
+
+export const handleCheckAllow = (
+  pZone: string,
+  slotName: string,
+  /** 比如 G100 这样的id */
+  draggableId: DraggableId,
+  state: any
+) => {
+  // 只有拖进入区域才判断，没拖进来不需要判断
+
+  // TODO: 这里需要判断拖拽的元素是否允许拖入到此区域，根据allow or disallow
+  if (pZone === '') {
+    const slots = state.root.slots || []
+    const idx = slots.findIndex((item: ISlot) => {
+      if (typeof item === 'string') {
+        return item === slotName
+      } else {
+        return (item as ISlotMore).name === slotName
+      }
+    })
+    if (idx === -1) {
+      console.error('slotName not found in root slots')
+      return false
+    }
+    const slotInfo = slots[idx]
+    if (typeof slotInfo === 'string') {
+      // 只有一个字符串，那就什么都可以放进去
+      return true
+    }
+
+    // 再得到对应的组件的元信息
+    const dragCompInfo = flatComps.find((item) => item.id === draggableId)
+    if (!dragCompInfo) {
+      console.error(`draggableId not found in flatComps: ${draggableId}`)
+      return false
+    }
+    const judge = (item: string) => {
+      // 以#开头的表示为某个类型
+      if (item.startsWith('#')) {
+        const allowCategory = item.slice(1)
+        return allowCategory === dragCompInfo.category
+      }
+      // 组件名字对得上就可以
+      return item === dragCompInfo.name
+    }
+
+    if (slotInfo.allow) {
+      return slotInfo.allow.some(judge)
+    }
+    if (slotInfo.disallow) {
+      return !slotInfo.disallow.some(judge)
+    }
+    return true
+  }
 }
