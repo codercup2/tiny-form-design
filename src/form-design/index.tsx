@@ -9,6 +9,7 @@ import Left from './components/Left'
 import Mid from './components/Mid'
 import {
   getAllComponents,
+  handleCheckAllow,
   handleComponents,
   ICategoryComponentItem,
   IComponentItemWithConsequenceId,
@@ -72,6 +73,15 @@ const Index: FC = () => {
       }
       const { zones } = state
       const comps = zones[destination.droppableId]
+      const checkAllow = handleCheckAllow(
+        destination.droppableId,
+        draggableId,
+        state
+      )
+      if (!checkAllow) {
+        console.log('不允许放置，丢弃')
+        return
+      }
       const uuid = Date.now()
       const newId = `${draggableId}_${uuid}`
       comps.splice(destination.index, 0, {
