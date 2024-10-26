@@ -2,8 +2,6 @@ import { DraggableId } from 'react-beautiful-dnd'
 import { metaInfo } from './init'
 import { ISlot, ISlotMore } from './typing'
 
-const { leftFlatComps } = metaInfo
-
 export const handleCheckAllow = (
   /** 如 root:hero 这样的带 id+slotName 的字符串 */
   idWithSlotName: string,
@@ -11,6 +9,7 @@ export const handleCheckAllow = (
   draggableId: DraggableId,
   state: any
 ) => {
+  const { leftFlatComps } = metaInfo
   const [id, slotName] = idWithSlotName.split(':')
   // 只有拖进入区域才判断，没拖进来不需要判断
   // 先从root找，有没有这样的id
