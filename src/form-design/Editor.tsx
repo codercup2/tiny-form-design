@@ -7,33 +7,14 @@ import {
 } from 'react-beautiful-dnd'
 import Left from './components/Left'
 import Mid from './components/Mid'
-import {
-  getAllComponents,
-  handleCheckAllow,
-  handleComponents,
-  ICategoryComponentItem,
-  IComponentItemWithConsequenceId,
-} from './data-source/helper'
-import { handleInitState, initState } from './data-source/page'
+import { handleCheckAllow } from './data-source/helper'
+import { metaInfo } from './data-source/init'
+import { initState } from './data-source/page'
 import { IPage } from './typing/app-schema'
 import { deepClone } from './utils'
 
+const { leftComps, leftFlatComps } = metaInfo
 const Index: FC = () => {
-  const [leftComps, setLeftComps] = useState<ICategoryComponentItem[]>([])
-  const [flatComps, setFlatComps] = useState<IComponentItemWithConsequenceId[]>(
-    []
-  )
-  useEffect(() => {
-    handleComponents().then((comps) => {
-      console.log('leftComps', comps)
-      setLeftComps(comps)
-      const flatComps = getAllComponents(comps)
-      console.log('flatComps', flatComps)
-      setFlatComps(flatComps)
-      const state = handleInitState(flatComps)
-      setState(state)
-    })
-  }, [])
   // 所有的数据都在这里
   const [state, setState] = useState<IPage>(initState)
   useEffect(() => {
@@ -65,7 +46,7 @@ const Index: FC = () => {
       destination?.droppableId !== 'left'
     ) {
       console.log('1、左边拖到中间区域，新增组件')
-      const item = flatComps.find((item) => item.id === draggableId)
+      const item = leftFlatComps.find((item) => item.id === draggableId)
       if (!item) {
         console.error('数据匹配不上，不可能出现')
         return
