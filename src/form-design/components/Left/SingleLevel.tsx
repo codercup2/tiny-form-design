@@ -1,10 +1,10 @@
 import clsx from 'clsx'
 import { FC } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
-import { IComponentItemWithConsequenceId } from '../../data-source/helper'
+import { IComponentWithConsequenceId } from '../../data-source/typing'
 
 /** 方便CloneItem时一起使用 */
-const RenderItem = ({ item }: { item: IComponentItemWithConsequenceId }) => {
+const RenderItem = ({ item }: { item: IComponentWithConsequenceId }) => {
   return (
     <div className='seed border-base border-rounded text-center leading-loose'>
       {item.id} {item.name} {item.title}
@@ -13,7 +13,7 @@ const RenderItem = ({ item }: { item: IComponentItemWithConsequenceId }) => {
 }
 
 /** 单层结构的左侧物料区 */
-const SingleLevel: FC<{ items: IComponentItemWithConsequenceId[] }> = ({
+const SingleLevel: FC<{ items: IComponentWithConsequenceId[] }> = ({
   items,
 }) => {
   return (

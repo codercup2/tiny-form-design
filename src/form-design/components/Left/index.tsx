@@ -1,30 +1,29 @@
 import { FC } from 'react'
+import {} from '../../data-source/helper'
 import {
-  ICategoryComponentItem,
-  IComponentItemWithConsequenceId,
-} from '../../data-source/helper'
+  ICategoryComponent,
+  IComponentWithConsequenceId,
+} from '../../data-source/typing'
 import SingleLevel from './SingleLevel'
 import TwoLevel from './TwoLevel'
 
-const isSingleLevel = (items: IComponentItemWithConsequenceId[]) => {
+const isSingleLevel = (items: IComponentWithConsequenceId[]) => {
   return items.length > 0 && !('list' in items[0])
 }
 
-const isMultipleLevel = (items: ICategoryComponentItem[]) => {
+const isMultipleLevel = (items: ICategoryComponent[]) => {
   return items.length > 0 && 'list' in items[0]
 }
 
 const Left: FC<{
-  items: ICategoryComponentItem[] | IComponentItemWithConsequenceId[]
+  items: ICategoryComponent[] | IComponentWithConsequenceId[]
 }> = ({ items }) => {
-  console.log('left items:', items)
-
-  if (isSingleLevel(items as IComponentItemWithConsequenceId[])) {
+  if (isSingleLevel(items as IComponentWithConsequenceId[])) {
     // console.log('isSingleLevel')
-    return <SingleLevel items={items as IComponentItemWithConsequenceId[]} />
-  } else if (isMultipleLevel(items as ICategoryComponentItem[])) {
+    return <SingleLevel items={items as IComponentWithConsequenceId[]} />
+  } else if (isMultipleLevel(items as ICategoryComponent[])) {
     // console.log('isMultipleLevel')
-    return <TwoLevel items={items as ICategoryComponentItem[]} />
+    return <TwoLevel items={items as ICategoryComponent[]} />
   } else {
     // 处理未知类型的情况
     return <div>Unknown items type</div>

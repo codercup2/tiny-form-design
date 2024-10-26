@@ -5,7 +5,7 @@ type IProps = {
   hero: ReactNode
   hideFooter: boolean
 }
-
+/** just for demo */
 export default function PageLayout({ children, hero, hideFooter }: IProps) {
   return (
     <div className='flex flex-col gap-2'>
