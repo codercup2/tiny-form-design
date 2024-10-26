@@ -164,5 +164,13 @@ export const handleComponents = async () => {
   })
   metaInfo.leftComps = leftComps
   // 平铺的所有组件，方便在组件拖进去的时候获取组件用
-  metaInfo.leftFlatComps = leftComps.flatMap((item) => item.list)
+  const leftFlatComps = leftComps.flatMap((item) => item.list)
+  // 还需要提前获取对应的 components 实例，用到的时候就不用异步去获取了
+  leftFlatComps.map((item) => ({
+    ...item,
+    component() {
+      return importComponent(item.name).then((FC) => <FC />)
+    },
+  }))
+  metaInfo.leftFlatComps = leftFlatComps
 }

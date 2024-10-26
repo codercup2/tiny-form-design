@@ -40,6 +40,8 @@ export type ICategoryComponent = {
 }
 
 export type IComponentWithConsequenceId = IComponent & {
+  /** id: G100，比sort多一个 G 字母 */
   id: string
+  /** sort: 100，用在DraggableId*/
   sort: number
 }
