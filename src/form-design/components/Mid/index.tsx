@@ -1,12 +1,11 @@
 import { Dispatch, FC, SetStateAction } from 'react'
 // import { importComponent } from '../../data-source/init'
 import { metaInfo } from '../../data-source/init'
-import { IPage } from '../../typing/app-schema'
 import DropZone from './DropZone'
 
 type Props = {
-  state: IPage
-  setState: Dispatch<SetStateAction<IPage>>
+  state: any
+  setState: Dispatch<SetStateAction<any>>
 }
 
 /** 中间内容 */
@@ -27,7 +26,7 @@ const Mid: FC<Props> = ({ state, setState }) => {
     description: '根节点 description',
   }
 
-  slots.forEach((slot) => {
+  slots.forEach((slot: any) => {
     if (typeof slot === 'string') {
       props[slot] = (
         <DropZone
