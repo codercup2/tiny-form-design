@@ -97,3 +97,45 @@ export const someMarketPage: IPage = {
     'market-task-1.description': '最高可领取xxxx',
   },
 }
+
+// 经过协商，改为如下树状数据结构 2024-10-26 周六 晚23点
+const root = {
+  // 几个特别的根节点的属性
+  locales: {},
+  theme: '',
+  // 业务场景属性需要的业务属性配置
+  sceneProps: {
+    taskCode: 'xxxx',
+  },
+  // 下面是通用的
+  id: 'root',
+  name: '@kc/mk/market-page',
+  props: {},
+  slots: ['hero', 'children'],
+  'slot:hero': [
+    {
+      id: 'hero',
+      name: '@kc/mk/market-hero',
+      props: {
+        title: 'Christmas',
+        description: 'Christmas',
+      },
+    },
+  ],
+  'slot:children': [
+    {
+      id: 'xxx',
+      name: 'xxx',
+      props: {},
+      slots: ['children'],
+      'slot:children': [
+        {
+          id: 'xxx',
+          name: 'xxx',
+          props: {},
+          slots: [],
+        },
+      ],
+    },
+  ],
+}
