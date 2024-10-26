@@ -51,13 +51,6 @@ const Mid: FC<Props> = ({ state, setState }) => {
     )
   })
   console.log('props', props)
-  const RenderComp = () => {
-    if (!Comp) {
-      return <div>默认的</div>
-    }
-    // TODO: 通过配置文件得到组件的props, 生成组件
-    return <Comp {...props} />
-  }
 
   return (
     <div className='mid border-left border-right flex-1 px-4 flex flex-col'>
@@ -65,7 +58,7 @@ const Mid: FC<Props> = ({ state, setState }) => {
         <h3>Payout</h3>
       </div>
 
-      <RenderComp />
+      <Comp {...props} />
     </div>
   )
 }
