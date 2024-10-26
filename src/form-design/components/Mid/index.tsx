@@ -16,15 +16,15 @@ const Mid: FC<Props> = ({ state, setState }) => {
     return null
   }
   const Comp = comp.instance
-  const { slots = [], id: rootId } = state.root
+  const { slots = [], props, id: rootId } = state.root
   console.log(slots)
   // const [Comp, setComp] = useState<ComponentType<any> | null>(null)
 
-  const props: any = {
-    // TODO check 是否需要增加这2个
-    title: '根节点 title',
-    description: '根节点 description',
-  }
+  // const props: any = {
+  //   // TODO check 是否需要增加这2个
+  //   title: '根节点 title',
+  //   description: '根节点 description',
+  // }
 
   slots.forEach((slot: any) => {
     if (typeof slot === 'string') {

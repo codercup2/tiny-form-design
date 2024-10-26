@@ -1,3 +1,4 @@
+import { deepClone } from '../utils'
 import { ICategoryComponentFlat, ISlot } from './typing'
 
 // 目前只有 '@kc/mk/market-page' 这种 pageLayout 组件
@@ -36,8 +37,9 @@ export function handleInitState(flatComps: ICategoryComponentFlat[]) {
   }
   state.root = {
     ...state.root,
-    ...rootComp,
-    // id: rootId, // 这个根节点不能改了，否则拖拽进来找不到区域
+    ...deepClone(rootComp),
+    // 默认把defaults 放到 props
+    props: deepClone(rootComp.defaults || {}),
   }
 
   // 处理propss
