@@ -24,13 +24,12 @@ System.set('app:react-runtime', { ...ReactRuntime, __useDefault: true })
 
 export const metaInfo = {
   baseMeta: {} as IBaseMeta,
-  leftComps: [] as any[],
-  leftFlatComps: [] as any[],
+  leftComps: [] as ICategoryComponent[],
+  leftFlatComps: [] as IComponentWithConsequenceId[],
 }
 export const loadLibs = async () => {
   await getBaseMeta()
   await handleComponents()
-  await handleLeftFlatComponents()
   console.log('metaInfo', metaInfo)
 }
 
@@ -153,23 +152,17 @@ export const handleComponents = async () => {
   })
 
   // 构建最终的输出格式
-  const result: ICategoryComponent[] = []
+  const leftComps: ICategoryComponent[] = []
   categories.forEach((category, index) => {
     const componentsInCategory = groupedComponents[category.name] || []
-    result.push({
+    leftComps.push({
       id: index + 1,
       name: category.name,
       title: category.title,
       list: componentsInCategory,
     })
   })
-  metaInfo.leftComps = result
-}
-
-/**
- * 通过上面的 handleComponents 函数，得到左侧组件列表，相当于是平铺的所有组件，在组件拖进去的时候获取组件用
- */
-export const handleLeftFlatComponents = () => {
-  const { leftComps } = metaInfo
+  metaInfo.leftComps = leftComps
+  // 平铺的所有组件，方便在组件拖进去的时候获取组件用
   metaInfo.leftFlatComps = leftComps.flatMap((item) => item.list)
 }
