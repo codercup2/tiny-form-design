@@ -1,35 +1,21 @@
-import * as React from 'react'
-import * as ReactDom from 'react-dom'
-import * as ReactRuntime from 'react/jsx-runtime'
-import 'systemjs' // # 若已在项目中引入 systemjs, 则无需再次引入
+import './init-pre'
 import {
   IBaseMeta,
   ICategory,
   ICategoryComponent,
+  ICategoryComponentFlat,
   IComponent,
-  IComponentWithConsequenceId,
 } from './typing'
-
-// 手动声明 react, react/jsx-runtime 和 react-dom 并注册到 System 中
-System.addImportMap({
-  imports: {
-    react: 'app:react',
-    'react/jsx-runtime': 'app:react-runtime',
-    'react-dom': 'app:react-dom',
-  },
-})
-System.set('app:react', { ...React, __useDefault: true })
-System.set('app:react-dom', { ...ReactDom, __useDefault: true })
-System.set('app:react-runtime', { ...ReactRuntime, __useDefault: true })
 
 export const metaInfo = {
   baseMeta: {} as IBaseMeta,
   leftComps: [] as ICategoryComponent[],
-  leftFlatComps: [] as IComponentWithConsequenceId[],
+  leftFlatComps: [] as ICategoryComponentFlat[],
 }
 export const loadLibs = async () => {
   await getBaseMeta()
-  await handleComponents()
+  await getComps()
+  await getFlatComps()
   console.log('metaInfo', metaInfo)
 }
 
@@ -111,13 +97,14 @@ let idCount = 100
  * @deprecated
  */
 export const handleComponentsSingleLevel = async (): Promise<
-  IComponentWithConsequenceId[]
+  ICategoryComponentFlat[]
 > => {
   const { components } = metaInfo.baseMeta
   const sort = idCount++
   return components.map((item: IComponent) => ({
     ...item,
     id: `G${sort}`,
+    instance: null,
     sort,
   }))
 }
@@ -125,7 +112,7 @@ export const handleComponentsSingleLevel = async (): Promise<
 /**
  * 处理成双层的左侧数据，第一层是category, category 里面的 list 是左侧组件
  */
-export const handleComponents = async () => {
+export const getComps = async () => {
   const { components, categories } = metaInfo.baseMeta
 
   // 创建一个映射表，用于快速查找类别
@@ -136,7 +123,7 @@ export const handleComponents = async () => {
 
   // 按类别分组组件
   const groupedComponents: {
-    [categoryName: string]: IComponentWithConsequenceId[]
+    [categoryName: string]: ICategoryComponentFlat[]
   } = {}
   components.forEach((component) => {
     const categoryName = component.category
@@ -148,6 +135,7 @@ export const handleComponents = async () => {
       ...component,
       id: `G${sort}`,
       sort,
+      instance: null,
     })
   })
 
@@ -163,14 +151,26 @@ export const handleComponents = async () => {
     })
   })
   metaInfo.leftComps = leftComps
-  // 平铺的所有组件，方便在组件拖进去的时候获取组件用
-  const leftFlatComps = leftComps.flatMap((item) => item.list)
-  // 还需要提前获取对应的 components 实例，用到的时候就不用异步去获取了
-  leftFlatComps.map((item) => ({
-    ...item,
-    component() {
-      return importComponent(item.name).then((FC) => <FC />)
-    },
-  }))
+}
+
+/**
+ * 1、平铺的所有组件，方便在组件拖进去的时候获取组件用
+ * 2、根据name拿到组件的实例
+ */
+export const getFlatComps = async () => {
+  const { leftComps } = metaInfo
+  const leftFlatComps: ICategoryComponentFlat[] = leftComps.flatMap(
+    (item) => item.list
+  )
+  // 提前获取组件实例
+  await Promise.all(
+    leftFlatComps.map(async (component) => {
+      const componentName = component.name
+      const componentInstance = await importComponent(componentName)
+      if (componentInstance) {
+        component.instance = componentInstance
+      }
+    })
+  )
   metaInfo.leftFlatComps = leftFlatComps
 }

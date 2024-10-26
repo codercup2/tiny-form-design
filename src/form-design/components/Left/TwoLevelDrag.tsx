@@ -1,10 +1,10 @@
 import clsx from 'clsx'
 import { Draggable } from 'react-beautiful-dnd'
 import { PREFIX } from '../../data-source/init'
-import { IComponentWithConsequenceId } from '../../data-source/typing'
+import { ICategoryComponentFlat } from '../../data-source/typing'
 
 /** 方便CloneItem时一起使用 */
-const RenderItem = ({ item }: { item: IComponentWithConsequenceId }) => {
+const RenderItem = ({ item }: { item: ICategoryComponentFlat }) => {
   const { id, name, title, thumbnail } = item
 
   return (
@@ -24,7 +24,7 @@ export default function TwoLevelDrag({
   list,
 }: {
   //   parentIdx: number
-  list: IComponentWithConsequenceId[]
+  list: ICategoryComponentFlat[]
 }) {
   if (!list.length) {
     return <div>暂无数据</div>

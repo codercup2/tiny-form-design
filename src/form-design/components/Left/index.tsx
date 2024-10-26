@@ -2,12 +2,12 @@ import { FC } from 'react'
 import {} from '../../data-source/helper'
 import {
   ICategoryComponent,
-  IComponentWithConsequenceId,
+  ICategoryComponentFlat,
 } from '../../data-source/typing'
 import SingleLevel from './SingleLevel'
 import TwoLevel from './TwoLevel'
 
-const isSingleLevel = (items: IComponentWithConsequenceId[]) => {
+const isSingleLevel = (items: ICategoryComponentFlat[]) => {
   return items.length > 0 && !('list' in items[0])
 }
 
@@ -16,11 +16,11 @@ const isMultipleLevel = (items: ICategoryComponent[]) => {
 }
 
 const Left: FC<{
-  items: ICategoryComponent[] | IComponentWithConsequenceId[]
+  items: ICategoryComponent[] | ICategoryComponentFlat[]
 }> = ({ items }) => {
-  if (isSingleLevel(items as IComponentWithConsequenceId[])) {
+  if (isSingleLevel(items as ICategoryComponentFlat[])) {
     // console.log('isSingleLevel')
-    return <SingleLevel items={items as IComponentWithConsequenceId[]} />
+    return <SingleLevel items={items as ICategoryComponentFlat[]} />
   } else if (isMultipleLevel(items as ICategoryComponent[])) {
     // console.log('isMultipleLevel')
     return <TwoLevel items={items as ICategoryComponent[]} />

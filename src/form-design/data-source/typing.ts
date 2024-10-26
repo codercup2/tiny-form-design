@@ -36,12 +36,14 @@ export type ICategoryComponent = {
   id: number
   name: string
   title: string
-  list: IComponentWithConsequenceId[]
+  list: ICategoryComponentFlat[]
 }
 
-export type IComponentWithConsequenceId = IComponent & {
+export type ICategoryComponentFlat = IComponent & {
   /** id: G100，比sort多一个 G 字母 */
   id: string
   /** sort: 100，用在DraggableId*/
   sort: number
+  /** 组件的实例 */
+  instance: any
 }

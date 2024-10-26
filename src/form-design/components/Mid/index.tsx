@@ -1,12 +1,6 @@
-import {
-  ComponentType,
-  Dispatch,
-  FC,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react'
-import { importComponent } from '../../data-source/init'
+import { Dispatch, FC, SetStateAction } from 'react'
+// import { importComponent } from '../../data-source/init'
+import { metaInfo } from '../../data-source/init'
 import { IPage } from '../../typing/app-schema'
 import DropZone from './DropZone'
 
@@ -17,8 +11,15 @@ type Props = {
 
 /** 中间内容 */
 const Mid: FC<Props> = ({ state, setState }) => {
+  const { leftFlatComps } = metaInfo
+  const comp = leftFlatComps.find((item) => item.name === state.root.type)
+  if (!comp) {
+    return null
+  }
+  const Comp = comp.instance
   const { slots = [], id: rootId } = state.root
-  const [Comp, setComp] = useState<ComponentType<any> | null>(null)
+  console.log(slots)
+  // const [Comp, setComp] = useState<ComponentType<any> | null>(null)
 
   const props: any = {
     // TODO check 是否需要增加这2个
@@ -49,12 +50,7 @@ const Mid: FC<Props> = ({ state, setState }) => {
       />
     )
   })
-  useEffect(() => {
-    importComponent(state.root.type).then((FC) => {
-      setComp(() => FC)
-    })
-  }, [state.root.type])
-
+  console.log('props', props)
   const RenderComp = () => {
     if (!Comp) {
       return <div>默认的</div>
