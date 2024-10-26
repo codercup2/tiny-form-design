@@ -1,4 +1,5 @@
 import './init-pre'
+import { handleInitState } from './page'
 import {
   IBaseMeta,
   ICategory,
@@ -17,6 +18,7 @@ export const loadLibs = async () => {
   await getComps()
   await getFlatComps()
   console.log('metaInfo', metaInfo)
+  await handleInitState(metaInfo.leftFlatComps)
 }
 
 // 加载组件库

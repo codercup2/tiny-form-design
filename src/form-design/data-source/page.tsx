@@ -1,6 +1,4 @@
-import { deepClone } from '../utils'
-import { IComponentItemWithConsequenceId } from './helper'
-import { ISlot } from './typing'
+import { ICategoryComponentFlat, ISlot } from './typing'
 
 // 目前只有 '@kc/mk/market-page' 这种 pageLayout 组件
 // export const defaultPageLayoutType = '@kc/mk/market-page'
@@ -27,8 +25,8 @@ export const initState = {
  * 对初始数据，查询出更多的信息，填充到 state 中
  * @returns
  */
-export function handleInitState(flatComps: IComponentItemWithConsequenceId[]) {
-  const state = deepClone(initState)
+export function handleInitState(flatComps: ICategoryComponentFlat[]) {
+  const state = initState
   const rootComp = flatComps.find(
     (item) => item.name === defaultPageLayoutType
   ) as any
@@ -41,7 +39,7 @@ export function handleInitState(flatComps: IComponentItemWithConsequenceId[]) {
     ...rootComp,
     // id: rootId, // 这个根节点不能改了，否则拖拽进来找不到区域
   }
-  console.log('handleInitState->', state)
+
   // 处理propss
   // 通过 state.root.type 即 defaultPageLayoutType 拿到其他元信息
   if (typeof rootComp.slots === 'undefined') {
@@ -64,5 +62,5 @@ export function handleInitState(flatComps: IComponentItemWithConsequenceId[]) {
       state.zones[`${rootId}:${slot.name}`] = []
     }
   })
-  return state
+  console.log('handleInitState->', state)
 }
