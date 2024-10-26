@@ -29,11 +29,9 @@ export const metaInfo = {
 }
 export const loadLibs = async () => {
   await getBaseMeta()
-  console.log('1 metaInfo', metaInfo)
   await handleComponents()
-  console.log('2 metaInfo', metaInfo)
   await handleLeftFlatComponents()
-  console.log('3 metaInfo', metaInfo)
+  console.log('metaInfo', metaInfo)
 }
 
 // 加载组件库

@@ -13,8 +13,8 @@ import { initState } from './data-source/page'
 import { IPage } from './typing/app-schema'
 import { deepClone } from './utils'
 
-const { leftComps, leftFlatComps } = metaInfo
 const Index: FC = () => {
+  const { leftComps, leftFlatComps } = metaInfo
   // 所有的数据都在这里
   const [state, setState] = useState<IPage>(initState)
   useEffect(() => {

@@ -8,7 +8,7 @@ const Index: FC = () => {
     loadLibs().then(() => {
       setReady(true)
     })
-  })
+  }, [])
   if (!ready) {
     return <div>loading</div>
   }
