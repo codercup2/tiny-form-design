@@ -71,7 +71,7 @@ const Index: FC = () => {
         id: newId,
       } as any)
       node[`slot:${slotName}`] = comps
-      const newState = deepClone(state)
+      const newState = { ...state }
       setState(newState)
       return
     }
