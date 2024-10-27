@@ -7,16 +7,16 @@ import {
 } from 'react-beautiful-dnd'
 import Left from './components/Left'
 import Mid from './components/Mid'
-import { handleCheckAllow } from './data-source/helper'
+import { findTargetById, handleCheckAllow2 } from './data-source/helper'
 import { metaInfo } from './data-source/init'
 import { initState } from './data-source/page'
-import { IPage } from './typing/app-schema'
+import { RootNs } from './data-source/typing'
 import { deepClone } from './utils'
 
 const Index: FC = () => {
   const { leftComps, leftFlatComps } = metaInfo
   // 所有的数据都在这里
-  const [state, setState] = useState<IPage>(initState)
+  const [state, setState] = useState<RootNs.IRoot>(initState)
   useEffect(() => {
     console.log('state changed:', state)
   }, [state])
@@ -51,13 +51,15 @@ const Index: FC = () => {
         console.error('数据匹配不上，不可能出现')
         return
       }
-      const { zones } = state
-      const comps = zones[destination.droppableId]
-      const checkAllow = handleCheckAllow(
-        destination.droppableId,
-        draggableId,
-        state
-      )
+      const [id, slotName] = destination.droppableId.split(':')
+      // 通过id查找到对应的节点，然后把数据放到该节点的 'slot:{slotName}':[] 对应的数据里面
+      const node = findTargetById(state, id)
+      if (!node) {
+        console.error('找不到目标节点，不可能出现')
+        return
+      }
+      const comps = node[`slot:${slotName}`]
+      const checkAllow = handleCheckAllow2(node, slotName, draggableId)
       if (!checkAllow) {
         console.log('不允许放置，丢弃')
         return
@@ -68,19 +70,22 @@ const Index: FC = () => {
         ...item,
         id: newId,
       } as any)
-      state.zones[destination.droppableId] = comps
       const newState = deepClone(state)
       setState(newState)
       return
     }
     // 2、中间区域，同列内部拖动（排序）
     if (source.droppableId === destination?.droppableId) {
-      console.log('2、中间区域，同列内部拖动（排序）')
-      const { zones } = state
-      const comps = zones[destination.droppableId]
+      const [id, slotName] = destination.droppableId.split(':')
+      // 通过id查找到对应的节点，然后把数据放到该节点的 'slot:{slotName}':[] 对应的数据里面
+      const node = findTargetById(state, id)
+      if (!node) {
+        console.error('找不到目标节点，不可能出现')
+        return
+      }
+      const comps = node[`slot:${slotName}`]
       const [item] = comps.splice(source.index, 1)
       comps.splice(destination.index, 0, item)
-      state.zones[destination.droppableId] = comps
       const newState = deepClone(state)
       setState(newState)
       return
@@ -92,18 +97,24 @@ const Index: FC = () => {
       source.droppableId !== destination.droppableId
     ) {
       console.log('3、中间区域，不同列之间拖动（移动）')
-      const { zones } = state
-      const item = zones[source.droppableId].find(
-        (item) => item.id === draggableId
-      )
-      if (!item) {
-        console.error('数据匹配不上，不可能出现')
+      const [sourId, sourSlotName] = source.droppableId.split(':')
+      const [destId, destSlotName] = destination.droppableId.split(':')
+      // 通过id查找到对应的节点，然后把数据放到该节点的 'slot:{slotName}':[] 对应的数据里面
+      const sourNode = findTargetById(state, sourId)
+      if (!sourNode) {
+        console.error('找不到来源节点，不可能出现')
         return
       }
+      const destNode = findTargetById(state, destId)
+      if (!destNode) {
+        console.error('找不到目标节点，不可能出现')
+        return
+      }
+
       // 来源的列表去掉一个
-      zones[source.droppableId].splice(source.index, 1)
+      const item = sourNode[`slot:${sourSlotName}`].splice(source.index, 1)
       // 目的目的列表添加一个
-      zones[destination.droppableId].splice(destination.index, 0, item)
+      destNode[`slot:${destSlotName}`].splice(destination.index, 0, item)
       const newState = deepClone(state)
       setState(newState)
       return

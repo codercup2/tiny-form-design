@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 export type ISlot = string | ISlotMore
 export type ISlotMore =
   | {
@@ -46,4 +47,23 @@ export type ICategoryComponentFlat = IComponent & {
   sort: number
   /** 组件的实例 */
   instance: any
+}
+
+export namespace RootNs {
+  // 定义基本的组件接口
+  export interface IComponent {
+    id: string
+    name: string
+    props: Record<string, any>
+    slots: string[]
+    [key: `slot:${string}`]: IComponent[]
+  }
+
+  // 定义根节点的接口
+  export interface IRoot extends IComponent {
+    locales: Record<string, string>
+    theme: string
+    scene: string
+    sceneProps: Record<string, any>
+  }
 }

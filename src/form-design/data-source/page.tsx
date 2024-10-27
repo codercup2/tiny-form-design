@@ -6,21 +6,20 @@ import { ICategoryComponentFlat, ISlot } from './typing'
 export const defaultPageLayoutType = '@kc/lego-mk-ui/PlHeroTop'
 
 export const initState = {
-  root: {
-    // TODO: 如果不能左边拖拽过来，不需要放在左边，那么这个组件不需要有 G102 这样的id，那么是可以在这里指定一个的
-    id: '-1',
-    // type: '@kc/mk/market-page',
-    type: defaultPageLayoutType,
-    theme: '@kc/mk/theme-xmas',
-    scene: '@kc/mk/scene-market',
-    sceneProps: {
-      taskCode: '',
-    },
-    slots: [],
-    props: {},
+  // TODO: 如果不能左边拖拽过来，不需要放在左边，那么这个组件不需要有 G102 这样的id，那么是可以在这里指定一个的
+  id: '-1',
+  // type: '@kc/mk/market-page',
+  type: defaultPageLayoutType,
+  name: defaultPageLayoutType,
+  theme: '@kc/mk/theme-xmas',
+  scene: '@kc/mk/scene-market',
+  sceneProps: {
+    taskCode: '',
   },
   zones: {} as Record<string, any>,
   locales: {} as Record<string, string>,
+  slots: [],
+  props: {},
 }
 /**
  * 对初始数据，查询出更多的信息，填充到 state 中
