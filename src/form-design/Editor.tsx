@@ -67,10 +67,14 @@ const Index: FC = () => {
       }
       const uuid = Date.now()
       const newId = `${draggableId}_${uuid}`
-      comps.splice(destination.index, 0, {
+      const newItem = deepClone({
         ...item,
         id: newId,
-      } as any)
+      })
+      const nodeSlot = node.slots.find((slot) => (slot.name = slotName))
+      console.log('nodeSlot', nodeSlot)
+      nodeSlot.children.push(newItem)
+      comps.splice(destination.index, 0, newItem)
       node[`slot:${slotName}`] = comps
       const newState = { ...state }
       setState(newState)

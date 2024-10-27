@@ -47,12 +47,29 @@ export function handleInitState() {
     state.slots = []
   } else if (typeof rootComp.slots === 'boolean') {
     if (rootComp.slots) {
-      state.slots = ['children'] as any
+      state.slots = [
+        {
+          name: 'children',
+          children: [],
+        },
+      ] as any
     } else {
       state.slots = []
     }
   } else if (Array.isArray(rootComp.slots)) {
-    state.slots = rootComp.slots
+    state.slots = rootComp.slots.map((item: ISlot) => {
+      if (typeof item === 'string') {
+        return {
+          name: 'children',
+          children: [],
+        }
+      } else {
+        return {
+          ...item,
+          children: [],
+        }
+      }
+    })
   }
   // 处理 slot:{slotName}
   ;(state.slots as ISlot[]).forEach((slot) => {
