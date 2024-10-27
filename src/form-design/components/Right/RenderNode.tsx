@@ -7,9 +7,9 @@ type Props = {
 const RenderNode: FC<Props> = ({ state }) => {
   console.log('RightRenderNode:', state)
   return (
-    <div className=' '>
+    <div className=''>
       {state.title}
-      <div className='ml-2'>
+      <div className='ml-8'>
         {Array.isArray(state.slots) &&
           state.slots?.length > 0 &&
           state.slots.map((slot, index) => (
