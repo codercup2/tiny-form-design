@@ -8,20 +8,20 @@ import {
 } from 'react-beautiful-dnd'
 import { handleCheckAllow2 } from '../../data-source/helper'
 import { ISlot, RootNs } from '../../data-source/typing'
-import RenderNode from './RenderNode'
 
 type Props = {
   state: RootNs.IComponent
   id: string
   slot: ISlot
-  children: RootNs.IComponent[]
 }
 
-const DropZone: FC<Props> = ({ state, id, slot, children }) => {
+const DropZone: FC<Props> = ({ state, id, slot }) => {
   const slotName = typeof slot === 'string' ? slot : slot.name
 
   const dropzoneId = `${id}:${slotName}`
-  const comps = state[`slot::${slotName}`] || []
+  const comps = state[`slot:${slotName}`] || []
+  console.log('state:', state)
+  console.log('comps:', comps)
 
   return (
     <Droppable droppableId={dropzoneId}>
@@ -54,36 +54,42 @@ const DropZone: FC<Props> = ({ state, id, slot, children }) => {
               <div className='break-all'>
                 Droppable snapshot:{JSON.stringify(snapshot)}
               </div>
-              {comps.map((item, index) => {
-                console.log(console.log(item))
-                return (
-                  <Draggable
-                    // 这里 id是唯一的，`原本的Id_${Date.now()}` 的形式
-                    draggableId={item.id}
-                    index={index}
-                    key={item.id}
-                  >
-                    {(provided, snapshot) => (
-                      <div
-                        className={clsx(
-                          'border-dashed border-base p-2 relative',
-                          {
-                            'bg-green-100': snapshot.isDragging,
-                            'border-left-highlight': item.id === id,
-                          }
-                        )}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        ref={provided.innerRef}
-                      >
-                        {children.map((node) => (
-                          <RenderNode state={node} key={node.id} />
-                        ))}
-                      </div>
-                    )}
-                  </Draggable>
-                )
-              })}
+              {comps.length &&
+                comps.map((item, index) => {
+                  console.log(console.log(item))
+                  const state = {
+                    id: item.id,
+                    name: item.name,
+                    slots: item.slots,
+                    props: item.props,
+                  }
+                  return (
+                    <Draggable
+                      // 这里 id是唯一的，`原本的Id_${Date.now()}` 的形式
+                      draggableId={item.id}
+                      index={index}
+                      key={item.id}
+                    >
+                      {(provided, snapshot) => (
+                        <div
+                          className={clsx(
+                            'border-dashed border-base p-2 relative',
+                            {
+                              'bg-green-100': snapshot.isDragging,
+                              'border-left-highlight': item.id === id,
+                            }
+                          )}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          {JSON.stringify(item)}
+                          {/* <RenderNode state={state} /> */}
+                        </div>
+                      )}
+                    </Draggable>
+                  )
+                })}
               {provided.placeholder}
             </div>
           </div>

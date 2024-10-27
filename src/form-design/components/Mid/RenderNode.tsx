@@ -26,24 +26,10 @@ const RenderNode: FC<Props> = ({ state }) => {
 
   slots.forEach((slot: ISlot) => {
     if (typeof slot === 'string') {
-      props[slot] = (
-        <DropZone
-          state={state}
-          id={state.id}
-          slot={slot}
-          children={state[`slot:${slot}`]}
-        />
-      )
+      props[slot] = <DropZone state={state} id={state.id} slot={slot} />
     }
     if ('name' in slot) {
-      props[slot.name] = (
-        <DropZone
-          state={state}
-          id={state.id}
-          slot={slot}
-          children={state[`slot:${slot.name}`]}
-        />
-      )
+      props[slot.name] = <DropZone state={state} id={state.id} slot={slot} />
     }
   })
   console.log('props', props)
