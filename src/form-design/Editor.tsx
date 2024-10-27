@@ -7,6 +7,7 @@ import {
 } from 'react-beautiful-dnd'
 import Left from './components/Left'
 import Mid from './components/Mid'
+import Right from './components/Right'
 import { findTargetById, handleCheckAllow2 } from './data-source/helper'
 import { metaInfo } from './data-source/init'
 import { initState } from './data-source/page'
@@ -132,12 +133,8 @@ const Index: FC = () => {
     <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <div className='form-design flex gap-4 p-4 h-full box-border'>
         <Left items={leftComps} />
-        <Mid state={state} setState={setState} />
-        {/* <Right
-          formItems={formItems}
-          setFormItems={setFormItems}
-          currId={currId}
-        /> */}
+        <Mid state={state} />
+        <Right state={state} />
       </div>
     </DragDropContext>
   )

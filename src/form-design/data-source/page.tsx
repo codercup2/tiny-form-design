@@ -13,6 +13,7 @@ export let initState = {
   type: defaultPageLayoutType,
   name: defaultPageLayoutType,
   theme: '@kc/mk/theme-xmas',
+  title: '默认布局',
   scene: '@kc/mk/scene-market',
   sceneProps: {
     taskCode: '',

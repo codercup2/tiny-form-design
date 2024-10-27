@@ -51,6 +51,7 @@ export namespace RootNs {
   export interface IComponent {
     id: string
     name: string
+    title: string
     props: Record<string, any>
     slots: string[]
     [key: `slot:${string}`]: IComponent[]
