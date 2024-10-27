@@ -1,35 +1,27 @@
 import clsx from 'clsx'
-import { Dispatch, FC, SetStateAction } from 'react'
+import { FC } from 'react'
 import {
   Draggable,
   DraggableId,
   Droppable,
   DroppableStateSnapshot,
 } from 'react-beautiful-dnd'
-import { handleCheckAllow } from '../../data-source/helper'
+import { handleCheckAllow2 } from '../../data-source/helper'
 import { PREFIX } from '../../data-source/init'
-import { IPage } from '../../typing/app-schema'
+import { ISlot, RootNs } from '../../data-source/typing'
 
 type Props = {
+  state: RootNs.IComponent
   id: string
-  state: IPage
-  setState: Dispatch<SetStateAction<IPage>>
-  slotName: string
-  allow?: string[]
-  disallow?: string[]
+  slot: ISlot
+  children: RootNs.IComponent[]
 }
 
-const DropZone: FC<Props> = ({
-  id,
-  state,
-  setState,
-  slotName,
-  allow,
-  disallow,
-}) => {
-  const { zones } = state
+const DropZone: FC<Props> = ({ state, id, slot, children }) => {
+  const slotName = typeof slot === 'string' ? slot : slot.name
+
   const dropzoneId = `${id}:${slotName}`
-  const comps = zones[dropzoneId] || []
+  const comps = state[`slot::${slotName}`] || []
 
   return (
     <Droppable droppableId={dropzoneId}>
@@ -38,10 +30,10 @@ const DropZone: FC<Props> = ({
           if (!snapshot.isDraggingOver) {
             return 'bg-green-200'
           }
-          const checkAllow = handleCheckAllow(
-            dropzoneId,
-            snapshot.draggingOverWith as DraggableId,
-            state
+          const checkAllow = handleCheckAllow2(
+            state,
+            slotName,
+            snapshot.draggingOverWith as DraggableId
           )
           console.log(checkAllow)
           if (checkAllow) {

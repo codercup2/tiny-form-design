@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction } from 'react'
 // import { importComponent } from '../../data-source/init'
 import { metaInfo } from '../../data-source/init'
+import { ISlot } from '../../data-source/typing'
 import DropZone from './DropZone'
 
 type Props = {
@@ -11,12 +12,12 @@ type Props = {
 /** 中间内容 */
 const Mid: FC<Props> = ({ state, setState }) => {
   const { leftFlatComps } = metaInfo
-  const comp = leftFlatComps.find((item) => item.name === state.root.type)
+  const comp = leftFlatComps.find((item) => item.name === state.name)
   if (!comp) {
     return null
   }
   const Comp = comp.instance
-  const { slots = [], props, id: rootId } = state.root
+  const { slots = [], props, id: rootId } = state
   console.log(slots)
   // const [Comp, setComp] = useState<ComponentType<any> | null>(null)
 
@@ -26,28 +27,27 @@ const Mid: FC<Props> = ({ state, setState }) => {
   //   description: '根节点 description',
   // }
 
-  slots.forEach((slot: any) => {
+  slots.forEach((slot: ISlot) => {
     if (typeof slot === 'string') {
       props[slot] = (
         <DropZone
           state={state}
-          setState={setState}
-          id={rootId}
-          slotName={slot}
+          id={state.id}
+          slot={slot}
+          children={state[`slot:${slot}`]}
         />
       )
     }
-
-    props[slot.name] = (
-      <DropZone
-        state={state}
-        setState={setState}
-        id={rootId}
-        slotName={slot.name}
-        allow={slot.allow}
-        disallow={slot.disallow}
-      />
-    )
+    if ('name' in slot) {
+      props[slot.name] = (
+        <DropZone
+          state={state}
+          id={state.id}
+          slot={slot}
+          children={state[`slot:${slot.name}`]}
+        />
+      )
+    }
   })
   console.log('props', props)
 

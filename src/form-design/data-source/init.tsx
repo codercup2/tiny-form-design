@@ -17,8 +17,8 @@ export const loadLibs = async () => {
   await getBaseMeta()
   await getComps()
   await getFlatComps()
+  await handleInitState()
   console.log('metaInfo', metaInfo)
-  await handleInitState(metaInfo.leftFlatComps)
 }
 
 // 加载组件库

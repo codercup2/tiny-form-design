@@ -1,5 +1,6 @@
 import { deepClone } from '../utils'
-import { ICategoryComponentFlat, ISlot } from './typing'
+import { metaInfo } from './init'
+import { ISlot } from './typing'
 
 // 目前只有 '@kc/mk/market-page' 这种 pageLayout 组件
 // export const defaultPageLayoutType = '@kc/mk/market-page'
@@ -25,43 +26,39 @@ export const initState = {
  * 对初始数据，查询出更多的信息，填充到 state 中
  * @returns
  */
-export function handleInitState(flatComps: ICategoryComponentFlat[]) {
-  const state = initState
-  const rootComp = flatComps.find(
+export function handleInitState() {
+  const { leftFlatComps } = metaInfo
+  const rootComp = leftFlatComps.find(
     (item) => item.name === defaultPageLayoutType
   ) as any
+  console.log('rootComp', rootComp)
   if (!rootComp) {
     console.error('root component not found')
-    return state
+    return
   }
-  state.root = {
-    ...state.root,
-    ...deepClone(rootComp),
-    // 默认把defaults 放到 props
-    props: deepClone(rootComp.defaults || {}),
-  }
+  initState.slots = rootComp.slots
+  initState.props = deepClone(rootComp.defaults || {})
 
   // 处理propss
   // 通过 state.root.type 即 defaultPageLayoutType 拿到其他元信息
   if (typeof rootComp.slots === 'undefined') {
-    state.root.slots = []
+    initState.slots = []
   } else if (typeof rootComp.slots === 'boolean') {
     if (rootComp.slots) {
-      state.root.slots = ['children'] as any
+      initState.slots = ['children'] as any
     } else {
-      state.root.slots = []
+      initState.slots = []
     }
   } else if (Array.isArray(rootComp.slots)) {
-    state.root.slots = rootComp.slots
+    initState.slots = rootComp.slots
   }
   // 处理zones
-  ;(state.root.slots as ISlot[]).forEach((slot) => {
-    const rootId = state.root.id // 经过上面的处理，这里已经不是最开始的
+  ;(initState.slots as ISlot[]).forEach((slot) => {
     if (typeof slot === 'string') {
-      state.zones[`${rootId}:${slot}`] = []
+      initState[`slot:${slot}`] = []
     } else {
-      state.zones[`${rootId}:${slot.name}`] = []
+      initState[`slot:${slot.name}`] = []
     }
   })
-  console.log('handleInitState->', state)
+  console.log('handleInitState->', initState)
 }

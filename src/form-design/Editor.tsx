@@ -58,7 +58,7 @@ const Index: FC = () => {
         console.error('找不到目标节点，不可能出现')
         return
       }
-      const comps = node[`slot:${slotName}`]
+      const comps = node[`slot:${slotName}`] || []
       const checkAllow = handleCheckAllow2(node, slotName, draggableId)
       if (!checkAllow) {
         console.log('不允许放置，丢弃')
@@ -70,6 +70,7 @@ const Index: FC = () => {
         ...item,
         id: newId,
       } as any)
+      node[`slot:${slotName}`] = comps
       const newState = deepClone(state)
       setState(newState)
       return

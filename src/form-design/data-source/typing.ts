@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 export type ISlot = string | ISlotMore
-export type ISlotMore =
-  | {
-      name: string
-      allow?: string[]
-    }
-  | {
-      name: string
-      disallow?: string[]
-    }
+export type ISlotMore = {
+  name: string
+  allow?: string[]
+  disallow?: string[]
+  max?: number
+}
 
 export interface ICategory {
   name: string
