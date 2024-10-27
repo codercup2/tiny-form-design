@@ -6,7 +6,7 @@ import { ISlot } from './typing'
 // export const defaultPageLayoutType = '@kc/mk/market-page'
 export const defaultPageLayoutType = '@kc/lego-mk-ui/PlHeroTop'
 
-export const initState = {
+export let initState = {
   // TODO: 如果不能左边拖拽过来，不需要放在左边，那么这个组件不需要有 G102 这样的id，那么是可以在这里指定一个的
   id: '-1',
   // type: '@kc/mk/market-page',
@@ -36,29 +36,31 @@ export function handleInitState() {
     console.error('root component not found')
     return
   }
-  initState.slots = rootComp.slots
-  initState.props = deepClone(rootComp.defaults || {})
+  const state = {
+    ...initState,
+    ...deepClone(rootComp), // 不能把基础数据搞乱了，要深拷贝一下
+  }
 
-  // 处理propss
-  // 通过 state.root.type 即 defaultPageLayoutType 拿到其他元信息
+  // 整理 slots, 只留下 ISlot 这样的类型
   if (typeof rootComp.slots === 'undefined') {
-    initState.slots = []
+    state.slots = []
   } else if (typeof rootComp.slots === 'boolean') {
     if (rootComp.slots) {
-      initState.slots = ['children'] as any
+      state.slots = ['children'] as any
     } else {
-      initState.slots = []
+      state.slots = []
     }
   } else if (Array.isArray(rootComp.slots)) {
-    initState.slots = rootComp.slots
+    state.slots = rootComp.slots
   }
-  // 处理zones
-  ;(initState.slots as ISlot[]).forEach((slot) => {
+  // 处理 slot:{slotName}
+  ;(state.slots as ISlot[]).forEach((slot) => {
     if (typeof slot === 'string') {
-      initState[`slot:${slot}`] = []
+      state[`slot:${slot}`] = []
     } else {
-      initState[`slot:${slot.name}`] = []
+      state[`slot:${slot.name}`] = []
     }
   })
+  initState = deepClone(state)
   console.log('handleInitState->', initState)
 }
