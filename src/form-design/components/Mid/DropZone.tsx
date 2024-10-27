@@ -7,8 +7,8 @@ import {
   DroppableStateSnapshot,
 } from 'react-beautiful-dnd'
 import { handleCheckAllow2 } from '../../data-source/helper'
-import { PREFIX } from '../../data-source/init'
 import { ISlot, RootNs } from '../../data-source/typing'
+import RenderNode from './RenderNode'
 
 type Props = {
   state: RootNs.IComponent
@@ -76,12 +76,9 @@ const DropZone: FC<Props> = ({ state, id, slot, children }) => {
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                       >
-                        <img
-                          src={PREFIX + item.thumbnail}
-                          alt='Thumbnail'
-                          width={'100%'}
-                        />
-                        {item.id} - {item.title}
+                        {children.map((node) => (
+                          <RenderNode state={node} key={node.id} />
+                        ))}
                       </div>
                     )}
                   </Draggable>
