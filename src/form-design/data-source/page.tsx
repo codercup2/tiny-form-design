@@ -3,8 +3,9 @@ import { metaInfo } from './init'
 import { ISlot } from './typing'
 
 // 目前只有 '@kc/mk/market-page' 这种 pageLayout 组件
-// export const defaultPageLayoutType = '@kc/mk/market-page'
 export const defaultPageLayoutType = '@kc/lego-mk-ui/PlHeroTop'
+// export const defaultPageLayoutType = '@kc/lego-mk-ui/HeroV1'
+// export const defaultPageLayoutType = '@kc/lego-mk-ui/CalendarV1'
 
 export let initState = {
   // TODO: 如果不能左边拖拽过来，不需要放在左边，那么这个组件不需要有 G102 这样的id，那么是可以在这里指定一个的

@@ -8,6 +8,7 @@ import {
 } from 'react-beautiful-dnd'
 import { handleCheckAllow2 } from '../../data-source/helper'
 import { ISlot, RootNs } from '../../data-source/typing'
+import RenderNode from './RenderNode'
 
 type Props = {
   state: RootNs.IComponent
@@ -84,7 +85,7 @@ const DropZone: FC<Props> = ({ state, id, slot }) => {
                           ref={provided.innerRef}
                         >
                           {JSON.stringify(item)}
-                          {/* <RenderNode state={state} /> */}
+                          <RenderNode state={state} />
                         </div>
                       )}
                     </Draggable>
