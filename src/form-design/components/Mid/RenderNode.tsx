@@ -14,8 +14,8 @@ const RenderNode: FC<Props> = ({ state }) => {
     return null
   }
   const Comp = comp.instance
-  const { slots = [], props } = state
-  console.log(state)
+  const { slots = [], props = {} } = state
+  console.log('RenderNode state:', state)
   // const [Comp, setComp] = useState<ComponentType<any> | null>(null)
 
   // const props: any = {
@@ -32,7 +32,7 @@ const RenderNode: FC<Props> = ({ state }) => {
       props[slot.name] = <DropZone state={state} id={state.id} slot={slot} />
     }
   })
-  console.log('props', props)
+  console.log('RenderNode props', props)
 
   return <Comp {...props} />
 }

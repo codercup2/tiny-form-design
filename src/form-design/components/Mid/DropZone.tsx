@@ -21,8 +21,8 @@ const DropZone: FC<Props> = ({ state, id, slot }) => {
 
   const dropzoneId = `${id}:${slotName}`
   const comps = state[`slot:${slotName}`] || []
-  console.log('state:', state)
-  console.log('comps:', comps)
+  console.log('DropZone state:', state)
+  console.log('DropZone comps:', comps)
 
   return (
     <Droppable droppableId={dropzoneId}>
@@ -52,18 +52,12 @@ const DropZone: FC<Props> = ({ state, id, slot }) => {
             {...provided.droppableProps}
           >
             <div>
-              <div className='break-all'>
+              {/* <div className='break-all'>
                 Droppable snapshot:{JSON.stringify(snapshot)}
-              </div>
-              {comps.length &&
+              </div> */}
+              {comps.length > 0 &&
                 comps.map((item, index) => {
-                  console.log(console.log(item))
-                  const state = {
-                    id: item.id,
-                    name: item.name,
-                    slots: item.slots,
-                    props: item.props,
-                  }
+                  console.log('comps item:', item)
                   return (
                     <Draggable
                       // 这里 id是唯一的，`原本的Id_${Date.now()}` 的形式
@@ -84,8 +78,7 @@ const DropZone: FC<Props> = ({ state, id, slot }) => {
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
                         >
-                          {JSON.stringify(item)}
-                          <RenderNode state={state} />
+                          <RenderNode state={item} />
                         </div>
                       )}
                     </Draggable>

@@ -113,6 +113,8 @@ export const handleCheckAllow2 = (
     return item === dragCompInfo.name
   }
   const comps = node[`slot:${slotName}`]
+  console.log('handleCheckAllow2 dragCompInfo:', dragCompInfo)
+  console.log('handleCheckAllow2 slotInfo:', slotInfo)
   if (typeof slotInfo.max === 'number') {
     // 如果已经有max限制，并且超过这个限制，那就不能再拖进去了
     if (comps.length >= slotInfo.max) {
