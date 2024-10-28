@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { Draggable } from 'react-beautiful-dnd'
-import { PREFIX } from '../../data-source/init'
+import { LIB_PREFIX_VERSION } from '../../data-source/init'
 import { ICategoryComponentFlat } from '../../data-source/typing'
 
 /** 方便CloneItem时一起使用 */
@@ -9,7 +9,11 @@ const RenderItem = ({ item }: { item: ICategoryComponentFlat }) => {
 
   return (
     <div className='seed border-rounded text-center leading-loose'>
-      <img src={PREFIX + thumbnail} alt='Thumbnail' width={'100%'} />
+      <img
+        src={LIB_PREFIX_VERSION + thumbnail}
+        alt='Thumbnail'
+        width={'100%'}
+      />
       <div>
         <div>id:{id}</div>
         <div>name:{name}</div>

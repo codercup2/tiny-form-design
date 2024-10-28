@@ -24,11 +24,19 @@ export const loadLibs = async () => {
 }
 
 // 加载组件库
-export const VERSION = '0.0.1'
-export const PREFIX = `/mk-ui/${VERSION}/`
+// https://assets.staticimg.com/lego-marketing-runtime-web/mk-ui/catalog.json
+// const LIB_BASE_URL = `https://assets.staticimg.com/lego-marketing-runtime-web/`
+const LIB_BASE_URL = `/`
+const LIB_NAME = 'mk-ui'
+const LIB_VERSION = '0.0.1'
+const LIB_PREFIX = `${LIB_BASE_URL}${LIB_NAME}/`
+export const LIB_PREFIX_VERSION = `${LIB_BASE_URL}${LIB_NAME}/${LIB_VERSION}/`
+
+const baseMetaPath = `${LIB_PREFIX}catalog.json`
+const baseLibsPath = `${LIB_PREFIX_VERSION}index.system.js`
 export const getInfoByPath = async (filePath: string) => {
   try {
-    const info = await System.import(`${PREFIX}/${filePath}`)
+    const info = await System.import(`${LIB_PREFIX}/${LIB_VERSION}/${filePath}`)
     return info
   } catch (error) {
     console.error(`Failed to load ${filePath}:`, error)
@@ -38,7 +46,7 @@ export const getInfoByPath = async (filePath: string) => {
 
 const getBaseMeta = async () => {
   try {
-    const info = await System.import(`/mk-ui/catalog.json`)
+    const info = await System.import(baseMetaPath)
     const baseMeta = info.default || info
     const { components } = baseMeta
     const _components = await Promise.all(components.map(fetchComponentData))
@@ -46,6 +54,16 @@ const getBaseMeta = async () => {
     metaInfo.baseMeta = baseMeta
   } catch (error) {
     console.error('Failed to load catalog.json:', error)
+  }
+}
+
+export const getLibs = async () => {
+  try {
+    const libs = await System.import(baseLibsPath)
+    metaInfo.libs = libs
+    console.log('libs', metaInfo.libs)
+  } catch (error) {
+    console.error(`Failed to getLibs:`, error)
   }
 }
 
@@ -81,15 +99,6 @@ export function parseComponentName(componentName: string) {
   }
 }
 
-export const getLibs = async () => {
-  try {
-    const libs = await System.import(`${PREFIX}/index.system.js`)
-    metaInfo.libs = libs
-    console.log('libs', metaInfo.libs)
-  } catch (error) {
-    console.error(`Failed to getLibs:`, error)
-  }
-}
 export const importComponent = async (componentName: string) => {
   try {
     const { libs } = metaInfo
