@@ -9,11 +9,13 @@ import {
 } from './typing'
 
 export const metaInfo = {
+  libs: {} as any,
   baseMeta: {} as IBaseMeta,
   leftComps: [] as ICategoryComponent[],
   leftFlatComps: [] as ICategoryComponentFlat[],
 }
 export const loadLibs = async () => {
+  await getLibs()
   await getBaseMeta()
   await getComps()
   await getFlatComps()
@@ -79,13 +81,21 @@ export function parseComponentName(componentName: string) {
   }
 }
 
+export const getLibs = async () => {
+  try {
+    const libs = await System.import(`${PREFIX}/index.system.js`)
+    metaInfo.libs = libs
+    console.log('libs', metaInfo.libs)
+  } catch (error) {
+    console.error(`Failed to getLibs:`, error)
+  }
+}
 export const importComponent = async (componentName: string) => {
   try {
-    const lib = await System.import(`${PREFIX}/index.system.js`)
-    console.log('lib', lib)
+    const { libs } = metaInfo
     const { name, associated, variant } = parseComponentName(componentName)
-    console.log('name', name)
-    return lib[name]
+    console.log(name, associated, variant)
+    return libs[name]
   } catch (error) {
     console.error(`Failed to import component ${componentName}:`, error)
   }
